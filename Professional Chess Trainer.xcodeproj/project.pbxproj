@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA2EFA571C6A45CE00A9C73C /* FENUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EFA561C6A45CE00A9C73C /* FENUtils.swift */; };
+		AA5097531C6D85190032A21C /* FENUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5097521C6D85190032A21C /* FENUtilsTests.swift */; };
+		AA5097541C6D87E50032A21C /* FENUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EFA561C6A45CE00A9C73C /* FENUtils.swift */; };
 		AA85FBDF1C5D01DB0091C2EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85FBDE1C5D01DB0091C2EE /* AppDelegate.swift */; };
 		AA85FBE11C5D01DB0091C2EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85FBE01C5D01DB0091C2EE /* ViewController.swift */; };
 		AA85FBE41C5D01DB0091C2EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA85FBE21C5D01DB0091C2EE /* Main.storyboard */; };
@@ -14,6 +17,8 @@
 		AA85FBE91C5D01DB0091C2EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA85FBE71C5D01DB0091C2EE /* LaunchScreen.storyboard */; };
 		AA85FBF41C5D01DB0091C2EE /* Professional_Chess_TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85FBF31C5D01DB0091C2EE /* Professional_Chess_TrainerTests.swift */; };
 		AA85FBFF1C5D01DB0091C2EE /* Professional_Chess_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85FBFE1C5D01DB0091C2EE /* Professional_Chess_TrainerUITests.swift */; };
+		AAB89F481C5E27690086D22E /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB89F471C5E27690086D22E /* BoardView.swift */; };
+		AABCF7BD1C68EB8800B22AF5 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = AABCF7B91C68EB8800B22AF5 /* Contents.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA2EFA561C6A45CE00A9C73C /* FENUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FENUtils.swift; sourceTree = "<group>"; };
+		AA5097521C6D85190032A21C /* FENUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FENUtilsTests.swift; sourceTree = "<group>"; };
 		AA85FBDB1C5D01DB0091C2EE /* Professional Chess Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Professional Chess Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85FBDE1C5D01DB0091C2EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA85FBE01C5D01DB0091C2EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +54,8 @@
 		AA85FBFA1C5D01DB0091C2EE /* Professional Chess TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Professional Chess TrainerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85FBFE1C5D01DB0091C2EE /* Professional_Chess_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Professional_Chess_TrainerUITests.swift; sourceTree = "<group>"; };
 		AA85FC001C5D01DB0091C2EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAB89F471C5E27690086D22E /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = ../BoardView.swift; sourceTree = "<group>"; };
+		AABCF7B91C68EB8800B22AF5 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +109,10 @@
 				AA85FBDE1C5D01DB0091C2EE /* AppDelegate.swift */,
 				AA85FBE01C5D01DB0091C2EE /* ViewController.swift */,
 				AA85FBE21C5D01DB0091C2EE /* Main.storyboard */,
+				AA2EFA561C6A45CE00A9C73C /* FENUtils.swift */,
+				AAB89F471C5E27690086D22E /* BoardView.swift */,
 				AA85FBE51C5D01DB0091C2EE /* Assets.xcassets */,
+				AABCF7B91C68EB8800B22AF5 /* Contents.json */,
 				AA85FBE71C5D01DB0091C2EE /* LaunchScreen.storyboard */,
 				AA85FBEA1C5D01DB0091C2EE /* Info.plist */,
 			);
@@ -112,6 +124,7 @@
 			children = (
 				AA85FBF31C5D01DB0091C2EE /* Professional_Chess_TrainerTests.swift */,
 				AA85FBF51C5D01DB0091C2EE /* Info.plist */,
+				AA5097521C6D85190032A21C /* FENUtilsTests.swift */,
 			);
 			path = "Professional Chess TrainerTests";
 			sourceTree = "<group>";
@@ -232,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AABCF7BD1C68EB8800B22AF5 /* Contents.json in Resources */,
 				AA85FBE91C5D01DB0091C2EE /* LaunchScreen.storyboard in Resources */,
 				AA85FBE61C5D01DB0091C2EE /* Assets.xcassets in Resources */,
 				AA85FBE41C5D01DB0091C2EE /* Main.storyboard in Resources */,
@@ -259,8 +273,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB89F481C5E27690086D22E /* BoardView.swift in Sources */,
 				AA85FBE11C5D01DB0091C2EE /* ViewController.swift in Sources */,
 				AA85FBDF1C5D01DB0091C2EE /* AppDelegate.swift in Sources */,
+				AA2EFA571C6A45CE00A9C73C /* FENUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +285,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA85FBF41C5D01DB0091C2EE /* Professional_Chess_TrainerTests.swift in Sources */,
+				AA5097541C6D87E50032A21C /* FENUtils.swift in Sources */,
+				AA5097531C6D85190032A21C /* FENUtilsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +505,7 @@
 				AA85FC051C5D01DB0091C2EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA85FC061C5D01DB0091C2EE /* Build configuration list for PBXNativeTarget "Professional Chess TrainerTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +514,7 @@
 				AA85FC081C5D01DB0091C2EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA85FC091C5D01DB0091C2EE /* Build configuration list for PBXNativeTarget "Professional Chess TrainerUITests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +523,7 @@
 				AA85FC0B1C5D01DB0091C2EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
