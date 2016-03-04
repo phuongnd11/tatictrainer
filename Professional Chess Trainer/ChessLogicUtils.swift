@@ -28,7 +28,7 @@ public class ChessLogicUtils {
         return ""
     }
     
-    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Character]], whiteToMove: Bool, isK: Bool, isQ: Bool, isk: Bool, isq: Bool, enPassant: (Int, Int)) -> (Bool) {
+    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], whiteToMove: Bool, isK: Bool, isQ: Bool, isk: Bool, isq: Bool, enPassant: (Int, Int)) -> (Bool) {
         
         if(board[start.0][start.1] == "e") {
             return false
