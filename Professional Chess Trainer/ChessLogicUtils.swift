@@ -17,7 +17,11 @@ public class ChessLogicUtils {
         var move = ""
         if (board[start.0][start.1].piece is Pawn) {
             if (board[dest.0][dest.1].isEmpty()) {
+                //need to check en passsant
                 return positionToSquare(dest)
+            }
+            else {
+                
             }
         }
         
@@ -29,6 +33,7 @@ public class ChessLogicUtils {
         if(board[start.0][start.1] == "e") {
             return false
         }
+        
         
         
         

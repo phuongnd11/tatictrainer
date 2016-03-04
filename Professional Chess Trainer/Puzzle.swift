@@ -12,6 +12,8 @@ import Foundation
 public class Puzzle {
     
     var FEN: String = ""
+    var computerMove: String = ""
     var solutionMoves: String = ""
-    
+    var flipBoard: Bool = false
+    var whiteToMove: Bool = true
 }
