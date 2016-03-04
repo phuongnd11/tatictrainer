@@ -23,16 +23,16 @@ public class FENUtils{
             let piece = String(position[i])
             
             if piece == "/" {
-                y++
-                x = 0
+                x++
+                y = 0
             } else if let pieceValue = Int(piece) {
-                x += pieceValue
+                y += pieceValue
                 //square += pieceValue
             } else {
                 //put(GamePiece(str: piece), square: algebraic(square))
                 //square++
                 board[x][y] = (piece[piece.startIndex])
-                x++
+                y++
             }
         }
         

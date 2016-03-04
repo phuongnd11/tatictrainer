@@ -33,7 +33,7 @@ public class Square: UIView {
         isLight = light
         position = (x, y)
         size = squareSize
-        super.init(frame: CGRectMake(CGFloat(x) * size, CGFloat(y) * size, size, size))
+        super.init(frame: CGRectMake(CGFloat(y) * size, CGFloat(x) * size, size, size))
         tag = x * 10 + y
         if light {
             backgroundColor = lightSquareColor
