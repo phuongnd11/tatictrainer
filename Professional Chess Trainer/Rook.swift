@@ -9,5 +9,9 @@
 import Foundation
 
 public class Rook: Piece {
-    
+    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+        //an quan cung mau da check o tren
+        
+        return isValidHorVerMove(start, dest: dest, board: board)
+    }
 }
