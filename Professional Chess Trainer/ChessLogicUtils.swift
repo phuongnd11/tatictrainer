@@ -65,7 +65,7 @@ public class ChessLogicUtils {
         
         
         
-        return true
+        return false
     }
     
     private func checkRange(start: (Int, Int), dest: (Int, Int)) -> Bool{
