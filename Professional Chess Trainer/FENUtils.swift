@@ -11,13 +11,18 @@ import Foundation
 public class FENUtils{
     
     
-    public func readBoardFromFEN(fen: String) -> [[Character]]{
+    public func readBoardFromFEN(fen: String) -> FEN{
         let tokens = fen.componentsSeparatedByString(" ")
         var position = Array(tokens[0].characters)
-        //var square = 0
         var board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
         var x = 0
         var y = 0
+        var whiteTurn = false
+        var isK = false
+        var isQ = false
+        var isk = false
+        var isq = false
+        var enPassant = ""
         
         for var i = 0; i < position.count; i++ {
             let piece = String(position[i])
@@ -27,30 +32,30 @@ public class FENUtils{
                 y = 0
             } else if let pieceValue = Int(piece) {
                 y += pieceValue
-                //square += pieceValue
             } else {
-                //put(GamePiece(str: piece), square: algebraic(square))
-                //square++
                 board[x][y] = (piece[piece.startIndex])
                 y++
             }
         }
         
-        //turn = tokens[1] == "w" ? .WHITE : .BLACK
+        whiteTurn = tokens[1] == "w" ? true : false
         
-        //if tokens[2].rangeOfString("K") != nil { setKingSideCastle(false,  side: .WHITE) }
-        //if tokens[2].rangeOfString("Q") != nil { setQueenSideCastle(false, side: .WHITE) }
-        //if tokens[2].rangeOfString("k") != nil { setKingSideCastle(false,  side: .BLACK) }
-        //if tokens[2].rangeOfString("q") != nil { setQueenSideCastle(false, side: .BLACK) }
+        if tokens[2].rangeOfString("K") != nil { isK = true }
+        if tokens[2].rangeOfString("Q") != nil { isQ = true }
+        if tokens[2].rangeOfString("k") != nil { isk = true }
+        if tokens[2].rangeOfString("q") != nil { isq = true }
         
-//        if tokens[3] == "-" {
-//            epSquare = EMPTY
-//        } else {
-//            epSquare = board.SQUARES[tokens[3]]!
-//        }
+        if tokens[3] == "-" {
+            enPassant = "-"
+        } else {
+            enPassant = tokens[3]
+        }
 //        halfMoves = Int(tokens[4])!
 //        moveNumber = Int(tokens[5])!
-        return board
+        
+        var fen = FEN(board: board, whiteTurn: whiteTurn, wCastleKSide: isK, wCastleQSide: isQ, bCastleKSide: isk, bCastleQSide: isq, enPass: enPassant)
+        
+        return fen
     }
     
     

@@ -39,7 +39,7 @@ class BoardView: UIView {
         //		var drawingRecipe = UIBezierPath(roundedRect: r, cornerRadius: 5)
         var flip = false //alternating dark and light
         //board = FENUtils().readBoardFromFEN("r2qk2r/pp6/2pbp3/2Pp1p2/3PBPp1/4PRp1/PP1BQ1P1/4R1K1 b kq – 0 20")
-        board = FENUtils().readBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+        board = FENUtils().readBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").board
         
         for x in 0...7 {
             print("")
