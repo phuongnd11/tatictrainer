@@ -9,5 +9,7 @@
 import Foundation
 
 public class Queen: Piece {
-    
+    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool {
+        return isValidDiagonalMove(start, dest: dest, board: board) || isValidHorVerMove(start, dest: dest, board: board)
+    }
 }

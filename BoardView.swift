@@ -26,7 +26,7 @@ class BoardView: UIView {
     var board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
     var highlightedSquare: (Int, Int) = (-1, -1)
     var moves = ""
-    
+    var whiteToMove = true
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -38,7 +38,8 @@ class BoardView: UIView {
     override func drawRect(rect: CGRect) {
         //		var drawingRecipe = UIBezierPath(roundedRect: r, cornerRadius: 5)
         var flip = false //alternating dark and light
-        board = FENUtils().readBoardFromFEN("r2qk2r/pp6/2pbp3/2Pp1p2/3PBPp1/4PRp1/PP1BQ1P1/4R1K1 b kq – 0 20")
+        //board = FENUtils().readBoardFromFEN("r2qk2r/pp6/2pbp3/2Pp1p2/3PBPp1/4PRp1/PP1BQ1P1/4R1K1 b kq – 0 20")
+        board = FENUtils().readBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         
         for x in 0...7 {
             print("")
@@ -110,8 +111,7 @@ class BoardView: UIView {
             //moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
             
             //print("move: \(moves)")
-            
-            if (ChessLogicUtils().isValidMove(highlightedSquare, dest: dest, board: squares, whiteToMove: true, isK: true, isQ: true, isk: true, isq: true, enPassant: (-1, -1))){
+            if (ChessLogicUtils().isValidMove(highlightedSquare, dest: dest, board: squares, whiteToMove: whiteToMove, isK: true, isQ: true, isk: true, isq: true, enPassant: (-1, -1))){
                 squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
                 squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
                 
@@ -119,6 +119,7 @@ class BoardView: UIView {
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
                 //-------------------------------------
+                whiteToMove = !whiteToMove
                 
             }
             squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
