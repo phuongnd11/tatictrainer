@@ -113,7 +113,6 @@ class BoardView: UIView {
             
             if (ChessLogicUtils().isValidMove(highlightedSquare, dest: dest, board: squares, whiteToMove: true, isK: true, isQ: true, isk: true, isq: true, enPassant: (-1, -1))){
                 squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
-                squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
                 squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
                 
                 //--------------------------------debug only
@@ -121,10 +120,10 @@ class BoardView: UIView {
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
                 //-------------------------------------
                 
-                //if valid, reset
-                highlightedSquare.0 = -1
-                highlightedSquare.1 = -1
             }
+            squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
+            highlightedSquare.0 = -1
+            highlightedSquare.1 = -1
             
 
         } else {
