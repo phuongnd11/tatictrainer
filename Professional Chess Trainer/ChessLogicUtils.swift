@@ -57,7 +57,53 @@ public class ChessLogicUtils {
             let destPiece = destSquare.piece!;
             
             if (destPiece.color == currentPiece.color){
-                // check quan
+                if((currentPiece is Rook && destPiece is King) || (currentPiece is King && destPiece is Rook)){
+                    var rookLocation = (dest.0,dest.1)
+                    if (currentPiece is Rook){
+                        rookLocation = (start.0, start.1)
+                    }
+                    
+                    if (destPiece.color == PieceColor.White){
+                        if (isK && rookLocation.0 == 7 && rookLocation.1 == 7){
+                            for var i = 0;i<3;++i{
+                                if (!board[7][i+1].isEmpty()){
+                                    return false
+                                }
+                            }
+                            return true;
+                        }
+                        if (isQ && rookLocation.0 == 7 && rookLocation.1 == 0){
+                            for var i = 0;i<2;++i{
+                                if (!board[7][i+5].isEmpty()){
+                                    return false
+                                }
+                            }
+                            return true
+                        }
+                        return false
+                    }
+                    
+                    if (destPiece.color == PieceColor.Black){
+                        if (isk && rookLocation.0 == 0 && rookLocation.1 == 7){
+                            for var i = 0;i<3;++i{
+                                if (!board[0][i+1].isEmpty()){
+                                    return false
+                                }
+                            }
+                            return true;
+                        }
+                        if (isq && rookLocation.0 == 0 && rookLocation.1 == 0){
+                            for var i = 0;i<2;++i{
+                                if (!board[0][i+5].isEmpty()){
+                                    return false
+                                }
+                            }
+                            return true
+                        }
+                        return false
+                    }
+                    return false;
+                }
             
                 // neu khong phai nhap thanh thi la false
                 return false;
@@ -65,8 +111,12 @@ public class ChessLogicUtils {
             
             
         }
-        
         if (currentPiece is Pawn){
+            // check tot qua duong
+            if (dest.0 == enPassant.0 && dest.1 == enPassant.1){
+                return isPawnCanEat(start,dest: dest,board: board)
+            }
+            
             return isValidPawnMove(start, dest: dest, board: board)
         }
         if (currentPiece is King){
@@ -202,28 +252,32 @@ public class ChessLogicUtils {
         }
         return false;
     }
+    private func isPawnCanEat(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+        let destPiece = board[dest.0][dest.1].piece
+        let currentPiece = board[start.0][start.1].piece
+
+        if (currentPiece.color != destPiece.color){
+            if (currentPiece.color == PieceColor.White){
+                if ((start.0 - dest.0) == 1 && abs(start.1-dest.1)==1){
+                    return true;
+                }
+                return false
+            }
+            
+            if (currentPiece.color == PieceColor.Black){
+                if ((dest.0 - start.0) == 1 && abs(start.1-dest.1)==1){
+                    return true;
+                }
+                return false
+            }
+        }
+        return false;
+    }
     private func isValidPawnMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
         let currentPiece = board[start.0][start.1].piece
 
         if (!board[dest.0][dest.1].isEmpty()){// check truong hop an quan
-            let destPiece = board[dest.0][dest.1].piece
-            
-            if (currentPiece.color != destPiece.color){
-                if (currentPiece.color == PieceColor.White){
-                    if ((start.0 - dest.0) == 1 && abs(start.1-dest.1)==1){
-                        return true;
-                    }
-                    return false
-                }
-                
-                if (currentPiece.color == PieceColor.Black){
-                    if ((dest.0 - start.0) == 1 && abs(start.1-dest.1)==1){
-                        return true;
-                    }
-                    return false
-                }
-            }
-            return false;
+            return isPawnCanEat(start,dest: dest,board: board)
         }
         if (start.1 != dest.1){
             return false // check tot qua duong sau
