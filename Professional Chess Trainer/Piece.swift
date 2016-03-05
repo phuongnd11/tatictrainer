@@ -57,5 +57,74 @@ public class Piece {
         self.color = color
     }
     
+    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+        return true;
+    }
     
+    func isValidDiagonalMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+        if (abs(start.0 - dest.0) == abs(start.1 - dest.1)){
+            var horizontalDirection = 1
+            if (start.0>dest.0){
+                horizontalDirection = -1
+            }
+            
+            var verticalDirection = 1
+            if (start.1>dest.1){
+                verticalDirection = -1
+            }
+            
+            let step = abs(start.0-dest.0)
+            for var i = 1;i<step;++i{
+                if (!board[start.0+i*horizontalDirection][start.1+i*verticalDirection].isEmpty()){
+                    return false;
+                }
+            }
+            return true
+        }
+        return false;
+    }
+    
+    func isValidHorVerMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+        if (start.0 != dest.0 && start.1 != dest.1){
+            return false;
+        }
+        
+        //check quan bi vuong
+        if (start.0 == dest.0){ // di chuyen theo hang ngang
+            if (start.1 > dest.1) {// di chuyen sang trai
+                for var index = (start.1 - 1); index > dest.1 ; --index {
+                    if (!board[dest.0][index].isEmpty()){
+                        return false;
+                    }
+                }
+            }
+            
+            if (start.1 < dest.1) {// di chuyen sang phai
+                for var index = (start.1 + 1); index < dest.1 ; ++index {
+                    if (!board[dest.0][index].isEmpty()){
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        if (start.1 == dest.1){ // di chuyen theo hang doc
+            if (start.0 > dest.0) {// di chuyen len tren
+                for var index = (start.0 - 1); index > dest.0 ; --index {
+                    if (!board[index][dest.1].isEmpty()){
+                        return false;
+                    }
+                }
+            }
+            
+            if (start.0 < dest.0) {// di chuyen xuong duoi
+                for var index = (start.0 + 1); index < dest.0 ; ++index {
+                    if (!board[index][dest.1].isEmpty()){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }

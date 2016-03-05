@@ -9,5 +9,12 @@
 import Foundation
 
 public class Knight: Piece {
-    
+    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool {
+        
+        if(board[dest.0][dest.1] != "e") {
+            //if ()
+        }
+        
+        return true
+    }
 }
