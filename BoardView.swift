@@ -107,22 +107,25 @@ class BoardView: UIView {
             
             let dest: (Int, Int) = (tag/10, tag%10)
             
-            moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
+            //moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
             
-            print("move: \(moves)")
+            //print("move: \(moves)")
             
-            squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
-            squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
-            squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
+            if (ChessLogicUtils().isValidMove(highlightedSquare, dest: dest, board: squares, whiteToMove: true, isK: true, isQ: true, isk: true, isq: true, enPassant: (-1, -1))){
+                squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
+                squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
+                squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
+                
+                //--------------------------------debug only
+                board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
+                board[highlightedSquare.0][highlightedSquare.1] = "e"
+                //-------------------------------------
+                
+                //if valid, reset
+                highlightedSquare.0 = -1
+                highlightedSquare.1 = -1
+            }
             
-            //--------------------------------debug only
-            board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
-            board[highlightedSquare.0][highlightedSquare.1] = "e"
-            //-------------------------------------
-            
-            //if valid, reset
-            highlightedSquare.0 = -1
-            highlightedSquare.1 = -1
 
         } else {
 
