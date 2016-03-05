@@ -53,9 +53,7 @@ public class FENUtils{
 //        halfMoves = Int(tokens[4])!
 //        moveNumber = Int(tokens[5])!
         
-        var fen = FEN(board: board, whiteTurn: whiteTurn, wCastleKSide: isK, wCastleQSide: isQ, bCastleKSide: isk, bCastleQSide: isq, enPass: enPassant)
-        
-        return fen
+        return FEN(board: board, whiteTurn: whiteTurn, wCastleKSide: isK, wCastleQSide: isQ, bCastleKSide: isk, bCastleQSide: isq, enPass: enPassant)
     }
     
     

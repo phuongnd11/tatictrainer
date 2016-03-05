@@ -11,18 +11,14 @@ import Foundation
 
 public class Puzzle {
     
-    var FEN: String = ""
+    var fen: FEN!
     var firstComputerMove: String = ""
     var solutionMoves: String = ""
     var flipBoard: Bool = false
-    var whiteToMove: Bool = true
-    var isK: Bool = true
-    var isQ: Bool = true
-    var isk: Bool = true
-    var isq: Bool = true
-    var enPassant: String = ""
     
     init(FEN: String, computerMove: String, solution: String){
-        
+        self.fen = FENUtils().readBoardFromFEN(FEN)
+        firstComputerMove = computerMove
+        solutionMoves = solution
     }
 }
