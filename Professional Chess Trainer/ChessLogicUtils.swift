@@ -81,7 +81,7 @@ public class ChessLogicUtils {
         if (dest.0<0 || dest.1 > 7){
             return false;
         }
-        return false;
+        return true;
     }
     
     
