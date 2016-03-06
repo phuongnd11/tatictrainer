@@ -82,8 +82,7 @@ public class ChessLogicUtils {
                 }
             }
         }
-        else
-        if ((currentPiece is Pawn) && (dest.0 == boardStatus.enPassant.0 && dest.1 == boardStatus.enPassant.1)){
+        if (returnCode.rawValue == 0 && ((currentPiece is Pawn) && (dest.0 == boardStatus.enPassant.0 && dest.1 == boardStatus.enPassant.1))){
             // check tot qua duong
             result = Pawn.isPawnCanEat(start,dest: dest,board: board)
             isEnpass = result
@@ -94,7 +93,7 @@ public class ChessLogicUtils {
                 returnCode = MoveResult.invalidMove
             }
         }
-        else{
+        else if (returnCode.rawValue == 0){
             result = currentPiece.isValidMove(start, dest: dest, board: board)
             if (!result){
                 returnCode = MoveResult.invalidMove
