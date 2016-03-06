@@ -217,7 +217,6 @@ public class ChessLogicUtils {
                             return false
                         }
                     }
-                    return true;
                 }
                 if (isQ && dest.0 == 7 && dest.1 == 2){
                     for var i = 0;i<3;++i{
@@ -225,7 +224,6 @@ public class ChessLogicUtils {
                             return false
                         }
                     }
-                    return true
                 }
             }
             
@@ -236,7 +234,6 @@ public class ChessLogicUtils {
                             return false
                         }
                     }
-                    return true;
                 }
                 if (isq && dest.0 == 0 && dest.1 == 2){
                     for var i = 0;i<3;++i{
@@ -244,9 +241,9 @@ public class ChessLogicUtils {
                             return false
                         }
                     }
-                    return true
                 }
             }
+            return !isCheckMate(currentPiece.color == PieceColor.White, board: board)
         }
         return false;
     }
