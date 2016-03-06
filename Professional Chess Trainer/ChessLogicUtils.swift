@@ -38,7 +38,7 @@ public class ChessLogicUtils {
     //0: Ok move
     //2: enpass
     //3: castling
-    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], whiteToMove: Bool, isK: Bool, isQ: Bool, isk: Bool, isq: Bool, enPassant: (Int, Int)) -> (MoveResult) {
+    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus) -> (MoveResult) {
         var returnCode = MoveResult.okMove
         if (!checkRange(start, dest: dest)){
             return MoveResult.invalidRange;
@@ -56,10 +56,10 @@ public class ChessLogicUtils {
         }
         
         let currentPiece = currentSquare.piece!;
-        if (whiteToMove && currentPiece.color == PieceColor.Black){
+        if (boardStatus.isWhiteMove && currentPiece.color == PieceColor.Black){
             return MoveResult.notInTurn;
         }
-        if (!whiteToMove && currentPiece.color == PieceColor.White){
+        if (!boardStatus.isWhiteMove && currentPiece.color == PieceColor.White){
             return MoveResult.notInTurn;
         }
         var result = false;
@@ -71,7 +71,7 @@ public class ChessLogicUtils {
             
             if (destPiece.color == currentPiece.color){
                 // neu khong phai nhap thanh thi la false
-                result = checkCastling(start,dest:dest,board:board,isK: isK,isQ:isQ,isk:isk, isq:isq);
+                result = checkCastling(start,dest:dest,board:board,isK: boardStatus.isKingWhiteCastling,isQ:boardStatus.isQueenWhiteCastling,isk:boardStatus.isKingBlackCastling, isq:boardStatus.isQueenBlackCastling);
                 
                 isCastling = result;
                 if (isCastling){
@@ -83,7 +83,7 @@ public class ChessLogicUtils {
             }
         }
         else
-        if ((currentPiece is Pawn) && (dest.0 == enPassant.0 && dest.1 == enPassant.1)){
+        if ((currentPiece is Pawn) && (dest.0 == boardStatus.enPassant.0 && dest.1 == boardStatus.enPassant.1)){
             // check tot qua duong
             result = Pawn.isPawnCanEat(start,dest: dest,board: board)
             isEnpass = result
@@ -105,14 +105,53 @@ public class ChessLogicUtils {
         }
         if (result){
             let pieces = convertToPiece(board)
-            TryMove(start, dest:dest, board:board, isWhiteMove: whiteToMove , moveResult: returnCode, isTest: true)
-            result = !isCheckMate(whiteToMove, board: board)
+            TryMove(start, dest:dest, board:board, isWhiteMove: boardStatus.isWhiteMove , moveResult: returnCode, isTest: true)
+            result = !isCheckMate(boardStatus.isWhiteMove, board: board)
             copyToBoard(board, pieces: pieces)
             if (!result){
                 returnCode = MoveResult.checkMatesInvalid
             }
         }
         return returnCode
+    }
+    public func updateStatus(start:(Int,Int),dest:(Int,Int),movedPiece:Piece, moveResult: MoveResult, boardStatus:BoardStatus){
+        if (moveResult.rawValue<0){
+            return //invalid move
+        }
+        if (moveResult == MoveResult.castling || movedPiece is King){
+            if (boardStatus.isWhiteMove){
+            boardStatus.isKingWhiteCastling = false
+            boardStatus.isQueenWhiteCastling = false
+            }
+            else{
+                boardStatus.isKingBlackCastling = false
+                boardStatus.isQueenBlackCastling = false
+            }
+        }
+        
+        if (movedPiece is Rook){
+            if (start.0 == 0 && start.1 == 0){
+                boardStatus.isQueenBlackCastling = false
+            }
+            if (start.0 == 0 && start.1 == 7){
+                boardStatus.isKingBlackCastling = false
+            }
+            if (start.0 == 7 && start.1 == 0){
+                boardStatus.isQueenWhiteCastling = false
+            }
+            if (start.0 == 7 && start.1 == 7){
+                boardStatus.isKingWhiteCastling = false
+            }
+        }
+        if (movedPiece is Pawn && (abs(dest.0-start.0) == 2)){
+            boardStatus.enPassant.1 = start.1
+            boardStatus.enPassant.0 = (dest.0+start.0)/2
+        }
+        else{
+            boardStatus.enPassant.1 = -1
+            boardStatus.enPassant.0 = -1
+        }
+        boardStatus.isWhiteMove = !boardStatus.isWhiteMove
     }
     private func applyPiece(square:Square, piece:Piece?, test:Bool){
         if (test){
@@ -177,12 +216,12 @@ public class ChessLogicUtils {
             return
         }
         if (moveResult == MoveResult.enpass){
-            if (isWhiteMove){
-                applyPiece(board[dest.0-1][dest.1], piece: nil, test: isTest)
+            if (isWhiteMove){//quan bi an la quan den
+                applyPiece(board[dest.0+1][dest.1], piece: nil, test: isTest)
                 //board[dest.0-1][dest.1].piece = nil
             }
             else {
-                applyPiece(board[dest.0+1][dest.1], piece: nil, test: isTest)
+                applyPiece(board[dest.0-1][dest.1], piece: nil, test: isTest)
                 //board[dest.0+1][dest.1].piece = nil
             }
         }

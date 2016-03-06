@@ -10,23 +10,21 @@ import Foundation
 
 public class Pawn: Piece {
     public static func isPawnCanEat(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
-        let destPiece = board[dest.0][dest.1].piece
+        //note; chi check vi tri quan tot, khong check quan o dest
         let currentPiece = board[start.0][start.1].piece
         
-        if (currentPiece.color != destPiece.color){
-            if (currentPiece.color == PieceColor.White){
-                if ((start.0 - dest.0) == 1 && abs(start.1-dest.1)==1){
-                    return true;
-                }
-                return false
+        if (currentPiece.color == PieceColor.White){
+            if ((start.0 - dest.0) == 1 && abs(start.1-dest.1)==1){
+                return true;
             }
-            
-            if (currentPiece.color == PieceColor.Black){
-                if ((dest.0 - start.0) == 1 && abs(start.1-dest.1)==1){
-                    return true;
-                }
-                return false
+            return false
+        }
+        
+        if (currentPiece.color == PieceColor.Black){
+            if ((dest.0 - start.0) == 1 && abs(start.1-dest.1)==1){
+                return true;
             }
+            return false
         }
         return false;
     }
