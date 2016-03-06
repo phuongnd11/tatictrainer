@@ -17,31 +17,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Te5-GS-jTy">
-                                <rect key="frame" x="285" y="375" width="42" height="30"/>
-                                <state key="normal" title="About"/>
-                                <connections>
-                                    <segue destination="TSS-yb-UYj" kind="show" id="gjQ-m8-Wh0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pk-Us-oct">
-                                <rect key="frame" x="280" y="325" width="49" height="30"/>
-                                <state key="normal" title="Setting"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYd-WV-i5I">
-                                <rect key="frame" x="285" y="244" width="30" height="30"/>
-                                <state key="normal" title="Play"/>
-                                <connections>
-                                    <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KF3-3I-1zG"/>
-                                    <segue destination="gF1-ki-02A" kind="show" id="boW-rz-f7C"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9F-kS-ivJ">
-                                <rect key="frame" x="212" y="285" width="177" height="30"/>
-                                <state key="normal" title="Leader board"/>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
+                                <rect key="frame" x="254.5" y="240" width="91" height="120"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYd-WV-i5I">
+                                        <rect key="frame" x="30.5" y="0.0" width="30" height="30"/>
+                                        <state key="normal" title="Play"/>
+                                        <connections>
+                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KF3-3I-1zG"/>
+                                            <segue destination="gF1-ki-02A" kind="show" id="boW-rz-f7C"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9F-kS-ivJ">
+                                        <rect key="frame" x="0.0" y="30" width="91" height="30"/>
+                                        <state key="normal" title="Leader board"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pk-Us-oct">
+                                        <rect key="frame" x="21" y="60" width="49" height="30"/>
+                                        <state key="normal" title="Setting"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Te5-GS-jTy">
+                                        <rect key="frame" x="24.5" y="90" width="42" height="30"/>
+                                        <state key="normal" title="About"/>
+                                        <connections>
+                                            <segue destination="TSS-yb-UYj" kind="show" id="gjQ-m8-Wh0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9Wh-gH-47L" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9uS-qQ-NGT"/>
+                            <constraint firstItem="9Wh-gH-47L" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yJD-cD-ncO"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9aq-K2-f34"/>
                 </viewController>
@@ -91,7 +100,7 @@
                                 <rect key="frame" x="0.0" y="144" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJt-di-k1m">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJt-di-k1m">
                                 <rect key="frame" x="271" y="86" width="58" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -101,6 +110,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="qts-FE-ifW" secondAttribute="trailing" id="77l-cw-gNS"/>
+                            <constraint firstItem="uJt-di-k1m" firstAttribute="centerX" secondItem="Rfw-NK-sOX" secondAttribute="centerX" id="A5f-au-chq"/>
                             <constraint firstItem="qts-FE-ifW" firstAttribute="top" secondItem="Rfw-NK-sOX" secondAttribute="top" constant="144" id="OGh-eH-JkN"/>
                             <constraint firstItem="qts-FE-ifW" firstAttribute="top" secondItem="uJt-di-k1m" secondAttribute="bottom" constant="46" id="PB4-NG-oya"/>
                             <constraint firstAttribute="bottom" secondItem="qts-FE-ifW" secondAttribute="bottom" constant="-144" id="VAf-ot-uCU"/>
