@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable
 class BoardView: UIView {
-    
+    let chessLogicUtils = ChessLogicUtils()
     var margin: CGFloat = 0
     
     var size: CGFloat {
@@ -26,7 +26,7 @@ class BoardView: UIView {
     var board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
     var highlightedSquare: (Int, Int) = (-1, -1)
     var moves = ""
-    var whiteToMove = true
+    var boardStatus = BoardStatus()
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -113,16 +113,17 @@ class BoardView: UIView {
             //moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
             
             //print("move: \(moves)")
-            if (ChessLogicUtils().isValidMove(highlightedSquare, dest: dest, board: squares, whiteToMove: whiteToMove, isK: true, isQ: true, isk: true, isq: true, enPassant: (-1, -1))){
-                squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
-                squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
-                
+            let result = chessLogicUtils.isValidMove(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus)
+            if (result.rawValue > (-1)){
+                //squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
+                //squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
+                let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
+                chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
+                chessLogicUtils.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result, boardStatus:boardStatus)
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
-                //-------------------------------------
-                whiteToMove = !whiteToMove
-                
+                //-------------------------------------                
             }
             squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
             highlightedSquare.0 = -1

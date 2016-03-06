@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4825D5061C8C702C00036814 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4825D5051C8C702C00036814 /* Enums.swift */; };
+		4825D50A1C8C71CA00036814 /* BoardStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4825D5091C8C71CA00036814 /* BoardStatus.swift */; };
 		AA0191B91C796F2100A57BA8 /* Rook.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191B81C796F2100A57BA8 /* Rook.swift */; };
 		AA0191BB1C796F4900A57BA8 /* Knight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191BA1C796F4900A57BA8 /* Knight.swift */; };
 		AA0191BD1C796F6500A57BA8 /* Bishop.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191BC1C796F6500A57BA8 /* Bishop.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4825D5051C8C702C00036814 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		4825D5091C8C71CA00036814 /* BoardStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardStatus.swift; sourceTree = "<group>"; };
 		AA0191B81C796F2100A57BA8 /* Rook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rook.swift; sourceTree = "<group>"; };
 		AA0191BA1C796F4900A57BA8 /* Knight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knight.swift; sourceTree = "<group>"; };
 		AA0191BC1C796F6500A57BA8 /* Bishop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bishop.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				AA3EAD3E1C73780600668470 /* Piece.swift */,
 				AA8DBD5E1C813B46005B5E4D /* Puzzle.swift */,
 				AADC30FB1C8B381A003B0AD4 /* FEN.swift */,
+				4825D5051C8C702C00036814 /* Enums.swift */,
+				4825D5091C8C71CA00036814 /* BoardStatus.swift */,
 			);
 			path = "Professional Chess Trainer";
 			sourceTree = "<group>";
@@ -321,6 +327,7 @@
 				AA3EAD3F1C73780600668470 /* Piece.swift in Sources */,
 				AA0191BF1C796FFA00A57BA8 /* Queen.swift in Sources */,
 				AAB89F481C5E27690086D22E /* BoardView.swift in Sources */,
+				4825D50A1C8C71CA00036814 /* BoardStatus.swift in Sources */,
 				AA0191BB1C796F4900A57BA8 /* Knight.swift in Sources */,
 				AADC30FC1C8B381A003B0AD4 /* FEN.swift in Sources */,
 				AA85FBE11C5D01DB0091C2EE /* ViewController.swift in Sources */,
@@ -328,6 +335,7 @@
 				AA85FBDF1C5D01DB0091C2EE /* AppDelegate.swift in Sources */,
 				AA2EFA571C6A45CE00A9C73C /* FENUtils.swift in Sources */,
 				AA0191C31C79702700A57BA8 /* Pawn.swift in Sources */,
+				4825D5061C8C702C00036814 /* Enums.swift in Sources */,
 				AA83A1A61C722EFF009A4CF7 /* ChessLogicUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
