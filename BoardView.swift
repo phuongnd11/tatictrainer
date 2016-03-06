@@ -111,10 +111,11 @@ class BoardView: UIView {
             //moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
             
             //print("move: \(moves)")
-            if (ChessLogicUtils().isValidMove(highlightedSquare, dest: dest, board: squares, whiteToMove: whiteToMove, isK: true, isQ: true, isk: true, isq: true, enPassant: (-1, -1))){
-                squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
-                squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
-                
+            let result = ChessLogicUtils().isValidMove(highlightedSquare, dest: dest, board: squares, whiteToMove: whiteToMove, isK: true, isQ: true, isk: true, isq: true, enPassant: (-1, -1))
+            if (result.rawValue > (-1)){
+                //squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
+                //squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
+                ChessLogicUtils().TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: whiteToMove, moveResult: result, isTest: false)
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
