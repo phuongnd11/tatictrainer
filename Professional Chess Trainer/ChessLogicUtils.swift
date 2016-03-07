@@ -65,18 +65,18 @@ public class ChessLogicUtils {
         var result = false;
         var isEnpass = false
         
-        // check nhap thanh
-        if (checkCastling(start,dest:dest,board:board,isK: boardStatus.isKingWhiteCastling,isQ:boardStatus.isQueenWhiteCastling,isk:boardStatus.isKingBlackCastling, isq:boardStatus.isQueenBlackCastling))
-        {
-            returnCode = MoveResult.castling
-        }
-        
         if (!destSquare.isEmpty()){
             let destPiece = destSquare.piece!;
             
             if (destPiece.color == currentPiece.color){
                 return MoveResult.sameColor
             }
+        }
+        
+        // check nhap thanh
+        if (checkCastling(start,dest:dest,board:board,isK: boardStatus.isKingWhiteCastling,isQ:boardStatus.isQueenWhiteCastling,isk:boardStatus.isKingBlackCastling, isq:boardStatus.isQueenBlackCastling))
+        {
+            returnCode = MoveResult.castling
         }
         if (returnCode.rawValue == 0 && ((currentPiece is Pawn) && (dest.0 == boardStatus.enPassant.0 && dest.1 == boardStatus.enPassant.1))){
             // check tot qua duong
@@ -351,15 +351,7 @@ public class ChessLogicUtils {
             }
         }
     }
-    private func tryMove(board: [[Square]]) -> [[Piece]]{
-        var pieces = [[Piece]]()
-        for var i = 0; i<=7;++i{
-            for var j = 0; j<=7;++j{
-                pieces[i][j] = board[i][j].piece
-            }
-        }
-        return pieces
-    }
+    
     private func checkRange(start: (Int, Int), dest: (Int, Int)) -> Bool{
         if (start.0<0 || start.0 > 7){
             return false;

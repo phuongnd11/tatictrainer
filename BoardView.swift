@@ -114,6 +114,7 @@ class BoardView: UIView {
             
             //print("move: \(moves)")
             let result = chessLogicUtils.isValidMove(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus)
+            print(result)
             if (result.rawValue > (-1)){
                 //squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
                 //squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
@@ -124,8 +125,7 @@ class BoardView: UIView {
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
                 //-------------------------------------              
-                let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
-                print(gameCheck)
+                
             }
             squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
             highlightedSquare.0 = -1
@@ -143,6 +143,9 @@ class BoardView: UIView {
             }
             
         }
+        let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
+        print(gameCheck)
+        print(boardStatus.isWhiteMove)
         print("----------------------------------------------")
         for x in 0...7 {
             print("")
@@ -150,6 +153,8 @@ class BoardView: UIView {
                 print("\(board[x][y]) ", terminator: "")
             }
         }
+        
+        
     }
     
 }
