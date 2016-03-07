@@ -269,12 +269,15 @@ public class ChessLogicUtils {
                         }
                     }
                 }
-                if (isQ && dest.0 == 7 && dest.1 == 2){
+                else if (isQ && dest.0 == 7 && dest.1 == 2){
                     for var i = 0;i<3;++i{
                         if (!board[7][i+1].isEmpty()){
                             return false
                         }
                     }
+                }
+                else{
+                    return false
                 }
             }
             
@@ -286,12 +289,15 @@ public class ChessLogicUtils {
                         }
                     }
                 }
-                if (isq && dest.0 == 0 && dest.1 == 2){
+                else if (isq && dest.0 == 0 && dest.1 == 2){
                     for var i = 0;i<3;++i{
                         if (!board[0][i+1].isEmpty()){
                             return false
                         }
                     }
+                }
+                else{
+                    return false
                 }
             }
             return !isCheckMate(currentPiece.color == PieceColor.White, board: board)
