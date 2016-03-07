@@ -21,3 +21,9 @@ public enum MoveResult: Int {
     case enpass = 2
     case castling = 3 //: castling
 }
+public enum GameResult: Int{
+    case goingOn = 0
+    case whiteWin = 1
+    case blackWin = 2
+    case draw = 3
+}

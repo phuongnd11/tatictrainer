@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -106,15 +107,24 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKF-kb-eMA">
+                                <rect key="frame" x="178" y="86" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="qts-FE-ifW" secondAttribute="trailing" id="77l-cw-gNS"/>
+                            <constraint firstItem="oKF-kb-eMA" firstAttribute="leading" secondItem="Rfw-NK-sOX" secondAttribute="leadingMargin" constant="158" id="9Ge-5q-WbA"/>
                             <constraint firstItem="uJt-di-k1m" firstAttribute="centerX" secondItem="Rfw-NK-sOX" secondAttribute="centerX" id="A5f-au-chq"/>
                             <constraint firstItem="qts-FE-ifW" firstAttribute="top" secondItem="Rfw-NK-sOX" secondAttribute="top" constant="144" id="OGh-eH-JkN"/>
                             <constraint firstItem="qts-FE-ifW" firstAttribute="top" secondItem="uJt-di-k1m" secondAttribute="bottom" constant="46" id="PB4-NG-oya"/>
                             <constraint firstAttribute="bottom" secondItem="qts-FE-ifW" secondAttribute="bottom" constant="-144" id="VAf-ot-uCU"/>
+                            <constraint firstItem="oKF-kb-eMA" firstAttribute="top" secondItem="jr8-Ec-YMR" secondAttribute="bottom" constant="22" id="jK9-5e-E7J"/>
                             <constraint firstItem="qts-FE-ifW" firstAttribute="leading" secondItem="Rfw-NK-sOX" secondAttribute="leading" id="qWJ-1c-pwG"/>
+                            <constraint firstItem="uJt-di-k1m" firstAttribute="leading" secondItem="oKF-kb-eMA" secondAttribute="trailing" constant="51" id="vUL-o5-p6Z"/>
                         </constraints>
                     </view>
                 </viewController>

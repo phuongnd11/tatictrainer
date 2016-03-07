@@ -64,23 +64,19 @@ public class ChessLogicUtils {
         }
         var result = false;
         var isEnpass = false
-        var isCastling = false
-        // check nhap thanh
+        
         if (!destSquare.isEmpty()){
             let destPiece = destSquare.piece!;
             
             if (destPiece.color == currentPiece.color){
-                // neu khong phai nhap thanh thi la false
-                result = checkCastling(start,dest:dest,board:board,isK: boardStatus.isKingWhiteCastling,isQ:boardStatus.isQueenWhiteCastling,isk:boardStatus.isKingBlackCastling, isq:boardStatus.isQueenBlackCastling);
-                
-                isCastling = result;
-                if (isCastling){
-                    returnCode = MoveResult.castling
-                }
-                else{
-                    returnCode = MoveResult.sameColor
-                }
+                return MoveResult.sameColor
             }
+        }
+        
+        // check nhap thanh
+        if (checkCastling(start,dest:dest,board:board,isK: boardStatus.isKingWhiteCastling,isQ:boardStatus.isQueenWhiteCastling,isk:boardStatus.isKingBlackCastling, isq:boardStatus.isQueenBlackCastling))
+        {
+            returnCode = MoveResult.castling
         }
         if (returnCode.rawValue == 0 && ((currentPiece is Pawn) && (dest.0 == boardStatus.enPassant.0 && dest.1 == boardStatus.enPassant.1))){
             // check tot qua duong
@@ -165,52 +161,83 @@ public class ChessLogicUtils {
             }
         }
     }
+    public func CheckResult(board: [[Square]], boardStatus: BoardStatus) -> GameResult{
+        var colorToCheck = PieceColor.Black
+        if (boardStatus.isWhiteMove){
+            colorToCheck = PieceColor.White
+        }
+        
+        var kingRow = -1
+        var kingCol = -1
+        // find king
+        for var i = 0; i<=7; ++i{
+            for var j = 0;j<=7;++j{
+                if (!board[i][j].isEmpty() && !(board[i][j].piece.color == colorToCheck)){
+                    if (board[i][j].piece is King){
+                        kingRow = i
+                        kingCol = j
+                        break
+                    }
+                }
+            }
+        }
+        
+        if (kingRow == -1 && kingCol == -1){
+            if (colorToCheck == PieceColor.White){
+                return GameResult.whiteWin
+            }
+            if (colorToCheck == PieceColor.Black){
+                return GameResult.blackWin
+            }
+        }
+        for var i = 0; i<=7; ++i{
+            for var j = 0;j<=7;++j{
+                if (!board[i][j].isEmpty() && board[i][j].piece.color == colorToCheck){
+                    for var mRow = 0; mRow <= 7; ++mRow{
+                        for var mCol = 0; mCol <= 7; ++mCol{
+                            if (isValidMove((i,j), dest: (mRow,mCol), board: board, boardStatus: boardStatus).rawValue >= 0 ){
+                                return GameResult.goingOn
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (isCheckMate(boardStatus.isWhiteMove, board: board)){
+            return GameResult.blackWin
+        }
+        else{
+            return GameResult.draw
+        }
+    }
+    
     public func TryMove(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool){
         if (moveResult.rawValue < 0){
             return
         }
         if (moveResult == MoveResult.castling){
-            var rookRow = start.0
-            var rookCol = start.1
-            var king = board[dest.0][dest.1].piece
-            if (board[dest.0][dest.1].piece is Rook){
-                rookRow = dest.0
-                rookCol = dest.1
-                king = board[start.0][start.1].piece
-            }
+            let king = board[start.0][start.1].piece
+            
             if (!(king is King)){
                 return
             }
-            let rook = board[rookRow][rookCol].piece
-            
-            if (rookRow == 0 && rookCol == 0){
-                applyPiece(board[0][2], piece: king, test: isTest)
-                //board[0][2].piece = king
-                applyPiece(board[0][3], piece: rook, test: isTest)
-                //board[0][3].piece = rook
-            }
-            if (rookRow == 0 && rookCol == 7){
-                applyPiece(board[0][6], piece: king, test: isTest)
-                //board[0][6].piece = king
-                applyPiece(board[0][5], piece: rook, test: isTest)
-                //board[0][5].piece = rook
+            let row = start.0
+            var rookCol = 0 // mac dinh canh hau
+            var rookColDest = 3
+            if (dest.1 > start.1){ // canh vua
+                rookCol = 7
+                rookColDest = 5
             }
             
-            if (rookRow == 7 && rookCol == 0){
-                applyPiece(board[7][2], piece: king, test: isTest)
-                //board[7][2].piece = king
-                applyPiece(board[7][3], piece: rook, test: isTest)
-                //board[7][3].piece = rook
-            }
-            if (rookRow == 7 && rookCol == 7){
-                applyPiece(board[7][6], piece: king, test: isTest)
-                //board[7][6].piece = king
-                applyPiece(board[7][5], piece: rook, test: isTest)
-                //board[7][5].piece = rook
-            }
-            applyPiece(board[start.0][start.1], piece: nil, test: isTest)
+            let rook = board[row][rookCol].piece
+            
+            applyPiece(board[row][dest.1], piece: king, test: isTest)
+            applyPiece(board[row][rookColDest], piece: rook, test: isTest)
+            
+            applyPiece(board[row][start.1], piece: nil, test: isTest)
             //board[start.0][start.1].piece = nil
-            applyPiece(board[dest.0][dest.1], piece: nil, test: isTest)
+            applyPiece(board[row][rookCol], piece: nil, test: isTest)
             //board[dest.0][dest.1].piece = nil
             return
         }
@@ -232,51 +259,42 @@ public class ChessLogicUtils {
     }
     private func checkCastling(start: (Int, Int), dest: (Int, Int), board: [[Square]], isK: Bool, isQ: Bool, isk: Bool, isq: Bool) ->Bool{
         let currentPiece = board[start.0][start.1].piece!;
-        let destPiece = board[dest.0][dest.1].piece!;
         
-        if((currentPiece is Rook && destPiece is King) || (currentPiece is King && destPiece is Rook)){
-            var rookLocation = (dest.0,dest.1)
-            if (currentPiece is Rook){
-                rookLocation = (start.0, start.1)
-            }
-            
-            if (destPiece.color == PieceColor.White){
-                if (isK && rookLocation.0 == 7 && rookLocation.1 == 7){
+        if (currentPiece is King && start.0 == dest.0 && abs(start.1-dest.1) == 2){
+            if (currentPiece.color == PieceColor.White){
+                if (isK && dest.0 == 7 && dest.1 == 6){
                     for var i = 0;i<2;++i{
                         if (!board[7][i+5].isEmpty()){
                             return false
                         }
                     }
-                    return true;
                 }
-                if (isQ && rookLocation.0 == 7 && rookLocation.1 == 0){
+                if (isQ && dest.0 == 7 && dest.1 == 2){
                     for var i = 0;i<3;++i{
                         if (!board[7][i+1].isEmpty()){
                             return false
                         }
                     }
-                    return true
                 }
             }
             
-            if (destPiece.color == PieceColor.Black){
-                if (isk && rookLocation.0 == 0 && rookLocation.1 == 7){
+            if (currentPiece.color == PieceColor.Black){
+                if (isk && dest.0 == 0 && dest.1 == 6){
                     for var i = 0;i<2;++i{
                         if (!board[0][i+5].isEmpty()){
                             return false
                         }
                     }
-                    return true;
                 }
-                if (isq && rookLocation.0 == 0 && rookLocation.1 == 0){
+                if (isq && dest.0 == 0 && dest.1 == 2){
                     for var i = 0;i<3;++i{
                         if (!board[0][i+1].isEmpty()){
                             return false
                         }
                     }
-                    return true
                 }
             }
+            return !isCheckMate(currentPiece.color == PieceColor.White, board: board)
         }
         return false;
     }
@@ -333,15 +351,7 @@ public class ChessLogicUtils {
             }
         }
     }
-    private func tryMove(board: [[Square]]) -> [[Piece]]{
-        var pieces = [[Piece]]()
-        for var i = 0; i<=7;++i{
-            for var j = 0; j<=7;++j{
-                pieces[i][j] = board[i][j].piece
-            }
-        }
-        return pieces
-    }
+    
     private func checkRange(start: (Int, Int), dest: (Int, Int)) -> Bool{
         if (start.0<0 || start.0 > 7){
             return false;
