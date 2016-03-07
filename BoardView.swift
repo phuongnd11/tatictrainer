@@ -123,7 +123,9 @@ class BoardView: UIView {
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
-                //-------------------------------------                
+                //-------------------------------------              
+                let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
+                print(gameCheck)
             }
             squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
             highlightedSquare.0 = -1

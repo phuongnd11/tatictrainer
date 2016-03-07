@@ -161,12 +161,63 @@ public class ChessLogicUtils {
             }
         }
     }
+    public func CheckResult(board: [[Square]], boardStatus: BoardStatus) -> GameResult{
+        var colorToCheck = PieceColor.Black
+        if (boardStatus.isWhiteMove){
+            colorToCheck = PieceColor.White
+        }
+        
+        var kingRow = -1
+        var kingCol = -1
+        // find king
+        for var i = 0; i<=7; ++i{
+            for var j = 0;j<=7;++j{
+                if (!board[i][j].isEmpty() && !(board[i][j].piece.color == colorToCheck)){
+                    if (board[i][j].piece is King){
+                        kingRow = i
+                        kingCol = j
+                        break
+                    }
+                }
+            }
+        }
+        
+        if (kingRow == -1 && kingCol == -1){
+            if (colorToCheck == PieceColor.White){
+                return GameResult.whiteWin
+            }
+            if (colorToCheck == PieceColor.Black){
+                return GameResult.blackWin
+            }
+        }
+        for var i = 0; i<=7; ++i{
+            for var j = 0;j<=7;++j{
+                if (!board[i][j].isEmpty() && board[i][j].piece.color == colorToCheck){
+                    for var mRow = 0; mRow <= 7; ++mRow{
+                        for var mCol = 0; mCol <= 7; ++mCol{
+                            if (isValidMove((i,j), dest: (mRow,mCol), board: board, boardStatus: boardStatus).rawValue >= 0 ){
+                                return GameResult.goingOn
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (isCheckMate(boardStatus.isWhiteMove, board: board)){
+            return GameResult.blackWin
+        }
+        else{
+            return GameResult.draw
+        }
+    }
+    
     public func TryMove(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool){
         if (moveResult.rawValue < 0){
             return
         }
         if (moveResult == MoveResult.castling){
-            var king = board[start.0][start.1].piece
+            let king = board[start.0][start.1].piece
             
             if (!(king is King)){
                 return
