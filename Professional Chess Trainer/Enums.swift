@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 public enum MoveResult: Int {
     // Invalid move Return List
     case invalidMove = -1
@@ -21,6 +22,7 @@ public enum MoveResult: Int {
     case enpass = 2
     case castling = 3 //: castling
 }
+
 public enum GameResult: Int{
     case goingOn = 0
     case whiteWin = 1

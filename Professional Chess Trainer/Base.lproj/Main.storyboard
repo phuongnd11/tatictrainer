@@ -3,7 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -97,40 +97,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qts-FE-ifW" customClass="BoardView" customModule="Professional_Chess_Trainer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJt-di-k1m">
-                                <rect key="frame" x="271" y="86" width="58" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKF-kb-eMA">
-                                <rect key="frame" x="178" y="86" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2SS-kD-2br">
+                                <rect key="frame" x="0.0" y="64" width="600" height="620.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJt-di-k1m">
+                                        <rect key="frame" x="0.0" y="600.5" width="600" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qts-FE-ifW" customClass="BoardView" customModule="Professional_Chess_Trainer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="qts-FE-ifW" secondAttribute="height" multiplier="1:1" id="mvI-eq-dAu"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qts-FE-ifW" secondAttribute="width" id="U7j-QA-vhs"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="qts-FE-ifW" secondAttribute="trailing" id="77l-cw-gNS"/>
-                            <constraint firstItem="oKF-kb-eMA" firstAttribute="leading" secondItem="Rfw-NK-sOX" secondAttribute="leadingMargin" constant="158" id="9Ge-5q-WbA"/>
-                            <constraint firstItem="uJt-di-k1m" firstAttribute="centerX" secondItem="Rfw-NK-sOX" secondAttribute="centerX" id="A5f-au-chq"/>
-                            <constraint firstItem="qts-FE-ifW" firstAttribute="top" secondItem="Rfw-NK-sOX" secondAttribute="top" constant="144" id="OGh-eH-JkN"/>
-                            <constraint firstItem="qts-FE-ifW" firstAttribute="top" secondItem="uJt-di-k1m" secondAttribute="bottom" constant="46" id="PB4-NG-oya"/>
-                            <constraint firstAttribute="bottom" secondItem="qts-FE-ifW" secondAttribute="bottom" constant="-144" id="VAf-ot-uCU"/>
-                            <constraint firstItem="oKF-kb-eMA" firstAttribute="top" secondItem="jr8-Ec-YMR" secondAttribute="bottom" constant="22" id="jK9-5e-E7J"/>
-                            <constraint firstItem="qts-FE-ifW" firstAttribute="leading" secondItem="Rfw-NK-sOX" secondAttribute="leading" id="qWJ-1c-pwG"/>
-                            <constraint firstItem="uJt-di-k1m" firstAttribute="leading" secondItem="oKF-kb-eMA" secondAttribute="trailing" constant="51" id="vUL-o5-p6Z"/>
+                            <constraint firstItem="2SS-kD-2br" firstAttribute="top" secondItem="jr8-Ec-YMR" secondAttribute="bottom" id="FO9-Sm-3Ua"/>
+                            <constraint firstItem="2SS-kD-2br" firstAttribute="width" secondItem="Rfw-NK-sOX" secondAttribute="width" id="d6Q-0z-85L"/>
+                            <constraint firstItem="2SS-kD-2br" firstAttribute="centerX" secondItem="Rfw-NK-sOX" secondAttribute="centerX" id="iQr-S2-dUN"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuH-OZ-Em2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1695" y="60"/>
+            <point key="canvasLocation" x="1715" y="64"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Oml-Gk-pbH">

@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class BoardView: UIView {
     let chessLogicUtils = ChessLogicUtils()
     var margin: CGFloat = 0
@@ -27,6 +27,7 @@ class BoardView: UIView {
     var highlightedSquare: (Int, Int) = (-1, -1)
     var moves = ""
     var boardStatus = BoardStatus()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -118,6 +119,9 @@ class BoardView: UIView {
             if (result.rawValue > (-1)){
                 //squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
                 //squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
+                
+                
+                
                 let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
                 chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
                 chessLogicUtils.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result, boardStatus:boardStatus)

@@ -22,8 +22,7 @@ class ViewController: UIViewController {
 
 
     @IBAction func play(sender: UIButton) {
-        //let game = NumberTileGameViewController(dimension: 4, threshold: 2048)
-        //self.presentViewController(game, animated: true, completion: nil)
+        
     }
     
 }

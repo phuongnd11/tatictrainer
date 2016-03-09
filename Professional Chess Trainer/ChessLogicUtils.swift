@@ -10,22 +10,17 @@ import Foundation
 
 public class ChessLogicUtils {
     
-    let squareX: String = "abcdefgh"
-    let squareY: String = "87654321"
+    let squareY: String = "abcdefgh"
+    let squareX: String = "87654321"
     
-    public func toStandardMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> String {
+    public func toStandardMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], moveStatus: MoveResult,flipBoard: Bool) -> String {
         if (board[start.0][start.1].piece is Pawn) {
-            if (board[dest.0][dest.1].isEmpty()) {
-                //need to check en passsant
-                return positionToSquare(dest)
-            }
-            else {
-                
-            }
+            
         }
         
         return ""
     }
+    
     // Invalid move Return List
     //-1: invalid move
     //-2: invalid castling
@@ -66,6 +61,7 @@ public class ChessLogicUtils {
         var isEnpass = false
         
         if (!destSquare.isEmpty()){
+            //x
             let destPiece = destSquare.piece!;
             
             if (destPiece.color == currentPiece.color){
@@ -76,6 +72,8 @@ public class ChessLogicUtils {
         // check nhap thanh
         if (checkCastling(start,dest:dest,board:board,isK: boardStatus.isKingWhiteCastling,isQ:boardStatus.isQueenWhiteCastling,isk:boardStatus.isKingBlackCastling, isq:boardStatus.isQueenBlackCastling))
         {
+            //if start.1 > dest.1 -> O-O-O
+            //else 0 - 0
             returnCode = MoveResult.castling
         }
         if (returnCode.rawValue == 0 && ((currentPiece is Pawn) && (dest.0 == boardStatus.enPassant.0 && dest.1 == boardStatus.enPassant.1))){
@@ -83,6 +81,7 @@ public class ChessLogicUtils {
             result = Pawn.isPawnCanEat(start,dest: dest,board: board)
             isEnpass = result
             if (isEnpass){
+                //squareY[start.1] + "x" + positionToSquare(dest)
                 returnCode = MoveResult.enpass
             }
             else{
@@ -374,7 +373,7 @@ public class ChessLogicUtils {
     }
     
     private func positionToSquare(position: (Int, Int)) -> String {
-        return String(squareX[squareX.startIndex.advancedBy(position.0)])
-            + String(squareY[squareY.startIndex.advancedBy(position.1)])
+        return String(squareY[squareY.startIndex.advancedBy(position.1)])
+            + String(squareX[squareX.startIndex.advancedBy(position.0)])
     }
 }
