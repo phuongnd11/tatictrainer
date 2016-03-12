@@ -150,6 +150,10 @@ class BoardView: UIView {
         let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
         print(gameCheck)
         print(boardStatus.isWhiteMove)
+        print(boardStatus.isKingWhiteCastling)
+        print(boardStatus.isQueenWhiteCastling)
+        print(boardStatus.isKingBlackCastling)
+        print(boardStatus.isQueenBlackCastling)
         print("----------------------------------------------")
         for x in 0...7 {
             print("")
