@@ -108,45 +108,6 @@ public class ChessLogicUtils {
         }
         return returnCode
     }
-    public func updateStatus(start:(Int,Int),dest:(Int,Int),movedPiece:Piece, moveResult: MoveResult, boardStatus:BoardStatus){
-        if (moveResult.rawValue<0){
-            return //invalid move
-        }
-        if (moveResult == MoveResult.castling || movedPiece is King){
-            if (boardStatus.isWhiteMove){
-            boardStatus.isKingWhiteCastling = false
-            boardStatus.isQueenWhiteCastling = false
-            }
-            else{
-                boardStatus.isKingBlackCastling = false
-                boardStatus.isQueenBlackCastling = false
-            }
-        }
-        
-        if (movedPiece is Rook){
-            if (start.0 == 0 && start.1 == 0){
-                boardStatus.isQueenBlackCastling = false
-            }
-            if (start.0 == 0 && start.1 == 7){
-                boardStatus.isKingBlackCastling = false
-            }
-            if (start.0 == 7 && start.1 == 0){
-                boardStatus.isQueenWhiteCastling = false
-            }
-            if (start.0 == 7 && start.1 == 7){
-                boardStatus.isKingWhiteCastling = false
-            }
-        }
-        if (movedPiece is Pawn && (abs(dest.0-start.0) == 2)){
-            boardStatus.enPassant.1 = start.1
-            boardStatus.enPassant.0 = (dest.0+start.0)/2
-        }
-        else{
-            boardStatus.enPassant.1 = -1
-            boardStatus.enPassant.0 = -1
-        }
-        boardStatus.isWhiteMove = !boardStatus.isWhiteMove
-    }
     private func applyPiece(square:Square, piece:Piece?, test:Bool){
         if (test){
             square.piece = piece
