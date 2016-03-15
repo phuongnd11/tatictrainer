@@ -123,10 +123,11 @@ class BoardView: UIView {
                 
                 
                 let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
+                
                 chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
                 
                 chessLogicUtils.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result, boardStatus:boardStatus)
-                
+
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
