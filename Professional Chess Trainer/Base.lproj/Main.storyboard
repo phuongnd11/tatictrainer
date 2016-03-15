@@ -86,10 +86,10 @@
             </objects>
             <point key="canvasLocation" x="1705" y="1131"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="jgj-vA-YsC">
             <objects>
-                <viewController id="gF1-ki-02A" sceneMemberID="viewController">
+                <viewController id="gF1-ki-02A" customClass="GameViewController" customModule="Professional_Chess_Trainer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jr8-Ec-YMR"/>
                         <viewControllerLayoutGuide type="bottom" id="gwa-Oe-A4L"/>
@@ -140,23 +140,17 @@
                                             <constraint firstItem="qts-FE-ifW" firstAttribute="leading" secondItem="5Yy-Dj-VYB" secondAttribute="leading" id="npM-oy-lam"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="center" distribution="equalSpacing" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="mcG-in-t1a" userLabel="User Stack View">
+                                    <stackView opaque="NO" contentMode="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mcG-in-t1a" userLabel="User Stack View">
                                         <rect key="frame" x="0.0" y="439" width="600" height="67"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="11265532_10153048711808462_2628973319648746469_o" translatesAutoresizingMaskIntoConstraints="NO" id="cOa-Ew-OQv">
-                                                <rect key="frame" x="0.0" y="40" width="27" height="27"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="11265532_10153048711808462_2628973319648746469_o" translatesAutoresizingMaskIntoConstraints="NO" id="cOa-Ew-OQv">
+                                                <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="cOa-Ew-OQv" secondAttribute="height" multiplier="1:1" id="MqN-5j-MVF"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pvQ-eE-vql">
-                                                <rect key="frame" x="272" y="47" width="39" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="00:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ql6-wU-vhD">
-                                                <rect key="frame" x="554" y="47" width="46" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pvQ-eE-vql">
+                                                <rect key="frame" x="75" y="0.0" width="525" height="67"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -165,10 +159,6 @@
                                         <constraints>
                                             <constraint firstItem="cOa-Ew-OQv" firstAttribute="leading" secondItem="mcG-in-t1a" secondAttribute="leading" constant="10" id="6dg-Ur-X0l"/>
                                             <constraint firstItem="cOa-Ew-OQv" firstAttribute="width" secondItem="mcG-in-t1a" secondAttribute="width" multiplier="1:8" id="EFe-IH-q2s"/>
-                                            <constraint firstItem="ql6-wU-vhD" firstAttribute="width" secondItem="mcG-in-t1a" secondAttribute="width" multiplier="1:8" id="JTr-zB-ccf"/>
-                                            <constraint firstItem="pvQ-eE-vql" firstAttribute="leading" secondItem="cOa-Ew-OQv" secondAttribute="trailing" multiplier="10" id="ami-Lr-Ebr"/>
-                                            <constraint firstItem="ql6-wU-vhD" firstAttribute="trailing" secondItem="mcG-in-t1a" secondAttribute="trailing" constant="10" id="nTP-sV-Bum"/>
-                                            <constraint firstItem="pvQ-eE-vql" firstAttribute="width" secondItem="mcG-in-t1a" secondAttribute="width" multiplier="3:8" id="rbb-ce-sml"/>
                                         </constraints>
                                     </stackView>
                                     <stackView contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nor-tv-RCu" userLabel="Next Button Stack View">
