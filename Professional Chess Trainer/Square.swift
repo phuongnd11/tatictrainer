@@ -29,12 +29,16 @@ public class Square: UIView {
         super.init(frame: CGRectZero)
     }
     
-    init(x: Int, y: Int, light: Bool, squareSize: CGFloat){
+    init(x: Int, y: Int, light: Bool, squareSize: CGFloat, flipBoard: Bool){
         isLight = light
-        position = (x, y)
         size = squareSize
+        if !flipBoard {
+            position = (x, y)
+        } else {
+            position = (7-x, 7-y)
+        }
         super.init(frame: CGRectMake(CGFloat(y) * size, CGFloat(x) * size, size, size))
-        tag = x * 10 + y
+        tag = position.0 * 10 + position.1
         if light {
             backgroundColor = lightSquareColor
         } else {

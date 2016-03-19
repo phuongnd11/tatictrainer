@@ -71,7 +71,7 @@ class BoardView: UIView {
                 
                 var square: Square
                 
-                square = Square(x: x, y: y, light: flip, squareSize: size)
+                square = Square(x: x, y: y, light: flip, squareSize: size, flipBoard: puzzle.flipBoard)
                 
                 var piece:Piece
                 
@@ -118,7 +118,11 @@ class BoardView: UIView {
                 square.multipleTouchEnabled = false
 
                 self.addSubview(square)
-                squares[x][y] = square
+                if (!puzzle.flipBoard) {
+                    squares[x][y] = square
+                } else {
+                    squares[7-x][7-y] = square
+                }
             }
             flip = !flip
         }
