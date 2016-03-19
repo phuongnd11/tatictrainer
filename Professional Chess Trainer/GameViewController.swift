@@ -9,11 +9,18 @@
 import UIKit
 
 class GameViewController: UIViewController {
-
+    
+    @IBOutlet weak var theBoardView: BoardView!
+    
+    @IBAction func nextButton(sender: AnyObject) {
+        if theBoardView != nil {
+            theBoardView.reload(PuzzleFactory().getNextPuzzle())
+            theBoardView.setNeedsDisplay()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

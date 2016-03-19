@@ -167,6 +167,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLE-vD-cBV">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
                                                 <state key="normal" title="Next"/>
+                                                <connections>
+                                                    <action selector="nextButton:" destination="gF1-ki-02A" eventType="touchUpInside" id="gt3-G5-Aw2"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -189,7 +192,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="f80-EL-VQt" firstAttribute="top" secondItem="jr8-Ec-YMR" secondAttribute="bottom" id="0Ec-Iv-8jH"/>
                             <constraint firstItem="f80-EL-VQt" firstAttribute="leading" secondItem="Rfw-NK-sOX" secondAttribute="leading" id="2YO-r1-xyg"/>
@@ -198,6 +201,9 @@
                             <constraint firstAttribute="bottom" secondItem="f80-EL-VQt" secondAttribute="bottom" id="YDc-Sh-XP0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="theBoardView" destination="qts-FE-ifW" id="jx9-mr-jYC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuH-OZ-Em2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -15,6 +15,7 @@
 		AA0191BF1C796FFA00A57BA8 /* Queen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191BE1C796FFA00A57BA8 /* Queen.swift */; };
 		AA0191C11C79700F00A57BA8 /* King.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191C01C79700F00A57BA8 /* King.swift */; };
 		AA0191C31C79702700A57BA8 /* Pawn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191C21C79702700A57BA8 /* Pawn.swift */; };
+		AA17065B1C99A84300B4F9F6 /* PuzzleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17065A1C99A84300B4F9F6 /* PuzzleFactory.swift */; };
 		AA2EFA571C6A45CE00A9C73C /* FENUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EFA561C6A45CE00A9C73C /* FENUtils.swift */; };
 		AA3EAD3D1C7376E800668470 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3EAD3C1C7376E800668470 /* Square.swift */; };
 		AA3EAD3F1C73780600668470 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3EAD3E1C73780600668470 /* Piece.swift */; };
@@ -61,6 +62,7 @@
 		AA0191BE1C796FFA00A57BA8 /* Queen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queen.swift; sourceTree = "<group>"; };
 		AA0191C01C79700F00A57BA8 /* King.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = King.swift; sourceTree = "<group>"; };
 		AA0191C21C79702700A57BA8 /* Pawn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pawn.swift; sourceTree = "<group>"; };
+		AA17065A1C99A84300B4F9F6 /* PuzzleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleFactory.swift; sourceTree = "<group>"; };
 		AA2EFA561C6A45CE00A9C73C /* FENUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FENUtils.swift; sourceTree = "<group>"; };
 		AA3EAD3C1C7376E800668470 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		AA3EAD3E1C73780600668470 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				AADC30FB1C8B381A003B0AD4 /* FEN.swift */,
 				4825D5051C8C702C00036814 /* Enums.swift */,
 				4825D5091C8C71CA00036814 /* BoardStatus.swift */,
+				AA17065A1C99A84300B4F9F6 /* PuzzleFactory.swift */,
 			);
 			path = "Professional Chess Trainer";
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			files = (
 				AA0191B91C796F2100A57BA8 /* Rook.swift in Sources */,
 				AA8DBD5F1C813B46005B5E4D /* Puzzle.swift in Sources */,
+				AA17065B1C99A84300B4F9F6 /* PuzzleFactory.swift in Sources */,
 				AA3EAD3D1C7376E800668470 /* Square.swift in Sources */,
 				AA0191C11C79700F00A57BA8 /* King.swift in Sources */,
 				AAAF43FA1C970FC800D78C82 /* GameViewController.swift in Sources */,

@@ -20,5 +20,8 @@ public class Puzzle {
         self.fen = FENUtils().readBoardFromFEN(FEN)
         firstComputerMove = computerMove
         solutionMoves = solution
+        if solutionMoves[solutionMoves.startIndex] == "." {
+            flipBoard = true
+        }
     }
 }
