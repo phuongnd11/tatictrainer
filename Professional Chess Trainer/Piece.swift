@@ -57,6 +57,10 @@ public class Piece {
         self.color = color
     }
     
+    public func toPGN() -> String{
+        return "";
+    }
+    
     public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
         return true;
     }

@@ -23,4 +23,8 @@ public class King: Piece {
         return true;
     }
     
+    public override func toPGN() -> String {
+        return "K";
+    }
+    
 }

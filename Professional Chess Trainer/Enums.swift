@@ -21,6 +21,9 @@ public enum MoveResult: Int {
     case okMove = 0
     case enpass = 2
     case castling = 3 //: castling
+    case eat = 4
+    case check = 5
+    case checkMate = 6
 }
 
 public enum GameResult: Int{

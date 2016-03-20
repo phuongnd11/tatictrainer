@@ -66,4 +66,8 @@ public class Pawn: Piece {
         return false;
 
     }
+    
+    public override func toPGN() -> String {
+        return "";
+    }
 }
