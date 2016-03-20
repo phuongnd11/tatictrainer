@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol PrintEventDelegate {
+    func moveFinish(moveResult: MoveResult)
+}
+
+
 //@IBDesignable
 class BoardView: UIView {
     let chessLogicUtils = ChessLogicUtils()
@@ -28,6 +33,10 @@ class BoardView: UIView {
     var moves = ""
     var boardStatus = BoardStatus()
     var puzzle: Puzzle!
+    
+    //event delegate
+    var moveFinishDelegate: PrintEventDelegate?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -139,32 +148,30 @@ class BoardView: UIView {
             
             //print("move: \(moves)")
             let result = chessLogicUtils.isValidMove(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus)
-            print(result)
+            self.moveFinishDelegate?.moveFinish(result)
             if (result.rawValue > (-1)){
                 //squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
                 //squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
-                
-                
                 
                 let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
                 
                 chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
                 
                 chessLogicUtils.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result, boardStatus:boardStatus)
-
+                
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
-                //-------------------------------------              
+                //-------------------------------------
                 
             }
             squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
             highlightedSquare.0 = -1
             highlightedSquare.1 = -1
             
-
+            
         } else {
-
+            
             let tag = sender.view!.tag
             
             if !squares[tag/10][tag%10].isEmpty() {
@@ -190,7 +197,6 @@ class BoardView: UIView {
         }
         
     }
-    
 }
 
 

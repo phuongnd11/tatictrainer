@@ -8,7 +8,9 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, PrintEventDelegate {
+    
+    @IBOutlet weak var eloLabel: UILabel!
     
     @IBOutlet weak var theBoardView: BoardView!
     
@@ -21,6 +23,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        theBoardView.moveFinishDelegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +31,9 @@ class GameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func moveFinish(moveResult: MoveResult){
+        eloLabel.text = String(moveResult)
+    }
 
     /*
     // MARK: - Navigation
