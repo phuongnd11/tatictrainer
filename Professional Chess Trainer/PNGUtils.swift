@@ -8,6 +8,7 @@
 
 import Foundation
 public class PNGUtils {
+    let specialText = ["x","+","#","O-O-O", "O-O"]
     public func GetPngFromMove(move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
         let start = move.start
         let dest = move.dest
@@ -49,7 +50,65 @@ public class PNGUtils {
         
         return pieceText+duplicateText+captureText+destText+specialMove+checkText;
     }
+    public func GetMoveFromPgn(pgn: String,board: [[Square]], isWhiteMove: Bool) -> Move{
+        let piece = String(pgn[pgn.startIndex])
+        
+        // remove special characters
+        var text = pgn
+        //text = text.removeAtIndex(0);
+        
+        for string in specialText {
+            text = text.stringByReplacingOccurrencesOfString(string, withString: "")
+        }
+        
+        var color = PieceColor.Black
+        if isWhiteMove{
+            color = PieceColor.White
+        }
+        var dest = (-1,-1)
+        if text.characters.count == 2{
+            dest.0 = GetRowNum(text[text.endIndex])
+            dest.1 = GetColNum(text[text.endIndex.predecessor()])
+        }
+        
+        var start = (-1,-1)
+        if text.characters.count == 4{
+            start.0 = GetRowNum(text[text.startIndex.advancedBy(1)])
+            start.1 = GetColNum(text[text.startIndex])
+        }
+        else if (text.characters.count == 3){
+            start.0 = GetRowNum(text[text.startIndex])
+            start.1 = GetColNum(text[text.startIndex])
+        }
+        
+        for var i = 0; i < 8; ++i {
+            for var j = 0; j < 8; ++j {
+                if (checkValidRange(start, dest: dest, item: (i,j)) && !board[i][j].isEmpty()){
+                    if (board[i][j].piece.color == color && board[i][j].piece.toPGN() == piece){
+                        if (piece == "K" || piece == "Q"){
+                            return Move(start: (i,j),dest:dest)
+                        }
+                        else if board[i][j].piece.isValidMove((i,j), dest: dest, board: board){
+                            return Move(start: (i,j),dest:dest)
+                        }
+                    }
+                }
+            }
+        }
+        return Move(start: start,dest:dest)
+    }
     
+    private func checkValidRange(start: (Int,Int), dest: (Int,Int), item: (Int,Int)) -> Bool{
+        if item.0 == dest.0 && item.1 == dest.1{
+            return false
+        }
+        
+        if (item.0 == start.0 || start.0 == -1) && (item.1 == start.1 || start.1 == -1) {
+            return true;
+        }
+        
+        return false
+    }
     private func getDuplicateText(square: (Int, Int), dest: (Int,Int), board: [[Square]], moveResult: MoveResult) -> String{
         if (board[square.0][square.1].isEmpty()) {
             return ""
@@ -117,6 +176,30 @@ public class PNGUtils {
     private func GetColText(col: Int) -> String{
         // ASCII a is 97
         return String(Character(UnicodeScalar(97+col)))
+    }
+    
+    private func GetColNum(colStr: Character) -> Int{
+        let colList = "abcdefgh"
+        var i = 0
+        for c in colList.characters{
+            if (c == colStr){
+                return i
+            }
+            i++
+        }
+        return -1;
+    }
+    
+    private func GetRowNum(rowStr: Character) -> Int{
+        let rowList = "12345678"
+        var i = 0
+        for c in rowList.characters{
+            if (c == rowStr){
+                return i
+            }
+            i++
+        }
+        return -1;
     }
     
     private func GetRowText(row: Int) -> String{
