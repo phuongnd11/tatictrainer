@@ -12,6 +12,9 @@ public class Move {
     
     var start = (-1, -1)
     var dest = (-1, -1)
+    var pgn = ""
+    var gameResult = GameResult.goingOn
+    var moveResult = MoveResult.okMove
     
     init(start: (Int, Int), dest: (Int, Int)){
         self.start = start

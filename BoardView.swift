@@ -23,7 +23,6 @@ protocol NextPuzzleDelegate {
 //@IBDesignable
 class BoardView: UIView {
     let chessLogicUtils = ChessLogicUtils()
-    let pgnUtil = PNGUtils()
     var margin: CGFloat = 0
     
     var size: CGFloat {
@@ -161,7 +160,8 @@ class BoardView: UIView {
             //moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
             
             //print("move: \(moves)")
-            let result = chessLogicUtils.isValidMove(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus)
+            let move = chessLogicUtils.getMoveResult(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus, isCheckGame: true)
+            let result = move.moveResult
             self.moveFinishDelegate?.moveFinish(result)
             if (result.rawValue > (-1)){
                 //squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
@@ -173,8 +173,7 @@ class BoardView: UIView {
                 
                 boardStatus.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
                 
-                let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
-                let moveText = pgnUtil.GetPngFromMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: !boardStatus.isWhiteMove, moveResult: result, gameResult: gameCheck)
+                let moveText = move.pgn
                 
                 // if move is correct
                 NSLog(moveText)

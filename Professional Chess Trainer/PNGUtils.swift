@@ -8,20 +8,24 @@
 
 import Foundation
 public class PNGUtils {
-    public func GetPngFromMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], isWhiteMove: Bool, moveResult: MoveResult, gameResult: GameResult) -> String{
+    public func GetPngFromMove(move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
+        let start = move.start
+        let dest = move.dest
+        let moveResult = move.moveResult
+        let gameResult = move.gameResult
         //get Piece Text
         var pieceText = ""
         if (!board[start.0][start.1].isEmpty()){
-            pieceText = board[start.0][start.1].piece.toPGN()
+            pieceText = board[start.0][start.1].piece!.toPGN()
         }
         //get Piece duplicate Text
-        var duplicateText = getDuplicateText(start,dest:dest, board: board, moveResult: moveResult)
+        let duplicateText = getDuplicateText(start,dest:dest, board: board, moveResult: moveResult)
         let destText = GetBoardText(dest)
         //get move in PNG
         var specialMove = ""
         //check check mate
-        var mateEat = ""
-        
+        var checkText = ""
+        var captureText = ""
         switch (moveResult){
         case MoveResult.castling:
             if (dest.1 == 2){
@@ -34,16 +38,16 @@ public class PNGUtils {
         }
         
         if ((isWhiteMove && gameResult == GameResult.whiteCheck) || (!isWhiteMove && gameResult == GameResult.blackCheck)){
-            mateEat = "+"
+            checkText = "+"
         }
         else if ((isWhiteMove && gameResult == GameResult.whiteWin) || (!isWhiteMove && gameResult == GameResult.blackWin)){
-            mateEat = "#"
+            checkText = "#"
         }
-        else if (moveResult == MoveResult.eat){
-            mateEat = "x"
+        if (moveResult == MoveResult.eat){
+            captureText = "x"
         }
         
-        return pieceText+duplicateText+destText+specialMove+mateEat;
+        return pieceText+duplicateText+captureText+destText+specialMove+checkText;
     }
     
     private func getDuplicateText(square: (Int, Int), dest: (Int,Int), board: [[Square]], moveResult: MoveResult) -> String{
