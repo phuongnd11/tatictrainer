@@ -14,6 +14,7 @@ public class BoardStatus{
     var isQueenBlackCastling = true
     var isKingWhiteCastling = true
     var isQueenWhiteCastling = true
+    var moveNumber: Int = 0
     
     public func updateStatus(start:(Int,Int),dest:(Int,Int),movedPiece:Piece, moveResult: MoveResult){
         if (moveResult.rawValue<0){
@@ -52,6 +53,7 @@ public class BoardStatus{
             enPassant.1 = -1
             enPassant.0 = -1
         }
+        moveNumber++
         isWhiteMove = !isWhiteMove
     }
 }

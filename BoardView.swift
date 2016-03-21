@@ -33,6 +33,8 @@ class BoardView: UIView {
     var moves = ""
     var boardStatus = BoardStatus()
     var puzzle: Puzzle!
+    var moveNumber: Int = 0
+    
     
     //event delegate
     var moveFinishDelegate: PrintEventDelegate?
@@ -49,6 +51,9 @@ class BoardView: UIView {
     public func reload(newPuzzle: Puzzle) {
         self.puzzle = newPuzzle
         var boardStatus = BoardStatus()
+        if puzzle.flipBoard {
+                boardStatus.isWhiteMove = false
+        }
         squares = [[Square]](count: 8, repeatedValue: Array(count: 8, repeatedValue: Square()))
         board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
     }
@@ -60,7 +65,9 @@ class BoardView: UIView {
         if puzzle == nil {
             puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+")
         }
-
+        if puzzle.flipBoard {
+            boardStatus.isWhiteMove = false
+        }
         //var fen = FENUtils().readBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         
         var board = puzzle.fen.board
@@ -175,9 +182,11 @@ class BoardView: UIView {
             let tag = sender.view!.tag
             
             if !squares[tag/10][tag%10].isEmpty() {
-                highlightedSquare.0 = tag/10
-                highlightedSquare.1 = tag%10
-                squares[highlightedSquare.0][highlightedSquare.1].highlight()
+                if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.White)){
+                    highlightedSquare.0 = tag/10
+                    highlightedSquare.1 = tag%10
+                    squares[highlightedSquare.0][highlightedSquare.1].highlight()
+                }
             }
             
         }

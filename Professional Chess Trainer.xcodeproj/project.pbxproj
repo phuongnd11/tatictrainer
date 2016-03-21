@@ -34,6 +34,7 @@
 		AAB89F481C5E27690086D22E /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB89F471C5E27690086D22E /* BoardView.swift */; };
 		AABCF7BD1C68EB8800B22AF5 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = AABCF7B91C68EB8800B22AF5 /* Contents.json */; };
 		AADC30FC1C8B381A003B0AD4 /* FEN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC30FB1C8B381A003B0AD4 /* FEN.swift */; };
+		AAEC4E001C9FC8D300AA34A1 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		AAB89F471C5E27690086D22E /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = ../BoardView.swift; sourceTree = "<group>"; };
 		AABCF7B91C68EB8800B22AF5 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		AADC30FB1C8B381A003B0AD4 /* FEN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FEN.swift; sourceTree = "<group>"; };
+		AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				4825D5051C8C702C00036814 /* Enums.swift */,
 				4825D5091C8C71CA00036814 /* BoardStatus.swift */,
 				AA17065A1C99A84300B4F9F6 /* PuzzleFactory.swift */,
+				AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */,
 			);
 			path = "Professional Chess Trainer";
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAEC4E001C9FC8D300AA34A1 /* Move.swift in Sources */,
 				AA0191B91C796F2100A57BA8 /* Rook.swift in Sources */,
 				AA8DBD5F1C813B46005B5E4D /* Puzzle.swift in Sources */,
 				AA17065B1C99A84300B4F9F6 /* PuzzleFactory.swift in Sources */,
