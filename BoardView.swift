@@ -13,11 +13,12 @@ protocol PrintEventDelegate {
 }
 
 protocol UpdateStatusDelegate {
-    
     func updateUserStatus(correctMove: Bool)
-    
 }
 
+protocol NextPuzzleDelegate {
+    func loadNextPuzzle()
+}
 
 //@IBDesignable
 class BoardView: UIView {
@@ -44,6 +45,7 @@ class BoardView: UIView {
     //event delegate
     var moveFinishDelegate: PrintEventDelegate?
     var updateStatusDelegate: UpdateStatusDelegate?
+    var nextPuzzleDelegate: NextPuzzleDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -175,9 +177,14 @@ class BoardView: UIView {
                 let moveText = pgnUtil.GetPngFromMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: !boardStatus.isWhiteMove, moveResult: result, gameResult: gameCheck)
                 
                 // if move is correct
+                NSLog(moveText)
                 if puzzle.validateMove(moveText, moveNumber: boardStatus.moveNumber) {
                     updateStatusDelegate?.updateUserStatus(true)
+                    if boardStatus.moveNumber >= puzzle.numOfMoves {
+                     //next puzzle
+                    } else {
                     //make computer move
+                    }
                 }
                 else {
                     updateStatusDelegate?.updateUserStatus(false)
