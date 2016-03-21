@@ -12,6 +12,12 @@ protocol PrintEventDelegate {
     func moveFinish(moveResult: MoveResult)
 }
 
+protocol UpdateStatusDelegate {
+    
+    func updateUserStatus(correctMove: Bool)
+    
+}
+
 
 //@IBDesignable
 class BoardView: UIView {
@@ -34,12 +40,10 @@ class BoardView: UIView {
     var moves = ""
     var boardStatus = BoardStatus()
     var puzzle: Puzzle!
-    var moveNumber: Int = 0
-    
     
     //event delegate
     var moveFinishDelegate: PrintEventDelegate?
-    
+    var updateStatusDelegate: UpdateStatusDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -168,8 +172,17 @@ class BoardView: UIView {
                 boardStatus.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
                 
                 let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
-                print(pgnUtil.GetPngFromMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: !boardStatus.isWhiteMove, moveResult: result, gameResult: gameCheck))
-
+                let moveText = pgnUtil.GetPngFromMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: !boardStatus.isWhiteMove, moveResult: result, gameResult: gameCheck)
+                
+                // if move is correct
+                if puzzle.validateMove(moveText, moveNumber: boardStatus.moveNumber) {
+                    updateStatusDelegate?.updateUserStatus(true)
+                    //make computer move
+                }
+                else {
+                    updateStatusDelegate?.updateUserStatus(false)
+                    //revert board status
+                }
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"

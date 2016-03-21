@@ -26,9 +26,16 @@ public class Puzzle {
     }
     
     //count from 1
-    public func validateMove(move: Move, moveNumber: Int) -> Bool{
-        let tokens = solutionMoves
-        return true
+    public func validateMove(moveText: String, moveNumber: Int) -> Bool{
+        let tokens = solutionMoves.componentsSeparatedByString(" ")
+        if (moveNumber * 2 > tokens.count) {
+            return false
+        }
+        if tokens[moveNumber*2] == moveText {
+            return true
+        }
+        
+        return false
     }
     
     //count from 1

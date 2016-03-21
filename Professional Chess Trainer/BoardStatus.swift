@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class BoardStatus{
+public class BoardStatus {
     var isWhiteMove = true
     var enPassant = (-1,-1)
     var isKingBlackCastling = true
@@ -15,6 +15,19 @@ public class BoardStatus{
     var isKingWhiteCastling = true
     var isQueenWhiteCastling = true
     var moveNumber: Int = 0
+    
+    init(){
+    }
+    
+    init(clone: BoardStatus){
+        isWhiteMove = clone.isWhiteMove
+        enPassant = clone.enPassant
+        isKingBlackCastling = clone.isKingBlackCastling
+        isQueenBlackCastling = clone.isQueenBlackCastling
+        isKingWhiteCastling = clone.isKingWhiteCastling
+        isQueenWhiteCastling = clone.isQueenWhiteCastling
+        moveNumber = clone.moveNumber
+    }
     
     public func updateStatus(start:(Int,Int),dest:(Int,Int),movedPiece:Piece, moveResult: MoveResult){
         if (moveResult.rawValue<0){
@@ -56,4 +69,5 @@ public class BoardStatus{
         moveNumber++
         isWhiteMove = !isWhiteMove
     }
+    
 }
