@@ -183,7 +183,8 @@ class BoardView: UIView {
                     if boardStatus.moveNumber >= puzzle.numOfMoves {
                      //next puzzle
                     } else {
-                    //make computer move
+                        var nextMove = puzzle.getNextComputerMove(boardStatus.moveNumber)
+                        //computerMove
                     }
                 }
                 else {
