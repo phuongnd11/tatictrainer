@@ -16,6 +16,7 @@ protocol PrintEventDelegate {
 //@IBDesignable
 class BoardView: UIView {
     let chessLogicUtils = ChessLogicUtils()
+    let pgnUtil = PNGUtils()
     var margin: CGFloat = 0
     
     var size: CGFloat {
@@ -157,8 +158,11 @@ class BoardView: UIView {
                 
                 chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
                 
-                chessLogicUtils.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result, boardStatus:boardStatus)
+                boardStatus.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
                 
+                let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
+                print(pgnUtil.GetPngFromMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: !boardStatus.isWhiteMove, moveResult: result, gameResult: gameCheck))
+
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"
@@ -181,18 +185,18 @@ class BoardView: UIView {
             }
             
         }
-        let gameCheck = chessLogicUtils.CheckResult(squares, boardStatus: boardStatus)
-        print(gameCheck)
-        print(boardStatus.isWhiteMove)
-        print(boardStatus.isKingWhiteCastling)
-        print(boardStatus.isQueenWhiteCastling)
-        print(boardStatus.isKingBlackCastling)
-        print(boardStatus.isQueenBlackCastling)
-        print("----------------------------------------------")
-        for x in 0...7 {
-            print("")
-            for y in 0...7 {
-                print("\(board[x][y]) ", terminator: "")
+        if (false){
+            print(boardStatus.isWhiteMove)
+            print(boardStatus.isKingWhiteCastling)
+            print(boardStatus.isQueenWhiteCastling)
+            print(boardStatus.isKingBlackCastling)
+            print(boardStatus.isQueenBlackCastling)
+            print("----------------------------------------------")
+            for x in 0...7 {
+                print("")
+                for y in 0...7 {
+                    print("\(board[x][y]) ", terminator: "")
+                }
             }
         }
         

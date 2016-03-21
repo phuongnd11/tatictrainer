@@ -14,4 +14,8 @@ public class Rook: Piece {
         
         return isValidHorVerMove(start, dest: dest, board: board)
     }
+    
+    public override func toPGN() -> String {
+        return "R";
+    }
 }
