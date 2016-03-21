@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class BoardStatus{
+public class BoardStatus: NSObject,NSCopying{
     var isWhiteMove = true
     var enPassant = (-1,-1)
     var isKingBlackCastling = true
@@ -15,6 +15,18 @@ public class BoardStatus{
     var isKingWhiteCastling = true
     var isQueenWhiteCastling = true
     var moveNumber: Int = 0
+    
+    public func copyWithZone(zone: NSZone) -> AnyObject {
+        let copy = BoardStatus()
+        copy.isWhiteMove = isWhiteMove
+        copy.enPassant = enPassant
+        copy.isKingBlackCastling = isKingBlackCastling
+        copy.isQueenBlackCastling = isQueenBlackCastling
+        copy.isKingWhiteCastling = isKingWhiteCastling
+        copy.isQueenWhiteCastling = isQueenWhiteCastling
+        copy.moveNumber = moveNumber
+        return copy
+    }
     
     public func updateStatus(start:(Int,Int),dest:(Int,Int),movedPiece:Piece, moveResult: MoveResult){
         if (moveResult.rawValue<0){

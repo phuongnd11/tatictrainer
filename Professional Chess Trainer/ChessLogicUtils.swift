@@ -12,7 +12,8 @@ public class ChessLogicUtils {
     
     let squareY: String = "abcdefgh"
     let squareX: String = "87654321"
-    
+    let pgnUtil = PNGUtils()
+
     
     // Invalid move Return List
     //-1: invalid move
@@ -26,17 +27,7 @@ public class ChessLogicUtils {
     //0: Ok move
     //2: enpass
     //3: castling
-    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus) -> (MoveResult) {
-        var returnCode = MoveResult.okMove
-        if (!checkRange(start, dest: dest)){
-            return MoveResult.invalidRange;
-        }
-        if (start.0 == dest.0 && start.1 == dest.1){
-            return MoveResult.sameSquare
-        }
-        
-        let currentSquare = board[start.0][start.1]
-        let destSquare = board[dest.0][dest.1]
+    private func checkColorValid(currentSquare: Square, destSquare: Square, boardStatus: BoardStatus) -> MoveResult{
         
         //check current square
         if(currentSquare.isEmpty()) {
@@ -50,8 +41,7 @@ public class ChessLogicUtils {
         if (!boardStatus.isWhiteMove && currentPiece.color == PieceColor.White){
             return MoveResult.notInTurn;
         }
-        var result = false;
-        var isEnpass = false
+        
         
         if (!destSquare.isEmpty()){
             //x
@@ -61,7 +51,37 @@ public class ChessLogicUtils {
                 return MoveResult.sameColor
             }
         }
+        return MoveResult.okMove
+    }
+    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus) -> Bool{
+        let move = getMoveResult(start, dest: dest, board: board, boardStatus: boardStatus, isCheckGame: false)
+        return move.moveResult.rawValue >= 0
+    }
+    public func getMoveResult(start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus, isCheckGame:Bool ) -> (Move) {
+        let move = Move(start: start, dest: dest)
         
+        if (!checkRange(start, dest: dest)){
+            move.moveResult = MoveResult.invalidRange
+            return move;
+        }
+        
+        if (start.0 == dest.0 && start.1 == dest.1){
+            move.moveResult = MoveResult.sameSquare
+            return move;
+        }
+        
+        let currentSquare = board[start.0][start.1]
+        let destSquare = board[dest.0][dest.1]
+        let currentPiece = currentSquare.piece!;
+        
+        var returnCode = checkColorValid(currentSquare,destSquare: destSquare, boardStatus: boardStatus)
+        
+        if (returnCode.rawValue < 0){
+            move.moveResult = returnCode
+            return move
+        }
+        var result = false;
+        var isEnpass = false
         // check nhap thanh
         if (checkCastling(start,dest:dest,board:board,isK: boardStatus.isKingWhiteCastling,isQ:boardStatus.isQueenWhiteCastling,isk:boardStatus.isKingBlackCastling, isq:boardStatus.isQueenBlackCastling))
         {
@@ -92,14 +112,34 @@ public class ChessLogicUtils {
         }
         if (result){
             let pieces = convertToPiece(board)
+            let boardStatusClone = boardStatus.copy() as! BoardStatus
             TryMove(start, dest:dest, board:board, isWhiteMove: boardStatus.isWhiteMove , moveResult: returnCode, isTest: true)
             result = !isCheckMate(boardStatus.isWhiteMove, board: board)
-            copyToBoard(board, pieces: pieces)
-            if (!result){
-                returnCode = MoveResult.checkMatesInvalid
+            
+            if (result)
+            {
+                if (isCheckGame){
+                    //note: parameter is not ref, unlike C#
+                    boardStatusClone.updateStatus(start, dest: dest, movedPiece: currentPiece, moveResult: returnCode)
+                    move.gameResult = CheckResult(board,boardStatus: boardStatusClone)
+                }
             }
+            else
+            {
+                returnCode = MoveResult.checkMatesInvalid;
+            }
+            copyToBoard(board, pieces: pieces)
         }
-        return returnCode
+        
+        if (returnCode == MoveResult.okMove && !destSquare.isEmpty()){
+            returnCode = MoveResult.eat
+        }
+        move.moveResult = returnCode
+        
+        if (isCheckGame && returnCode.rawValue >= 0){
+            move.pgn = pgnUtil.GetPngFromMove(move, board: board, isWhiteMove: boardStatus.isWhiteMove)
+        }
+        return move
     }
     private func applyPiece(square:Square, piece:Piece?, test:Bool){
         if (test){
@@ -143,22 +183,34 @@ public class ChessLogicUtils {
                 return GameResult.blackWin
             }
         }
+        var gameResult = GameResult.goingOn
+        if (isCheckMate(boardStatus.isWhiteMove, board: board)){
+            if (boardStatus.isWhiteMove){
+                gameResult = GameResult.blackCheck
+            }
+            else{
+                gameResult = GameResult.whiteCheck
+            }
+        }
         for var i = 0; i<=7; ++i{
             for var j = 0;j<=7;++j{
                 if (!board[i][j].isEmpty() && board[i][j].piece.color == colorToCheck){
                     for var mRow = 0; mRow <= 7; ++mRow{
                         for var mCol = 0; mCol <= 7; ++mCol{
-                            if (isValidMove((i,j), dest: (mRow,mCol), board: board, boardStatus: boardStatus).rawValue >= 0 ){
-                                return GameResult.goingOn
+                            if (isValidMove((i,j), dest: (mRow,mCol), board: board, boardStatus: boardStatus)){
+                                return gameResult
                             }
                         }
                     }
                 }
             }
         }
-        
-        if (isCheckMate(boardStatus.isWhiteMove, board: board)){
-            return GameResult.blackWin
+        // đang chiếu và bí nước
+        if (gameResult == GameResult.blackCheck){
+                return GameResult.blackWin
+        }
+        else if (gameResult == GameResult.whiteCheck){
+                return GameResult.whiteWin
         }
         else{
             return GameResult.draw
