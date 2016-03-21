@@ -12,6 +12,13 @@ protocol PrintEventDelegate {
     func moveFinish(moveResult: MoveResult)
 }
 
+protocol UpdateStatusDelegate {
+    func updateUserStatus(correctMove: Bool)
+}
+
+protocol NextPuzzleDelegate {
+    func loadNextPuzzle()
+}
 
 //@IBDesignable
 class BoardView: UIView {
@@ -33,12 +40,11 @@ class BoardView: UIView {
     var moves = ""
     var boardStatus = BoardStatus()
     var puzzle: Puzzle!
-    var moveNumber: Int = 0
-    
     
     //event delegate
     var moveFinishDelegate: PrintEventDelegate?
-    
+    var updateStatusDelegate: UpdateStatusDelegate?
+    var nextPuzzleDelegate: NextPuzzleDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -167,8 +173,22 @@ class BoardView: UIView {
                 
                 boardStatus.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
                 
-                print(move.pgn)
-
+                let moveText = move.pgn
+                
+                // if move is correct
+                NSLog(moveText)
+                if puzzle.validateMove(moveText, moveNumber: boardStatus.moveNumber) {
+                    updateStatusDelegate?.updateUserStatus(true)
+                    if boardStatus.moveNumber >= puzzle.numOfMoves {
+                     //next puzzle
+                    } else {
+                    //make computer move
+                    }
+                }
+                else {
+                    updateStatusDelegate?.updateUserStatus(false)
+                    //revert board status
+                }
                 //--------------------------------debug only
                 board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                 board[highlightedSquare.0][highlightedSquare.1] = "e"

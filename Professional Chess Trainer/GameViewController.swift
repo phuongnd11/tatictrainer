@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GameViewController: UIViewController, PrintEventDelegate {
+class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate, NextPuzzleDelegate {
     
     @IBOutlet weak var eloLabel: UILabel!
     
@@ -24,6 +24,8 @@ class GameViewController: UIViewController, PrintEventDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         theBoardView.moveFinishDelegate = self
+        theBoardView.updateStatusDelegate = self
+        theBoardView.nextPuzzleDelegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +36,27 @@ class GameViewController: UIViewController, PrintEventDelegate {
     func moveFinish(moveResult: MoveResult){
         eloLabel.text = String(moveResult)
     }
+    
+    func updateUserStatus(correctMove: Bool) {
+        if correctMove {
+            if eloLabel.text!.hasPrefix("+10") || eloLabel.text!.hasPrefix("-10") {
+                eloLabel.text = "+10 ELO.Correct Move! " + String(eloLabel.text!.substringFromIndex(eloLabel.text!.startIndex.advancedBy(22)))
+            } else {
+                eloLabel.text = "+10 ELO.Correct Move! " + String(eloLabel.text!)
+            }
+        }
+        else {
+            if eloLabel.text!.hasPrefix("+10") || eloLabel.text!.hasPrefix("-10") {
+                eloLabel.text = "-10 ELO.  Wrong Move! " + String(eloLabel.text!.substringFromIndex(eloLabel.text!.startIndex.advancedBy(22)))
+            } else {
+                eloLabel.text = "-10 ELO.  Wrong Move! " + String(eloLabel.text!)
+            }
+        }
+    }
 
+    func loadNextPuzzle() {
+        //enable Next button
+    }
     /*
     // MARK: - Navigation
 

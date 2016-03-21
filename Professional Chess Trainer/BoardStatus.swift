@@ -16,6 +16,19 @@ public class BoardStatus: NSObject,NSCopying{
     var isQueenWhiteCastling = true
     var moveNumber: Int = 0
     
+    override init(){
+    }
+    
+    init(clone: BoardStatus){
+        isWhiteMove = clone.isWhiteMove
+        enPassant = clone.enPassant
+        isKingBlackCastling = clone.isKingBlackCastling
+        isQueenBlackCastling = clone.isQueenBlackCastling
+        isKingWhiteCastling = clone.isKingWhiteCastling
+        isQueenWhiteCastling = clone.isQueenWhiteCastling
+        moveNumber = clone.moveNumber
+    }
+    
     public func copyWithZone(zone: NSZone) -> AnyObject {
         let copy = BoardStatus()
         copy.isWhiteMove = isWhiteMove
@@ -68,4 +81,5 @@ public class BoardStatus: NSObject,NSCopying{
         moveNumber++
         isWhiteMove = !isWhiteMove
     }
+    
 }
