@@ -40,6 +40,7 @@ class BoardView: UIView {
     var moves = ""
     var boardStatus = BoardStatus()
     var puzzle: Puzzle!
+    var boardHistory = [BoardHistory?]()
     
     //event delegate
     var moveFinishDelegate: PrintEventDelegate?
@@ -74,6 +75,8 @@ class BoardView: UIView {
         if puzzle.flipBoard {
             boardStatus.isWhiteMove = false
         }
+        
+        boardHistory = [BoardHistory?](count: puzzle.numOfMoves, repeatedValue: nil)
         //var fen = FENUtils().readBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         
         var board = puzzle.fen.board
@@ -164,8 +167,8 @@ class BoardView: UIView {
             let result = move.moveResult
             self.moveFinishDelegate?.moveFinish(result)
             if (result.rawValue > (-1)){
-                //squares[tag/10][tag%10].setPiece(squares[highlightedSquare.0][highlightedSquare.1].piece)
-                //squares[highlightedSquare.0][highlightedSquare.1].clearPiece()
+                
+                boardHistory[boardStatus.moveNumber] = BoardHistory(start: Square(clone: squares[highlightedSquare.0][highlightedSquare.1]), dest: Square(clone: squares[dest.0][dest.1]), status: BoardStatus(clone: boardStatus))
                 
                 let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
                 
@@ -188,6 +191,7 @@ class BoardView: UIView {
                 }
                 else {
                     updateStatusDelegate?.updateUserStatus(false)
+                    goto(boardHistory[boardStatus.moveNumber-1]!)
                     //revert board status
                 }
                 //--------------------------------debug only
@@ -245,6 +249,7 @@ class BoardView: UIView {
             squares[dest.0][dest.1].setPiece(history.dest.piece)
         }
         
+        boardStatus = history.status
     }
 }
 

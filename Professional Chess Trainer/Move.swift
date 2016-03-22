@@ -20,5 +20,5 @@ public class Move {
         self.start = start
         self.dest = dest
     }
-    
+
 }

@@ -29,6 +29,17 @@ public class Square: UIView {
         super.init(frame: CGRectZero)
     }
     
+    init(clone: Square) {
+        isLight = clone.isLight
+        size = clone.size
+        position = clone.position
+        super.init(frame: CGRectMake(CGFloat(position.1) * size, CGFloat(position.0) * size, size, size))
+        tag = position.0 * 10 + position.1
+        backgroundColor = clone.backgroundColor
+        piece = clone.piece
+        occupyingPieceImageView = clone.occupyingPieceImageView
+    }
+    
     init(x: Int, y: Int, light: Bool, squareSize: CGFloat, flipBoard: Bool){
         isLight = light
         size = squareSize

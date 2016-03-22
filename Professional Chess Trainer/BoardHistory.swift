@@ -14,4 +14,9 @@ public class BoardHistory {
     var dest: Square!
     var status: BoardStatus!
 
+    init(start: Square, dest: Square, status: BoardStatus) {
+        self.start = start
+        self.dest = dest
+        self.status = status
+    }
 }
