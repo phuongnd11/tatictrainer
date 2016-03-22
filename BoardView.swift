@@ -230,6 +230,22 @@ class BoardView: UIView {
         }
         
     }
+    
+    func goto(history: BoardHistory) {
+        let start = history.start.position
+        let dest = history.dest.position
+        
+        squares[start.0][start.1].clearPiece()
+        if (!history.start.isEmpty()) {
+            squares[start.0][start.1].setPiece(history.start.piece)
+        }
+        
+        squares[dest.0][dest.1].clearPiece()
+        if (!history.dest.isEmpty()) {
+            squares[dest.0][dest.1].setPiece(history.dest.piece)
+        }
+        
+    }
 }
 
 

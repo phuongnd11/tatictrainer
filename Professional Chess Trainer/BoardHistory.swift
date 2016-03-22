@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+public class BoardHistory {
+    
+    var start: Square!
+    var dest: Square!
+    var status: BoardStatus!
+
+}

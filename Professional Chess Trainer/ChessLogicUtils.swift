@@ -137,7 +137,7 @@ public class ChessLogicUtils {
         move.moveResult = returnCode
         
         if (isCheckGame && returnCode.rawValue >= 0){
-            move.pgn = pgnUtil.GetPngFromMove(move, board: board, isWhiteMove: boardStatus.isWhiteMove)
+            move.pgn = pgnUtil.getPngFromMove(move, board: board, isWhiteMove: boardStatus.isWhiteMove)
         }
         return move
     }
