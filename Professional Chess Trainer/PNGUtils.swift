@@ -8,7 +8,8 @@
 
 import Foundation
 public class PNGUtils {
-    public func GetPngFromMove(move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
+    
+    public func getPngFromMove(move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
         let start = move.start
         let dest = move.dest
         let moveResult = move.moveResult
@@ -34,7 +35,7 @@ public class PNGUtils {
             else if (dest.1 == 6){
                 specialMove = "O-O"
             }
-        default: break
+            default: break
         }
         
         if ((isWhiteMove && gameResult == GameResult.whiteCheck) || (!isWhiteMove && gameResult == GameResult.blackCheck)){
@@ -47,7 +48,7 @@ public class PNGUtils {
             captureText = "x"
         }
         
-        return pieceText+duplicateText+captureText+destText+specialMove+checkText;
+        return pieceText + duplicateText + captureText + destText + specialMove + checkText
     }
     
     private func getDuplicateText(square: (Int, Int), dest: (Int,Int), board: [[Square]], moveResult: MoveResult) -> String{

@@ -60,9 +60,11 @@ public class Square: UIView {
     }
     
     func clearPiece(){
-        occupyingPieceImageView.removeFromSuperview()
-        occupyingPieceImageView = nil
-        piece = nil
+        if !isEmpty() {
+            occupyingPieceImageView.removeFromSuperview()
+            occupyingPieceImageView = nil
+            piece = nil
+        }
     }
     
     func clearHighlight(){
