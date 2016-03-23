@@ -61,6 +61,8 @@ class BoardView: UIView {
         if puzzle.flipBoard {
                 boardStatus.isWhiteMove = false
         }
+        highlightedSquare = (-1, -1)
+        boardHistory = [BoardHistory?](count: puzzle.numOfMoves, repeatedValue: nil)
         squares = [[Square]](count: 8, repeatedValue: Array(count: 8, repeatedValue: Square()))
         board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
     }
@@ -196,7 +198,9 @@ class BoardView: UIView {
                 }
                 else {
                     updateStatusDelegate?.updateUserStatus(false)
+                    NSLog("moveNumver before: " + String(boardHistory[boardStatus.moveNumber-1]!.status.moveNumber))
                     goto(boardHistory[boardStatus.moveNumber-1]!)
+                    NSLog("moveNumver: " + String(boardStatus.moveNumber))
                     //revert board status
                 }
                 //--------------------------------debug only

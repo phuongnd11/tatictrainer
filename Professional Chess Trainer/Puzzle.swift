@@ -33,7 +33,8 @@ public class Puzzle {
         if (moveNumber-1) > tokens.count {
             return false
         }
-        NSLog(tokens[moveNumber-1])
+        NSLog("validate" + tokens[moveNumber-1])
+        NSLog(moveText)
         // Need to update
         if tokens[moveNumber-1].containsString(moveText) {
             return true
