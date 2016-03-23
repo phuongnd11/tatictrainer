@@ -44,10 +44,9 @@ public class Puzzle {
     
     //count from 1
     public func getNextComputerMove(moveNumber: Int) -> String {
-        var move = ""
         let tokens = solutionMoves.componentsSeparatedByString(" ")
         if moveNumber > tokens.count {
-            return move
+            return ""
         }
         NSLog("computer " + tokens[moveNumber])
         
