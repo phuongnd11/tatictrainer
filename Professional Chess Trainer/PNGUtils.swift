@@ -54,20 +54,20 @@ public class PNGUtils {
         let piece = String(pgn[pgn.startIndex])
         
         // remove special characters
-        var text = pgn
-        //text = text.removeAtIndex(0);
+        var text = String(pgn.characters.dropFirst())
         
         for string in specialText {
             text = text.stringByReplacingOccurrencesOfString(string, withString: "")
         }
+        
         
         var color = PieceColor.Black
         if isWhiteMove{
             color = PieceColor.White
         }
         var dest = (-1,-1)
-        dest.0 = GetRowNum(text[text.endIndex])
-        dest.1 = GetColNum(text[text.endIndex.predecessor()])
+        dest.0 = GetRowNum(text[text.endIndex.predecessor()])
+        dest.1 = GetColNum(text[text.endIndex.advancedBy(-2)])
         
         var start = (-1,-1)
         if text.characters.count == 4{
@@ -189,7 +189,7 @@ public class PNGUtils {
     }
     
     private func GetRowNum(rowStr: Character) -> Int{
-        let rowList = "12345678"
+        let rowList = "87654321"
         var i = 0
         for c in rowList.characters{
             if (c == rowStr){
