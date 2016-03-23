@@ -55,9 +55,9 @@ class BoardView: UIView {
         super.init(coder: aDecoder)
     }
     
-    public func reload(newPuzzle: Puzzle) {
+    internal func reload(newPuzzle: Puzzle) {
         self.puzzle = newPuzzle
-        var boardStatus = BoardStatus()
+        let boardStatus = BoardStatus()
         if puzzle.flipBoard {
                 boardStatus.isWhiteMove = false
         }
@@ -187,9 +187,9 @@ class BoardView: UIView {
                     if boardStatus.moveNumber >= puzzle.numOfMoves {
                      //next puzzle
                     } else {
-                        var nextMove = puzzle.getNextComputerMove(boardStatus.moveNumber)
+                        let nextMove = puzzle.getNextComputerMove(boardStatus.moveNumber)
                         //computerMove
-                        var nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: squares, isWhiteMove: boardStatus.isWhiteMove)
+                        let nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: squares, isWhiteMove: boardStatus.isWhiteMove)
                         chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
                         
                         boardStatus.updateStatus(nextComputerMove.start, dest:nextComputerMove.dest,movedPiece: squares[nextComputerMove.dest.0][nextComputerMove.dest.1].piece!, moveResult:nextComputerMove.moveResult)
@@ -226,20 +226,6 @@ class BoardView: UIView {
                 }
             }
             
-        }
-        if (false){
-            print(boardStatus.isWhiteMove)
-            print(boardStatus.isKingWhiteCastling)
-            print(boardStatus.isQueenWhiteCastling)
-            print(boardStatus.isKingBlackCastling)
-            print(boardStatus.isQueenBlackCastling)
-            print("----------------------------------------------")
-            for x in 0...7 {
-                print("")
-                for y in 0...7 {
-                    print("\(board[x][y]) ", terminator: "")
-                }
-            }
         }
         
     }
