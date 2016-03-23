@@ -66,10 +66,8 @@ public class PNGUtils {
             color = PieceColor.White
         }
         var dest = (-1,-1)
-        if text.characters.count == 2{
-            dest.0 = GetRowNum(text[text.endIndex])
-            dest.1 = GetColNum(text[text.endIndex.predecessor()])
-        }
+        dest.0 = GetRowNum(text[text.endIndex])
+        dest.1 = GetColNum(text[text.endIndex.predecessor()])
         
         var start = (-1,-1)
         if text.characters.count == 4{
