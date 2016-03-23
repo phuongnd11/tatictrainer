@@ -187,6 +187,11 @@ class BoardView: UIView {
                     } else {
                         var nextMove = puzzle.getNextComputerMove(boardStatus.moveNumber)
                         //computerMove
+                        var nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: squares, isWhiteMove: boardStatus.isWhiteMove)
+                        chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
+                        
+                        boardStatus.updateStatus(nextComputerMove.start, dest:nextComputerMove.dest,movedPiece: squares[nextComputerMove.start.0][nextComputerMove.start.1].piece!, moveResult:nextComputerMove.moveResult)
+
                     }
                 }
                 else {

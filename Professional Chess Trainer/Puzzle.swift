@@ -43,16 +43,14 @@ public class Puzzle {
     }
     
     //count from 1
-    public func getNextComputerMove(moveNumber: Int) -> Move {
-        var move : Move = Move(start: (-1, -1), dest: (-1, -1))
+    public func getNextComputerMove(moveNumber: Int) -> String {
+        var move = ""
         let tokens = solutionMoves.componentsSeparatedByString(" ")
         if (moveNumber-1) * 2 + 1 > tokens.count {
             return move
         }
         NSLog(tokens[(moveNumber-1)*2+1])
         
-        //convert from String tokens[(moveNumber-1)*2+1] to Move
-        
-        return move
+        return tokens[(moveNumber-1)*2+1]
     }
 }
