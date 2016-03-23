@@ -24,18 +24,18 @@ public class Puzzle {
         if solutionMoves[solutionMoves.startIndex] == "." {
             flipBoard = true
         }
-        numOfMoves = solutionMoves.componentsSeparatedByString(" ").count/2 + 1
+        numOfMoves = solutionMoves.componentsSeparatedByString(" ").count
     }
     
     //count from 1
     public func validateMove(moveText: String, moveNumber: Int) -> Bool{
         let tokens = solutionMoves.componentsSeparatedByString(" ")
-        if (moveNumber-1) * 2 > tokens.count {
+        if (moveNumber-1) > tokens.count {
             return false
         }
-        NSLog(tokens[(moveNumber-1)*2])
+        NSLog(tokens[moveNumber-1])
         // Need to update
-        if tokens[(moveNumber-1)*2].containsString(moveText) {
+        if tokens[moveNumber-1].containsString(moveText) {
             return true
         }
         
@@ -46,11 +46,11 @@ public class Puzzle {
     public func getNextComputerMove(moveNumber: Int) -> String {
         var move = ""
         let tokens = solutionMoves.componentsSeparatedByString(" ")
-        if (moveNumber-1) * 2 + 1 > tokens.count {
+        if moveNumber > tokens.count {
             return move
         }
-        NSLog(tokens[(moveNumber-1)*2+1])
+        NSLog("computer " + tokens[moveNumber])
         
-        return tokens[(moveNumber-1)*2+1]
+        return tokens[moveNumber]
     }
 }
