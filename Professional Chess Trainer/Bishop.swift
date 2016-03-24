@@ -14,6 +14,6 @@ public class Bishop: Piece {
     }
     
     public override func toPGN() -> String {
-        return "Q";
+        return "B";
     }
 }
