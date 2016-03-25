@@ -10,12 +10,14 @@ import UIKit
 
 class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate, NextPuzzleDelegate {
     
+    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var eloLabel: UILabel!
     
     @IBOutlet weak var theBoardView: BoardView!
     
     @IBAction func nextButton(sender: AnyObject) {
         if theBoardView != nil {
+            eloLabel.text = ""
             theBoardView.reload(PuzzleFactory().getNextPuzzle())
             theBoardView.setNeedsDisplay()
         }
@@ -23,6 +25,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nextButton.hidden = true
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
         theBoardView.nextPuzzleDelegate = self
@@ -54,8 +57,9 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         }
     }
 
-    func loadNextPuzzle() {
-        //enable Next button
+    func enableNext() {
+        eloLabel.text = "You won"
+        nextButton.hidden = false
     }
     /*
     // MARK: - Navigation

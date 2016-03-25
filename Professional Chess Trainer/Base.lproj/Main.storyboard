@@ -192,7 +192,6 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="f80-EL-VQt" firstAttribute="top" secondItem="jr8-Ec-YMR" secondAttribute="bottom" id="0Ec-Iv-8jH"/>
                             <constraint firstItem="f80-EL-VQt" firstAttribute="leading" secondItem="Rfw-NK-sOX" secondAttribute="leading" id="2YO-r1-xyg"/>
@@ -203,6 +202,7 @@
                     </view>
                     <connections>
                         <outlet property="eloLabel" destination="pvQ-eE-vql" id="2Dq-aa-sl7"/>
+                        <outlet property="nextButton" destination="OLE-vD-cBV" id="hGj-5a-Al3"/>
                         <outlet property="theBoardView" destination="qts-FE-ifW" id="jx9-mr-jYC"/>
                     </connections>
                 </viewController>
