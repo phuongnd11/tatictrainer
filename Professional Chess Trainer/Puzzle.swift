@@ -20,7 +20,9 @@ public class Puzzle {
     init(FEN: String, computerMove: String, solution: String){
         self.fen = FENUtils().readBoardFromFEN(FEN)
         firstComputerMove = computerMove
-        solutionMoves = solution
+        solutionMoves = solution.stringByTrimmingCharactersInSet(
+            NSCharacterSet.whitespaceAndNewlineCharacterSet()
+        )
         if solutionMoves[solutionMoves.startIndex] == "." {
             flipBoard = true
         }

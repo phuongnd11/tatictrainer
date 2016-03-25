@@ -56,13 +56,15 @@ class BoardView: UIView {
     }
     
     internal func reload(newPuzzle: Puzzle) {
+        NSLog("Reloadedddddddddd")
         self.puzzle = newPuzzle
-        let boardStatus = BoardStatus()
+        boardStatus = BoardStatus()
         if puzzle.flipBoard {
                 boardStatus.isWhiteMove = false
         }
         highlightedSquare = (-1, -1)
         boardHistory = [BoardHistory?](count: puzzle.numOfMoves, repeatedValue: nil)
+    
         squares = [[Square]](count: 8, repeatedValue: Array(count: 8, repeatedValue: Square()))
         board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
     }
@@ -169,7 +171,7 @@ class BoardView: UIView {
             let result = move.moveResult
             self.moveFinishDelegate?.moveFinish(result)
             if (result.rawValue > (-1)){
-                
+                NSLog("Move Number InIt: " + String(boardStatus.moveNumber))
                 boardHistory[boardStatus.moveNumber] = BoardHistory(start: Square(clone: squares[highlightedSquare.0][highlightedSquare.1]), dest: Square(clone: squares[dest.0][dest.1]), status: BoardStatus(clone: boardStatus))
                 
                 let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
