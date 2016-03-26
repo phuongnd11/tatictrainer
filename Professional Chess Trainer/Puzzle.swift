@@ -16,9 +16,11 @@ public class Puzzle {
     var solutionMoves: String = ""
     var flipBoard: Bool = false
     var numOfMoves: Int = 0
+    var title: String = ""
     
-    init(FEN: String, computerMove: String, solution: String){
+    init(FEN: String, computerMove: String, solution: String, gameTitle: String){
         self.fen = FENUtils().readBoardFromFEN(FEN)
+        title = gameTitle
         firstComputerMove = computerMove
         solutionMoves = solution.stringByTrimmingCharactersInSet(
             NSCharacterSet.whitespaceAndNewlineCharacterSet()

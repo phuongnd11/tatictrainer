@@ -12,13 +12,13 @@ public class PuzzleFactory{
     
     
     public func getNextPuzzle() -> Puzzle {
-        let puzzle1 = Puzzle(FEN: "r2nr2k/1bp1bpp1/p7/1p1pP3/3P2q1/2P2NP1/P1B2PK1/R1BQR3 w - - 0 1", computerMove: "", solution: " Rh1+ Kg8 Bh7+ Kf8 Bf5")
+        let puzzle1 = Puzzle(FEN: "r2nr2k/1bp1bpp1/p7/1p1pP3/3P2q1/2P2NP1/P1B2PK1/R1BQR3 w - - 0 1", computerMove: "", solution: " Rh1+ Kg8 Bh7+ Kf8 Bf5", gameTitle: "Nakamura - Magnus Carslen 2015")
         
-        let puzzle2 = Puzzle(FEN: "rn2k1r1/1R1b1p1p/3pp3/p6R/4P3/3NBP2/2P1B1P1/b4K2 w q - 0 1", computerMove: "", solution: "Rxa5")
+        let puzzle2 = Puzzle(FEN: "rn2k1r1/1R1b1p1p/3pp3/p6R/4P3/3NBP2/2P1B1P1/b4K2 w q - 0 1", computerMove: "", solution: "Rxa5", gameTitle: "Nakamura - Magnus Carslen 2015")
         
-        let puzzle3 = Puzzle(FEN: "4r1k1/Q4ppp/1r1q4/N1pPpb2/1nP5/R5P1/P4PBP/2R3K1 b - - 0 1", computerMove: "", solution: "...Ra6 if Qb7 Rb8")
+        let puzzle3 = Puzzle(FEN: "4r1k1/Q4ppp/1r1q4/N1pPpb2/1nP5/R5P1/P4PBP/2R3K1 b - - 0 1", computerMove: "", solution: "...Ra6 if Qb7 Rb8", gameTitle: "Nakamura - Magnus Carslen 2015")
         
-        let puzzle4 = Puzzle(FEN: "r1bq1rk1/ppppnp1p/2n3p1/3N2B1/2PQ4/8/PP2PPPP/R3KB1R w KQ - 1 0", computerMove:  "", solution: "Nf6+ Kh8 Ng4+")
+        let puzzle4 = Puzzle(FEN: "r1bq1rk1/ppppnp1p/2n3p1/3N2B1/2PQ4/8/PP2PPPP/R3KB1R w KQ - 1 0", computerMove:  "", solution: "Nf6+ Kh8 Ng4+", gameTitle: "Nakamura - Magnus Carslen 2015")
         
         let diceRoll = Int(arc4random_uniform(3) + 1)
         

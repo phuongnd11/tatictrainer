@@ -10,6 +10,10 @@ import UIKit
 
 class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate, NextPuzzleDelegate {
     
+    @IBOutlet weak var ideaButton: UIButton!
+    @IBOutlet weak var previousMove: UIButton!
+    @IBOutlet weak var nextMove: UIButton!
+    @IBOutlet weak var gameTitle: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var eloLabel: UILabel!
     
@@ -18,14 +22,19 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     @IBAction func nextButton(sender: AnyObject) {
         if theBoardView != nil {
             eloLabel.text = ""
-            theBoardView.reload(PuzzleFactory().getNextPuzzle())
+            let puzzle = PuzzleFactory().getNextPuzzle()
+            theBoardView.reload(puzzle)
             theBoardView.setNeedsDisplay()
+            gameTitle.text = puzzle.title
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         nextButton.hidden = true
+        ideaButton.hidden = true
+        nextMove.hidden = true
+        previousMove.hidden = true
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
         theBoardView.nextPuzzleDelegate = self
@@ -59,7 +68,14 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
 
     func enableNext() {
         eloLabel.text = "You won"
+        nextButton.backgroundColor = UIColor.orangeColor()
         nextButton.hidden = false
+        ideaButton.backgroundColor = UIColor.lightGrayColor()
+        ideaButton.hidden = false
+        nextMove.backgroundColor = UIColor.lightGrayColor()
+        nextMove.hidden = false
+        previousMove.backgroundColor = UIColor.lightGrayColor()
+        previousMove.hidden = false
     }
     /*
     // MARK: - Navigation
