@@ -7,10 +7,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--First Screen View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Professional_Chess_Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="FirstScreenViewController" customModule="Professional_Chess_Trainer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -19,14 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
-                                <rect key="frame" x="109" y="240" width="382" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
+                                <rect key="frame" x="0.0" y="285" width="240" height="210"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYd-WV-i5I">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="qdw-SW-eIc"/>
+                                            <constraint firstAttribute="height" constant="30" id="qdw-SW-eIc" userLabel="height = 50"/>
                                         </constraints>
                                         <state key="normal" title="Play">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,14 +36,75 @@
                                             <segue destination="gF1-ki-02A" kind="show" id="boW-rz-f7C"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-Fe-MNy">
+                                        <rect key="frame" x="0.0" y="45" width="240" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="yMB-kV-5CJ" userLabel="height = 50"/>
+                                        </constraints>
+                                        <state key="normal" title="Leader Board">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q37-NX-jEU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNO-VX-Dp9">
+                                        <rect key="frame" x="0.0" y="90" width="240" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="sVN-4F-tJq" userLabel="height = 50"/>
+                                        </constraints>
+                                        <state key="normal" title="About 1000 Chess Tatics">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qef-eN-FgR"/>
+                                            <segue destination="TSS-yb-UYj" kind="show" id="Apg-9v-7sa"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tw-tU-xBG">
+                                        <rect key="frame" x="0.0" y="135" width="240" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="PbM-jN-cdB" userLabel="height = 50"/>
+                                        </constraints>
+                                        <state key="normal" title="Settings">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PfS-cg-kBh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-f1-4CY">
+                                        <rect key="frame" x="0.0" y="180" width="240" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Zh5-Dj-gkd" userLabel="height = 50"/>
+                                        </constraints>
+                                        <state key="normal" title="Log In">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WCm-Rb-beP"/>
+                                            <segue destination="2uq-ed-y55" kind="show" id="d9e-Ks-0H0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="R7e-f1-4CY" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="3YT-5M-d8F"/>
+                                    <constraint firstItem="IYd-WV-i5I" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="5pL-iq-wyl"/>
+                                    <constraint firstItem="QNO-VX-Dp9" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="AL6-Gv-Uaf"/>
+                                    <constraint firstItem="cIc-Fe-MNy" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="eGx-fY-btO"/>
+                                    <constraint firstItem="6Tw-tU-xBG" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="g2R-a2-YNA"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="9Wh-gH-47L" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9uS-qQ-NGT"/>
-                            <constraint firstItem="IYd-WV-i5I" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="7:11" id="hXc-za-ssg"/>
-                            <constraint firstItem="9Wh-gH-47L" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="yJD-cD-ncO"/>
+                            <constraint firstItem="IYd-WV-i5I" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="AmI-nK-4fq"/>
+                            <constraint firstItem="IYd-WV-i5I" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="4:10" id="hXc-za-ssg"/>
+                            <constraint firstItem="9Wh-gH-47L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="huq-mn-BAj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9aq-K2-f34"/>
@@ -51,6 +112,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="972" y="293"/>
+        </scene>
+        <!--Log In View Controller-->
+        <scene sceneID="7O2-W4-v7t">
+            <objects>
+                <viewController id="2uq-ed-y55" customClass="LogInViewController" customModule="Professional_Chess_Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hp5-rr-2Xx"/>
+                        <viewControllerLayoutGuide type="bottom" id="9WT-pf-kF5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2wR-Ax-MZY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kj3-Oc-EdJ">
+                                <rect key="frame" x="94" y="119" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sdz-m4-lDB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1753" y="1393"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="X6w-q7-s6K">
@@ -76,7 +163,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oUB-WZ-PZj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1705" y="1131"/>
+            <point key="canvasLocation" x="1753" y="647"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="jgj-vA-YsC">
@@ -228,7 +315,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuH-OZ-Em2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1715" y="64"/>
+            <point key="canvasLocation" x="1753" y="-76"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Oml-Gk-pbH">
