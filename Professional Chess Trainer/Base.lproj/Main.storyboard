@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UgH-q8-5Km">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UgH-q8-5Km">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
-                                <rect key="frame" x="0.0" y="285" width="240" height="210"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
+                                <rect key="frame" x="0.0" y="285" width="240" height="120"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYd-WV-i5I">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
@@ -46,25 +46,11 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q37-NX-jEU"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNO-VX-Dp9">
-                                        <rect key="frame" x="0.0" y="90" width="240" height="30"/>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="sVN-4F-tJq" userLabel="height = 50"/>
-                                        </constraints>
-                                        <state key="normal" title="About 1000 Chess Tatics">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qef-eN-FgR"/>
-                                            <segue destination="TSS-yb-UYj" kind="show" id="Apg-9v-7sa"/>
+                                            <action selector="showLeaderBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jjr-qk-x1c"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tw-tU-xBG">
-                                        <rect key="frame" x="0.0" y="135" width="240" height="30"/>
+                                        <rect key="frame" x="0.0" y="90" width="240" height="30"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="PbM-jN-cdB" userLabel="height = 50"/>
@@ -76,25 +62,9 @@
                                             <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PfS-cg-kBh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-f1-4CY">
-                                        <rect key="frame" x="0.0" y="180" width="240" height="30"/>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Zh5-Dj-gkd" userLabel="height = 50"/>
-                                        </constraints>
-                                        <state key="normal" title="Log In">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WCm-Rb-beP"/>
-                                            <segue destination="2uq-ed-y55" kind="show" id="d9e-Ks-0H0"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="R7e-f1-4CY" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="3YT-5M-d8F"/>
                                     <constraint firstItem="IYd-WV-i5I" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="5pL-iq-wyl"/>
-                                    <constraint firstItem="QNO-VX-Dp9" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="AL6-Gv-Uaf"/>
                                     <constraint firstItem="cIc-Fe-MNy" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="eGx-fY-btO"/>
                                     <constraint firstItem="6Tw-tU-xBG" firstAttribute="leading" secondItem="9Wh-gH-47L" secondAttribute="leading" id="g2R-a2-YNA"/>
                                 </constraints>
@@ -112,58 +82,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="972" y="293"/>
-        </scene>
-        <!--Log In View Controller-->
-        <scene sceneID="7O2-W4-v7t">
-            <objects>
-                <viewController id="2uq-ed-y55" customClass="LogInViewController" customModule="Professional_Chess_Trainer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hp5-rr-2Xx"/>
-                        <viewControllerLayoutGuide type="bottom" id="9WT-pf-kF5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2wR-Ax-MZY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kj3-Oc-EdJ">
-                                <rect key="frame" x="94" y="119" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sdz-m4-lDB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1753" y="1393"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="X6w-q7-s6K">
-            <objects>
-                <viewController id="TSS-yb-UYj" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dDa-Qt-PTu"/>
-                        <viewControllerLayoutGuide type="bottom" id="cCO-9y-Nbw"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dmD-Vh-Yc9">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gv-VE-BHR">
-                                <rect key="frame" x="283" y="134" width="47" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oUB-WZ-PZj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1753" y="647"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="jgj-vA-YsC">
