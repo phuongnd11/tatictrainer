@@ -28,7 +28,7 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
     }
     
     @IBAction func showLeaderBoard(sender: AnyObject) {
-        saveHighscore(UserData().getScore())
+        saveHighscore(UserData.getScore())
         showLeaderBoard()
     }
     
