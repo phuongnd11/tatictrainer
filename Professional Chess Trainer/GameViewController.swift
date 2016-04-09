@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 
 class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate, NextPuzzleDelegate {
     
@@ -21,12 +22,21 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     @IBAction func nextButton(sender: AnyObject) {
         if theBoardView != nil {
-            eloLabel.text = ""
             let puzzle = PuzzleFactory().getNextPuzzle()
             theBoardView.reload(puzzle)
             theBoardView.setNeedsDisplay()
-            gameTitle.text = puzzle.title
+            var userPlay = "White"
+            if puzzle.flipBoard {
+                userPlay = "Black"
+            }
+//            if GKLocalPlayer.localPlayer().authenticated {
+//                gameTitle.text = GKLocalPlayer.localPlayer().alias! + ", you play " + userPlay
+//            }
+//            else {
+                gameTitle.text = "You play " + userPlay
+//            }
         }
+        UserData.increaseNumOfGames()
     }
     
     override func viewDidLoad() {
@@ -38,6 +48,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
         theBoardView.nextPuzzleDelegate = self
+        eloLabel.text = String(UserData.getScore())
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,24 +61,19 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     }
     
     func updateUserStatus(correctMove: Bool) {
+        var score = UserData.getScore()
         if correctMove {
-            if eloLabel.text!.hasPrefix("+10") || eloLabel.text!.hasPrefix("-10") {
-                eloLabel.text = "+10 ELO.Correct Move! " + String(eloLabel.text!.substringFromIndex(eloLabel.text!.startIndex.advancedBy(22)))
-            } else {
-                eloLabel.text = "+10 ELO.Correct Move! " + String(eloLabel.text!)
-            }
+            score += 10
+            eloLabel.text = String(score) + " (+10)"
         }
         else {
-            if eloLabel.text!.hasPrefix("+10") || eloLabel.text!.hasPrefix("-10") {
-                eloLabel.text = "-10 ELO.  Wrong Move! " + String(eloLabel.text!.substringFromIndex(eloLabel.text!.startIndex.advancedBy(22)))
-            } else {
-                eloLabel.text = "-10 ELO.  Wrong Move! " + String(eloLabel.text!)
-            }
+            score -= 10
+            eloLabel.text = String(score) + " (-10)"
         }
+        UserData.storeScore(score)
     }
 
     func enableNext() {
-        eloLabel.text = "You won"
         nextButton.backgroundColor = UIColor.orangeColor()
         nextButton.hidden = false
         ideaButton.backgroundColor = UIColor.lightGrayColor()

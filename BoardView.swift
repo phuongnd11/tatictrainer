@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 
 protocol PrintEventDelegate {
     func moveFinish(moveResult: MoveResult)
@@ -57,7 +58,6 @@ class BoardView: UIView {
     }
     
     internal func reload(newPuzzle: Puzzle) {
-        NSLog("Reloadedddddddddd")
         self.puzzle = newPuzzle
         userWon = false
         boardStatus = BoardStatus()
@@ -72,18 +72,17 @@ class BoardView: UIView {
     }
    
     override func drawRect(rect: CGRect) {
-
+        
         var flip = false //alternating dark and light
         
         if puzzle == nil {
-            puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+", gameTitle: "Unknown - Unknown (2016)")
+            puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+", gameTitle: "Unknown - Unknown (2016)", elo: 1500)
         }
         if puzzle.flipBoard {
             boardStatus.isWhiteMove = false
         }
         
         boardHistory = [BoardHistory?](count: puzzle.numOfMoves, repeatedValue: nil)
-        //var fen = FENUtils().readBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         
         var board = puzzle.fen.board
         
@@ -166,9 +165,6 @@ class BoardView: UIView {
                 
                 let dest: (Int, Int) = (tag/10, tag%10)
                 
-                //moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
-                
-                //print("move: \(moves)")
                 let move = chessLogicUtils.getMoveResult(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus, isCheckGame: true)
                 let result = move.moveResult
                 self.moveFinishDelegate?.moveFinish(result)
@@ -250,6 +246,10 @@ class BoardView: UIView {
         }
         
         boardStatus = history.status
+    }
+    
+    func getPuzzle() -> Puzzle {
+        return self.puzzle
     }
 }
 
