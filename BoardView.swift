@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameKit
 
 protocol PrintEventDelegate {
     func moveFinish(moveResult: MoveResult)
@@ -17,7 +18,7 @@ protocol UpdateStatusDelegate {
 }
 
 protocol NextPuzzleDelegate {
-    func loadNextPuzzle()
+    func enableNext()
 }
 
 //@IBDesignable
@@ -41,6 +42,7 @@ class BoardView: UIView {
     var boardStatus = BoardStatus()
     var puzzle: Puzzle!
     var boardHistory = [BoardHistory?]()
+    var userWon = false
     
     //event delegate
     var moveFinishDelegate: PrintEventDelegate?
@@ -56,8 +58,8 @@ class BoardView: UIView {
     }
     
     internal func reload(newPuzzle: Puzzle) {
-        NSLog("Reloadedddddddddd")
         self.puzzle = newPuzzle
+        userWon = false
         boardStatus = BoardStatus()
         if puzzle.flipBoard {
                 boardStatus.isWhiteMove = false
@@ -70,18 +72,17 @@ class BoardView: UIView {
     }
    
     override func drawRect(rect: CGRect) {
-
+        
         var flip = false //alternating dark and light
         
         if puzzle == nil {
-            puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+")
+            puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+", gameTitle: "Unknown - Unknown (2016)", elo: 1500)
         }
         if puzzle.flipBoard {
             boardStatus.isWhiteMove = false
         }
         
         boardHistory = [BoardHistory?](count: puzzle.numOfMoves, repeatedValue: nil)
-        //var fen = FENUtils().readBoardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         
         var board = puzzle.fen.board
         
@@ -158,78 +159,76 @@ class BoardView: UIView {
     }
    
     func squareTapView(sender: UITapGestureRecognizer){
-        
-        if (highlightedSquare.0 != -1) {
-            let tag = sender.view!.tag
-            
-            let dest: (Int, Int) = (tag/10, tag%10)
-            
-            //moves += ChessLogicUtils().toStandardMove(highlightedSquare, dest: dest, board: squares)
-            
-            //print("move: \(moves)")
-            let move = chessLogicUtils.getMoveResult(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus, isCheckGame: true)
-            let result = move.moveResult
-            self.moveFinishDelegate?.moveFinish(result)
-            if (result.rawValue > (-1)){
-                NSLog("Move Number InIt: " + String(boardStatus.moveNumber))
-                boardHistory[boardStatus.moveNumber] = BoardHistory(start: Square(clone: squares[highlightedSquare.0][highlightedSquare.1]), dest: Square(clone: squares[dest.0][dest.1]), status: BoardStatus(clone: boardStatus))
+        if !userWon {
+            if (highlightedSquare.0 != -1) {
+                let tag = sender.view!.tag
                 
-                let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
+                let dest: (Int, Int) = (tag/10, tag%10)
                 
-                chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
-                
-                boardStatus.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
-                
-                let moveText = move.pgn
-                
-                // if move is correct
-                NSLog(moveText)
-                if puzzle.validateMove(moveText, moveNumber: boardStatus.moveNumber) {
-                    updateStatusDelegate?.updateUserStatus(true)
-                    if boardStatus.moveNumber >= puzzle.numOfMoves {
-                     //next puzzle
-                    } else {
-                        let nextMove = puzzle.getNextComputerMove(boardStatus.moveNumber)
-                        //computerMove
-                        let nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: squares, isWhiteMove: boardStatus.isWhiteMove)
-                        chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
-                        
-                        boardStatus.updateStatus(nextComputerMove.start, dest:nextComputerMove.dest,movedPiece: squares[nextComputerMove.dest.0][nextComputerMove.dest.1].piece!, moveResult:nextComputerMove.moveResult)
+                let move = chessLogicUtils.getMoveResult(highlightedSquare, dest: dest, board: squares, boardStatus: boardStatus, isCheckGame: true)
+                let result = move.moveResult
+                self.moveFinishDelegate?.moveFinish(result)
+                if (result.rawValue > (-1)){
+                    NSLog("Move Number InIt: " + String(boardStatus.moveNumber))
+                    boardHistory[boardStatus.moveNumber] = BoardHistory(start: Square(clone: squares[highlightedSquare.0][highlightedSquare.1]), dest: Square(clone: squares[dest.0][dest.1]), status: BoardStatus(clone: boardStatus))
+                    
+                    let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
+                    
+                    chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
+                    
+                    boardStatus.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
+                    
+                    let moveText = move.pgn
+                    
+                    // if move is correct
+                    NSLog(moveText)
+                    if puzzle.validateMove(moveText, moveNumber: boardStatus.moveNumber) {
+                        updateStatusDelegate?.updateUserStatus(true)
+                        if boardStatus.moveNumber >= puzzle.numOfMoves {
+                            nextPuzzleDelegate?.enableNext()
+                            userWon = true
+                        } else {
+                            let nextMove = puzzle.getNextComputerMove(boardStatus.moveNumber)
+                            //computerMove
+                            let nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: squares, isWhiteMove: boardStatus.isWhiteMove)
+                            chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
+                            
+                            boardStatus.updateStatus(nextComputerMove.start, dest:nextComputerMove.dest,movedPiece: squares[nextComputerMove.dest.0][nextComputerMove.dest.1].piece!, moveResult:nextComputerMove.moveResult)
 
+                        }
+                    }
+                    else {
+                        updateStatusDelegate?.updateUserStatus(false)
+                        NSLog("moveNumver before: " + String(boardHistory[boardStatus.moveNumber-1]!.status.moveNumber))
+                        goto(boardHistory[boardStatus.moveNumber-1]!)
+                        NSLog("moveNumver: " + String(boardStatus.moveNumber))
+                        //revert board status
+                    }
+                    //--------------------------------debug only
+                    board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
+                    board[highlightedSquare.0][highlightedSquare.1] = "e"
+                    //-------------------------------------
+                    
+                }
+                squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
+                highlightedSquare.0 = -1
+                highlightedSquare.1 = -1
+                
+                
+            } else {
+                
+                let tag = sender.view!.tag
+                
+                if !squares[tag/10][tag%10].isEmpty() {
+                    if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.White)){
+                        highlightedSquare.0 = tag/10
+                        highlightedSquare.1 = tag%10
+                        squares[highlightedSquare.0][highlightedSquare.1].highlight()
                     }
                 }
-                else {
-                    updateStatusDelegate?.updateUserStatus(false)
-                    NSLog("moveNumver before: " + String(boardHistory[boardStatus.moveNumber-1]!.status.moveNumber))
-                    goto(boardHistory[boardStatus.moveNumber-1]!)
-                    NSLog("moveNumver: " + String(boardStatus.moveNumber))
-                    //revert board status
-                }
-                //--------------------------------debug only
-                board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
-                board[highlightedSquare.0][highlightedSquare.1] = "e"
-                //-------------------------------------
                 
             }
-            squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
-            highlightedSquare.0 = -1
-            highlightedSquare.1 = -1
-            
-            
-        } else {
-            
-            let tag = sender.view!.tag
-            
-            if !squares[tag/10][tag%10].isEmpty() {
-                if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.White)){
-                    highlightedSquare.0 = tag/10
-                    highlightedSquare.1 = tag%10
-                    squares[highlightedSquare.0][highlightedSquare.1].highlight()
-                }
-            }
-            
         }
-        
     }
     
     func goto(history: BoardHistory) {
@@ -247,6 +246,10 @@ class BoardView: UIView {
         }
         
         boardStatus = history.status
+    }
+    
+    func getPuzzle() -> Puzzle {
+        return self.puzzle
     }
 }
 
