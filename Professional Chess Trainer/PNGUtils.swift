@@ -112,7 +112,7 @@ public class PNGUtils {
             return ""
         }
         let piece = board[square.0][square.1].piece
-        if (piece is King || piece is Queen || piece is Bishop){
+        if (piece is King){
             return ""
         }
         let color = piece.color
