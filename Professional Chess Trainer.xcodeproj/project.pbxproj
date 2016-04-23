@@ -43,8 +43,8 @@
 		AAE485061CB6C950006AA129 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE485051CB6C950006AA129 /* GameKit.framework */; };
 		AAE5E0991CCAF19D00026FDB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE5E0981CCAF19D00026FDB /* AVFoundation.framework */; };
 		AAE5E09B1CCAF1EB00026FDB /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5E09A1CCAF1EB00026FDB /* SoundPlayer.swift */; };
-		AAE5E09D1CCAF3EE00026FDB /* Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E09C1CCAF3EE00026FDB /* Click.wav */; };
 		AAE5E09F1CCAF6BC00026FDB /* Chirp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5E09E1CCAF6BC00026FDB /* Chirp.swift */; };
+		AAE5E0A51CCB5A5300026FDB /* Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0A41CCB5A5300026FDB /* Click.wav */; };
 		AAEC4E001C9FC8D300AA34A1 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */; };
 		AAEC4E061C9FD48400AA34A1 /* PNGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC4E051C9FD48400AA34A1 /* PNGUtils.swift */; };
 /* End PBXBuildFile section */
@@ -108,8 +108,8 @@
 		AAE485051CB6C950006AA129 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		AAE5E0981CCAF19D00026FDB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AAE5E09A1CCAF1EB00026FDB /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
-		AAE5E09C1CCAF3EE00026FDB /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Click.wav; path = "../../stockfishchess-ios/Sounds/Click.wav"; sourceTree = "<group>"; };
 		AAE5E09E1CCAF6BC00026FDB /* Chirp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chirp.swift; sourceTree = "<group>"; };
+		AAE5E0A41CCB5A5300026FDB /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Click.wav; sourceTree = "<group>"; };
 		AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		AAEC4E051C9FD48400AA34A1 /* PNGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNGUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +179,7 @@
 		AA85FBDD1C5D01DB0091C2EE /* Professional Chess Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				AAE5E0A41CCB5A5300026FDB /* Click.wav */,
 				AAAC862F1CAEC79F000D3B43 /* View */,
 				AAAC862E1CAEC769000D3B43 /* Utils */,
 				AAAC862D1CAEC704000D3B43 /* Model */,
@@ -188,7 +189,6 @@
 				AABCF7B91C68EB8800B22AF5 /* Contents.json */,
 				AA85FBE71C5D01DB0091C2EE /* LaunchScreen.storyboard */,
 				AA85FBEA1C5D01DB0091C2EE /* Info.plist */,
-				AAE5E09C1CCAF3EE00026FDB /* Click.wav */,
 			);
 			path = "Professional Chess Trainer";
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 				AA85FBE91C5D01DB0091C2EE /* LaunchScreen.storyboard in Resources */,
 				AA85FBE61C5D01DB0091C2EE /* Assets.xcassets in Resources */,
 				AA85FBE41C5D01DB0091C2EE /* Main.storyboard in Resources */,
-				AAE5E09D1CCAF3EE00026FDB /* Click.wav in Resources */,
+				AAE5E0A51CCB5A5300026FDB /* Click.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
