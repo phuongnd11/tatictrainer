@@ -184,7 +184,12 @@ class BoardView: UIView {
                         
                         }, completion:{(finished: Bool) -> Void in
                             //SoundPlayer().playMove()
-                            Chirp.sharedManager.playSound(fileName: "Click")
+                            if (!self.squares[moveInfo.end.0][moveInfo.end.1].isEmpty()){
+                                Chirp.sharedManager.playSound(fileName: "eat")
+                            }
+                            else {
+                                Chirp.sharedManager.playSound(fileName: "move")
+                            }
                             self.squares[moveInfo.start.0][moveInfo.start.1].move(self.squares[moveInfo.end.0][moveInfo.end.1])
                             
                             self.boardStatus.updateStatus(self.highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
@@ -210,7 +215,12 @@ class BoardView: UIView {
                                         },
                                         completion: {(finished: Bool) -> Void in
                                             //SoundPlayer().playMove()
-                                            Chirp.sharedManager.playSound(fileName: "Click")
+                                            if (!self.squares[computerMove.end.0][computerMove.end.1].isEmpty()){
+                                                Chirp.sharedManager.playSound(fileName: "eat")
+                                            }
+                                            else {
+                                                Chirp.sharedManager.playSound(fileName: "move")
+                                            }
                                             
                                             self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.end.0][computerMove.end.1]), status: BoardStatus(clone: self.boardStatus))
                                             
@@ -310,7 +320,13 @@ class BoardView: UIView {
                 },
                         completion: {(finished: Bool) -> Void in
                         //SoundPlayer().playMove()
-                        Chirp.sharedManager.playSound(fileName: "Click")
+                            if (!self.squares[computerMove.end.0][computerMove.end.1].isEmpty()){
+                                 Chirp.sharedManager.playSound(fileName: "eat")
+                            }
+                            else {
+                                Chirp.sharedManager.playSound(fileName: "move")
+                            }
+                        
                                         
                         self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.end.0][computerMove.end.1]), status: BoardStatus(clone: self.boardStatus))
                                         

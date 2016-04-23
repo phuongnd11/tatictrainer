@@ -77,7 +77,6 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
         eloLabel.text = String(UserData.getScore())
-        Chirp.sharedManager.prepareSound(fileName: "Click")
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +93,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         var elo = theBoardView.getPuzzle().elo
         
         if !correctMove {
+            Chirp.sharedManager.playSound(fileName: "invalid")
             if(!lockELO) {
                 lockELO = true
                 var eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 0, numOfGamesPlayed: UserData.getNumOfGames(), moveNum: moveNum)
@@ -111,7 +111,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             //gameTitle.textColor = UIColor.greenColor()
             gameTitle.text = "Correct"
             if (!lockELO && moveNum.0 >= moveNum.1){
-                
+                Chirp.sharedManager.playSound(fileName: "correct")
                 var eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 1, numOfGamesPlayed: UserData.getNumOfGames(),moveNum: moveNum)
                 var symbol = "+"
             

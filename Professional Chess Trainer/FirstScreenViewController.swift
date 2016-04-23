@@ -15,6 +15,10 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "Kasparov-29")!)
         authPlayer()
+        Chirp.sharedManager.prepareSound(fileName: "move")
+        Chirp.sharedManager.prepareSound(fileName: "invalid")
+        Chirp.sharedManager.prepareSound(fileName: "eat")
+        Chirp.sharedManager.prepareSound(fileName: "correct")
         // Do any additional setup after loading the view.
     }
 
