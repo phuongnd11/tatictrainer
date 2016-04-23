@@ -44,7 +44,11 @@
 		AAE5E0991CCAF19D00026FDB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE5E0981CCAF19D00026FDB /* AVFoundation.framework */; };
 		AAE5E09B1CCAF1EB00026FDB /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5E09A1CCAF1EB00026FDB /* SoundPlayer.swift */; };
 		AAE5E09F1CCAF6BC00026FDB /* Chirp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE5E09E1CCAF6BC00026FDB /* Chirp.swift */; };
-		AAE5E0A51CCB5A5300026FDB /* Click.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0A41CCB5A5300026FDB /* Click.wav */; };
+		AAE5E0AF1CCB6D5B00026FDB /* eat.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0AD1CCB6D5B00026FDB /* eat.wav */; };
+		AAE5E0B31CCB6D6800026FDB /* check.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0B21CCB6D6800026FDB /* check.wav */; };
+		AAE5E0B71CCB6DA800026FDB /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0B61CCB6DA800026FDB /* move.wav */; };
+		AAE5E0B91CCB71BB00026FDB /* invalid.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0B81CCB71BB00026FDB /* invalid.wav */; };
+		AAE5E0BB1CCB71D700026FDB /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0BA1CCB71D700026FDB /* correct.wav */; };
 		AAEC4E001C9FC8D300AA34A1 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */; };
 		AAEC4E061C9FD48400AA34A1 /* PNGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC4E051C9FD48400AA34A1 /* PNGUtils.swift */; };
 /* End PBXBuildFile section */
@@ -109,7 +113,11 @@
 		AAE5E0981CCAF19D00026FDB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AAE5E09A1CCAF1EB00026FDB /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		AAE5E09E1CCAF6BC00026FDB /* Chirp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chirp.swift; sourceTree = "<group>"; };
-		AAE5E0A41CCB5A5300026FDB /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Click.wav; sourceTree = "<group>"; };
+		AAE5E0AD1CCB6D5B00026FDB /* eat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = eat.wav; sourceTree = "<group>"; };
+		AAE5E0B21CCB6D6800026FDB /* check.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = check.wav; sourceTree = "<group>"; };
+		AAE5E0B61CCB6DA800026FDB /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
+		AAE5E0B81CCB71BB00026FDB /* invalid.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = invalid.wav; sourceTree = "<group>"; };
+		AAE5E0BA1CCB71D700026FDB /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
 		AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		AAEC4E051C9FD48400AA34A1 /* PNGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNGUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,7 +187,11 @@
 		AA85FBDD1C5D01DB0091C2EE /* Professional Chess Trainer */ = {
 			isa = PBXGroup;
 			children = (
-				AAE5E0A41CCB5A5300026FDB /* Click.wav */,
+				AAE5E0BA1CCB71D700026FDB /* correct.wav */,
+				AAE5E0B81CCB71BB00026FDB /* invalid.wav */,
+				AAE5E0B61CCB6DA800026FDB /* move.wav */,
+				AAE5E0B21CCB6D6800026FDB /* check.wav */,
+				AAE5E0AD1CCB6D5B00026FDB /* eat.wav */,
 				AAAC862F1CAEC79F000D3B43 /* View */,
 				AAAC862E1CAEC769000D3B43 /* Utils */,
 				AAAC862D1CAEC704000D3B43 /* Model */,
@@ -374,9 +386,13 @@
 			files = (
 				AABCF7BD1C68EB8800B22AF5 /* Contents.json in Resources */,
 				AA85FBE91C5D01DB0091C2EE /* LaunchScreen.storyboard in Resources */,
+				AAE5E0B31CCB6D6800026FDB /* check.wav in Resources */,
+				AAE5E0BB1CCB71D700026FDB /* correct.wav in Resources */,
+				AAE5E0AF1CCB6D5B00026FDB /* eat.wav in Resources */,
+				AAE5E0B91CCB71BB00026FDB /* invalid.wav in Resources */,
+				AAE5E0B71CCB6DA800026FDB /* move.wav in Resources */,
 				AA85FBE61C5D01DB0091C2EE /* Assets.xcassets in Resources */,
 				AA85FBE41C5D01DB0091C2EE /* Main.storyboard in Resources */,
-				AAE5E0A51CCB5A5300026FDB /* Click.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
