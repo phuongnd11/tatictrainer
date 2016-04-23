@@ -10,7 +10,7 @@ import Foundation
 
 public class ELOUtils {
     
-    static func calculateELOChange(rating1: Int, rating2: Int, winLoseDraw: Int, numOfGamesPlayed: Int) -> Int{
+    static func calculateELOChange(rating1: Int, rating2: Int, winLoseDraw: Int, numOfGamesPlayed: Int, moveNum: (Int, Int)) -> Int{
         var K = 40
         if numOfGamesPlayed > 30 {
             K = 20
@@ -21,15 +21,20 @@ public class ELOUtils {
         
         var r1 = pow(10.0, Double(rating1)/400)
         var r2 = pow(10.0, Double(rating2)/400)
-        
-        var W = Double(1)
-        if (winLoseDraw == 0){
-            W = 0.5
-        } else if winLoseDraw == -1 {
-            W = 0
+        var change = 0
+        change = Int((Double(winLoseDraw) - r1/(r1+r2)) * Double(K))
+        var correctMoveNum = moveNum.0 - 1
+        if(moveNum.0 == 1 || moveNum.0 >= moveNum.1) {
+            return change
         }
-        var change = Int((W - r1/(r1+r2)) * Double(K))
-        
+        else {
+            if (correctMoveNum * 2 >= moveNum.1 && winLoseDraw == 0){
+                change = change * (-1) * correctMoveNum/moveNum.1
+            }
+            else if (correctMoveNum * 2 < moveNum.1 && winLoseDraw == 0){
+                change = change * correctMoveNum/moveNum.1
+            }
+        }
         return change
     }
     

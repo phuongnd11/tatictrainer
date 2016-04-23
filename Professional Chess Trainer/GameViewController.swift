@@ -9,16 +9,36 @@
 import UIKit
 import GameKit
 
-class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate, NextPuzzleDelegate {
+class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate {
     
     @IBOutlet weak var ideaButton: UIButton!
-    @IBOutlet weak var previousMove: UIButton!
-    @IBOutlet weak var nextMove: UIButton!
     @IBOutlet weak var gameTitle: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var eloLabel: UILabel!
     
+    @IBOutlet weak var retryButton: UIButton!
+    
+    @IBOutlet weak var solutionButton: UIButton!
+    
+    
     @IBOutlet weak var theBoardView: BoardView!
+    
+    var lockELO = false
+    var titleGame = ""
+    
+    @IBAction func solutionClicked(sender: AnyObject) {
+    }
+    
+    @IBAction func retryClicked(sender: AnyObject) {
+        
+        if theBoardView != nil {
+            theBoardView.retry()
+        }
+        //gameTitle.textColor = UIColor.whiteColor()
+        gameTitle.text = "Analysis mode"
+        hideButtons()
+        //redisplayELO()
+    }
     
     @IBAction func nextButton(sender: AnyObject) {
         if theBoardView != nil {
@@ -33,22 +53,25 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
 //                gameTitle.text = GKLocalPlayer.localPlayer().alias! + ", you play " + userPlay
 //            }
 //            else {
-                gameTitle.text = "You play " + userPlay
+                //gameTitle.textColor = UIColor.whiteColor()
+                gameTitle.text = userPlay + " to play"
+                titleGame = gameTitle.text!
 //            }
         }
+        
+        lockELO = false
+        hideButtons()
+        redisplayELO()
         UserData.increaseNumOfGames()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextButton.hidden = true
-        ideaButton.hidden = true
-        nextMove.hidden = true
-        previousMove.hidden = true
+        hideButtons()
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
-        theBoardView.nextPuzzleDelegate = self
         eloLabel.text = String(UserData.getScore())
+        Chirp.sharedManager.prepareSound(fileName: "Click")
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,32 +80,79 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     }
     
     func moveFinish(moveResult: MoveResult){
-        eloLabel.text = String(moveResult)
+        //eloLabel.text = String(moveResult)
     }
     
-    func updateUserStatus(correctMove: Bool) {
+    func updateUserStatus(correctMove: Bool, moveNum: (Int, Int)) {
         var score = UserData.getScore()
-        if correctMove {
-            score += 10
-            eloLabel.text = String(score) + " (+10)"
+        var elo = theBoardView.getPuzzle().elo
+        
+        if !correctMove {
+            if(!lockELO) {
+                lockELO = true
+                var eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 0, numOfGamesPlayed: UserData.getNumOfGames(), moveNum: moveNum)
+                var symbol = "+"
+                
+                score += eloChange
+                //eloLabel.textColor = UIColor.redColor()
+                eloLabel.text = String(score) + " (" + String(eloChange) + ")"
+                
+                UserData.storeScore(score)
+            }
+            updateUIWhenFailed()
         }
         else {
-            score -= 10
-            eloLabel.text = String(score) + " (-10)"
+            //gameTitle.textColor = UIColor.greenColor()
+            gameTitle.text = "Correct"
+            if (!lockELO && moveNum.0 >= moveNum.1){
+                
+                var eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 1, numOfGamesPlayed: UserData.getNumOfGames(),moveNum: moveNum)
+                var symbol = "+"
+            
+                score += eloChange
+                eloLabel.text = String(score) + " (" + symbol + String(eloChange) + ")"
+                enableNext()
+                
+                UserData.storeScore(score)
+            }
+            
+            else if(lockELO) {
+                //eloLabel.textColor = UIColor.whiteColor()
+                //eloLabel.text = String(score)
+                if (moveNum.0 >= moveNum.1){
+                    enableNext()
+                }
+            }
+            
         }
-        UserData.storeScore(score)
+        
+    }
+    
+    func updateUIWhenFailed(){
+        retryButton.hidden = false
+        solutionButton.hidden = false
+        gameTitle.text = "Incorrect"
+        enableNext()
     }
 
     func enableNext() {
-        nextButton.backgroundColor = UIColor.orangeColor()
+        //nextButton.backgroundColor = UIColor.orangeColor()
         nextButton.hidden = false
-        ideaButton.backgroundColor = UIColor.lightGrayColor()
+        //ideaButton.backgroundColor = UIColor.lightGrayColor()
         ideaButton.hidden = false
-        nextMove.backgroundColor = UIColor.lightGrayColor()
-        nextMove.hidden = false
-        previousMove.backgroundColor = UIColor.lightGrayColor()
-        previousMove.hidden = false
+    }
+    
+    func hideButtons(){
+        nextButton.hidden = true
+        ideaButton.hidden = true
+        solutionButton.hidden = true
+        retryButton.hidden = true
     }
 
+    func redisplayELO(){
+        var score = UserData.getScore()
+        eloLabel.textColor = UIColor.whiteColor()
+        eloLabel.text = String(score)
+    }
 
 }

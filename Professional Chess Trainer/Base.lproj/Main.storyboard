@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
                                 <rect key="frame" x="0.0" y="285" width="240" height="120"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYd-WV-i5I">
@@ -140,7 +140,7 @@
                                     <stackView opaque="NO" contentMode="center" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mcG-in-t1a" userLabel="User Stack View">
                                         <rect key="frame" x="0.0" y="439" width="600" height="67"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="11265532_10153048711808462_2628973319648746469_o" translatesAutoresizingMaskIntoConstraints="NO" id="cOa-Ew-OQv">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maya_white_king" translatesAutoresizingMaskIntoConstraints="NO" id="cOa-Ew-OQv">
                                                 <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="cOa-Ew-OQv" secondAttribute="height" multiplier="1:1" id="MqN-5j-MVF"/>
@@ -162,16 +162,24 @@
                                         <rect key="frame" x="0.0" y="506" width="600" height="0.0"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dd-Nd-IZh" userLabel="Idea">
-                                                <rect key="frame" x="0.0" y="0.0" width="216" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="184" height="0.0"/>
                                                 <state key="normal" title="Idea"/>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3BQ-DZ-t40" userLabel="&lt;">
-                                                <rect key="frame" x="224" y="0.0" width="30" height="0.0"/>
-                                                <state key="normal" title="&lt;"/>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpa-cf-yct">
+                                                <rect key="frame" x="192" y="0.0" width="56" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                <state key="normal" title="Solution"/>
+                                                <connections>
+                                                    <action selector="solutionClicked:" destination="gF1-ki-02A" eventType="touchUpInside" id="3kA-zN-Ioj"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jR-c8-I2k" userLabel="&gt;">
-                                                <rect key="frame" x="262" y="0.0" width="30" height="0.0"/>
-                                                <state key="normal" title="&gt;"/>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPp-cQ-Kaz">
+                                                <rect key="frame" x="256" y="0.0" width="36" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                <state key="normal" title="Retry"/>
+                                                <connections>
+                                                    <action selector="retryClicked:" destination="gF1-ki-02A" eventType="touchUpInside" id="7cm-ai-fbz"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLE-vD-cBV">
                                                 <rect key="frame" x="300" y="0.0" width="300" height="0.0"/>
@@ -226,8 +234,8 @@
                         <outlet property="gameTitle" destination="uJt-di-k1m" id="9MJ-tQ-x5s"/>
                         <outlet property="ideaButton" destination="7dd-Nd-IZh" id="e30-Up-clo"/>
                         <outlet property="nextButton" destination="OLE-vD-cBV" id="hGj-5a-Al3"/>
-                        <outlet property="nextMove" destination="6jR-c8-I2k" id="Ply-MC-tmh"/>
-                        <outlet property="previousMove" destination="3BQ-DZ-t40" id="GJd-0b-jrz"/>
+                        <outlet property="retryButton" destination="uPp-cQ-Kaz" id="Tze-Q9-Sb9"/>
+                        <outlet property="solutionButton" destination="gpa-cf-yct" id="chz-n7-mLy"/>
                         <outlet property="theBoardView" destination="qts-FE-ifW" id="jx9-mr-jYC"/>
                     </connections>
                 </viewController>
@@ -255,6 +263,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="11265532_10153048711808462_2628973319648746469_o" width="1334" height="1334"/>
+        <image name="maya_white_king" width="2048" height="2048"/>
     </resources>
 </document>

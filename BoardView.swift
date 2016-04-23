@@ -9,16 +9,12 @@
 import UIKit
 import GameKit
 
-protocol PrintEventDelegate {
+protocol PrintEventDelegate: class {
     func moveFinish(moveResult: MoveResult)
 }
 
-protocol UpdateStatusDelegate {
-    func updateUserStatus(correctMove: Bool)
-}
-
-protocol NextPuzzleDelegate {
-    func enableNext()
+protocol UpdateStatusDelegate: class {
+    func updateUserStatus(correctMove: Bool, moveNum: (Int, Int))
 }
 
 //@IBDesignable
@@ -43,11 +39,12 @@ class BoardView: UIView {
     var puzzle: Puzzle!
     var boardHistory = [BoardHistory?]()
     var userWon = false
+    var disable = false
+    var onMove = false
     
     //event delegate
-    var moveFinishDelegate: PrintEventDelegate?
-    var updateStatusDelegate: UpdateStatusDelegate?
-    var nextPuzzleDelegate: NextPuzzleDelegate?
+    weak var moveFinishDelegate: PrintEventDelegate?
+    weak var updateStatusDelegate: UpdateStatusDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,6 +57,8 @@ class BoardView: UIView {
     internal func reload(newPuzzle: Puzzle) {
         self.puzzle = newPuzzle
         userWon = false
+        disable = false
+        onMove = false
         boardStatus = BoardStatus()
         if puzzle.flipBoard {
                 boardStatus.isWhiteMove = false
@@ -101,8 +100,8 @@ class BoardView: UIView {
                 
                 var square: Square
                 
-                square = Square(x: x, y: y, light: flip, squareSize: size, flipBoard: puzzle.flipBoard)
-                
+                square = Square(x: x, y: y, light: flip, squareSize: size, flipBoard: puzzle.flipBoard, boardView: self)
+                self.addSubview(square)
                 var piece:Piece
                 
                 if (symbol != "e"){
@@ -147,7 +146,6 @@ class BoardView: UIView {
                 square.userInteractionEnabled = true
                 square.multipleTouchEnabled = false
 
-                self.addSubview(square)
                 if (!puzzle.flipBoard) {
                     squares[x][y] = square
                 } else {
@@ -159,7 +157,7 @@ class BoardView: UIView {
     }
    
     func squareTapView(sender: UITapGestureRecognizer){
-        if !userWon {
+        if !userWon && !disable && !onMove {
             if (highlightedSquare.0 != -1) {
                 let tag = sender.view!.tag
                 
@@ -174,37 +172,66 @@ class BoardView: UIView {
                     
                     let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
                     
-                    chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
+                    var moveInfo = chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
                     
-                    boardStatus.updateStatus(highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
+                    self.onMove = true
                     
-                    let moveText = move.pgn
-                    
-                    // if move is correct
-                    NSLog(moveText)
-                    if puzzle.validateMove(moveText, moveNumber: boardStatus.moveNumber) {
-                        updateStatusDelegate?.updateUserStatus(true)
-                        if boardStatus.moveNumber >= puzzle.numOfMoves {
-                            nextPuzzleDelegate?.enableNext()
-                            userWon = true
-                        } else {
-                            let nextMove = puzzle.getNextComputerMove(boardStatus.moveNumber)
-                            //computerMove
-                            let nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: squares, isWhiteMove: boardStatus.isWhiteMove)
-                            chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
+                    UIView.animateWithDuration(0.5, animations:{
+        
+                        self.bringSubviewToFront(self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView)
+                        self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView.frame =
+                        self.squares[moveInfo.end.0][moveInfo.end.1].frame
+                        
+                        }, completion:{(finished: Bool) -> Void in
+                            //SoundPlayer().playMove()
+                            Chirp.sharedManager.playSound(fileName: "Click")
+                            self.squares[moveInfo.end.0][moveInfo.end.1].clearPiece()
+                            self.squares[moveInfo.end.0][moveInfo.end.1].setPiece2(self.squares[moveInfo.start.0][moveInfo.start.1].piece, occupyingPieceImageView: self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView)
+                            self.squares[moveInfo.start.0][moveInfo.start.1].clearPiece2()
                             
-                            boardStatus.updateStatus(nextComputerMove.start, dest:nextComputerMove.dest,movedPiece: squares[nextComputerMove.dest.0][nextComputerMove.dest.1].piece!, moveResult:nextComputerMove.moveResult)
-
-                        }
-                    }
-                    else {
-                        updateStatusDelegate?.updateUserStatus(false)
-                        NSLog("moveNumver before: " + String(boardHistory[boardStatus.moveNumber-1]!.status.moveNumber))
-                        goto(boardHistory[boardStatus.moveNumber-1]!)
-                        NSLog("moveNumver: " + String(boardStatus.moveNumber))
-                        //revert board status
-                    }
-                    //--------------------------------debug only
+                            self.boardStatus.updateStatus(self.highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
+                            
+                            let moveText = move.pgn
+                            
+                            var moveNum = (self.boardStatus.moveNumber, self.puzzle.numOfMoves)
+                            if self.puzzle.validateMove(moveText, moveNumber: self.boardStatus.moveNumber) {
+                                self.updateStatusDelegate?.updateUserStatus(true, moveNum: moveNum)
+                                if self.boardStatus.moveNumber >= self.puzzle.numOfMoves {
+                                    self.userWon = true
+                                } else {
+                                    let nextMove = self.puzzle.getNextComputerMove(self.boardStatus.moveNumber)
+                                    //computerMove
+                                    let nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove)
+                                    
+                                    var computerMove = self.chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
+                                    
+                                    UIView.animateWithDuration(0.5, animations: {
+                                        self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
+                                        self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = self.squares[computerMove.end.0][computerMove.end.1].frame
+                                        
+                                        },
+                                        completion: {(finished: Bool) -> Void in
+                                            //SoundPlayer().playMove()
+                                            Chirp.sharedManager.playSound(fileName: "Click")
+                                            self.squares[computerMove.end.0][computerMove.end.1].clearPiece()
+                                            self.squares[computerMove.end.0][computerMove.end.1].setPiece2(self.squares[computerMove.start.0][computerMove.start.1].piece, occupyingPieceImageView: self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
+                                            self.squares[computerMove.start.0][computerMove.start.1].clearPiece2()
+    
+                                        self.boardStatus.updateStatus(nextComputerMove.start, dest:nextComputerMove.dest,movedPiece: self.squares[nextComputerMove.dest.0][nextComputerMove.dest.1].piece!, moveResult:nextComputerMove.moveResult)
+                                    })
+                                    
+                                }
+                            }
+                            else {
+                                self.updateStatusDelegate?.updateUserStatus(false, moveNum: moveNum)
+                                //goto(boardHistory[boardStatus.moveNumber-1]!)
+                                //revert board status
+                                self.disable = true
+                            }
+                        self.onMove = false
+                    })
+                    
+                                      //--------------------------------debug only
                     board[tag/10][tag%10] = board[highlightedSquare.0][highlightedSquare.1]
                     board[highlightedSquare.0][highlightedSquare.1] = "e"
                     //-------------------------------------
@@ -246,6 +273,11 @@ class BoardView: UIView {
         }
         
         boardStatus = history.status
+    }
+    
+    func retry(){
+        goto(boardHistory[boardStatus.moveNumber-1]!)
+        disable = false
     }
     
     func getPuzzle() -> Puzzle {
