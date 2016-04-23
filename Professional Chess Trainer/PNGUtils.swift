@@ -8,7 +8,7 @@
 
 import Foundation
 public class PNGUtils {
-    let specialText = ["x","+","#","O-O-O", "O-O"]
+    let specialText = ["x","+","#","O-O-O", "O-O", "."]
     public func getPngFromMove(move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
         let start = move.start
         let dest = move.dest

@@ -55,7 +55,6 @@ public class Puzzle {
         if moveNumber > tokens.count {
             return ""
         }
-        NSLog("computer " + tokens[moveNumber])
         
         return tokens[moveNumber]
     }

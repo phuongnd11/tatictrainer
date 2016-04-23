@@ -27,6 +27,10 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     var titleGame = ""
     
     @IBAction func solutionClicked(sender: AnyObject) {
+        if theBoardView != nil {
+            theBoardView.showSolution()
+        }
+        retryButton.hidden = true
     }
     
     @IBAction func retryClicked(sender: AnyObject) {
