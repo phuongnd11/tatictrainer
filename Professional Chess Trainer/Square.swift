@@ -13,6 +13,7 @@ import UIKit
 
 public class Square: UIView {
     
+    weak var boardView: BoardView!
     var isLight: Bool
     var position: (Int, Int)
     var size: CGFloat!
@@ -38,11 +39,13 @@ public class Square: UIView {
         backgroundColor = clone.backgroundColor
         piece = clone.piece
         occupyingPieceImageView = clone.occupyingPieceImageView
+        boardView = clone.boardView
     }
     
-    init(x: Int, y: Int, light: Bool, squareSize: CGFloat, flipBoard: Bool){
+    init(x: Int, y: Int, light: Bool, squareSize: CGFloat, flipBoard: Bool, boardView: BoardView){
         isLight = light
         size = squareSize
+        self.boardView = boardView
         if !flipBoard {
             position = (x, y)
         } else {
@@ -57,13 +60,46 @@ public class Square: UIView {
         }
     }
     
+    func move(destSquare: Square){
+        //var imgView = self.occupyingPieceImageView
+        //var thisPiece = self.piece
+        UIView.animateWithDuration(0.5, animations: {
+            self.occupyingPieceImageView.frame = destSquare.frame
+            }, completion:{(finished: Bool) -> Void in
+                
+        })
+        destSquare.piece = self.piece
+        if(destSquare.occupyingPieceImageView != nil) {
+            destSquare.occupyingPieceImageView.removeFromSuperview()
+        }
+        destSquare.occupyingPieceImageView = self.occupyingPieceImageView
+        self.piece = nil
+        self.occupyingPieceImageView = nil
+        //destSquare.setPiece(self.piece)
+        //self.clearPiece()
+    }
+    
     func setPiece(piece: Piece){
         self.piece = piece
         if (occupyingPieceImageView == nil) {
-            occupyingPieceImageView = UIImageView(frame: CGRectMake(0, 0, size, size))
-            self.addSubview(occupyingPieceImageView)
+            //occupyingPieceImageView = UIImageView(frame: CGRectMake(0, 0, size, size))
+            occupyingPieceImageView = UIImageView(frame: self.frame)
+            boardView.addSubview(occupyingPieceImageView)
+            boardView.bringSubviewToFront(occupyingPieceImageView)
+            //self.addSubview(occupyingPieceImageView)
         }
         occupyingPieceImageView.image = self.piece.image
+    }
+
+     func setPiece2(piece: Piece, occupyingPieceImageView: UIImageView){
+        self.piece = piece
+        if (self.occupyingPieceImageView == nil) {
+            //occupyingPieceImageView = UIImageView(frame: CGRectMake(0, 0, size, size))
+            //occupyingPieceImageView = UIImageView(frame: self.frame)
+            //boardView.addSubview(occupyingPieceImageView)
+            //self.addSubview(occupyingPieceImageView)
+        }
+        self.occupyingPieceImageView = occupyingPieceImageView
     }
     
     func isEmpty() -> Bool{
@@ -73,6 +109,14 @@ public class Square: UIView {
     func clearPiece(){
         if !isEmpty() {
             occupyingPieceImageView.removeFromSuperview()
+            occupyingPieceImageView = nil
+            piece = nil
+        }
+    }
+    
+    func clearPiece2(){
+        if !isEmpty() {
+            //occupyingPieceImageView.removeFromSuperview()
             occupyingPieceImageView = nil
             piece = nil
         }
