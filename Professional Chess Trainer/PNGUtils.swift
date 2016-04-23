@@ -8,7 +8,8 @@
 
 import Foundation
 public class PNGUtils {
-    let specialText = ["x","+","#","O-O-O", "O-O", "."]
+    let specialText = ["x","+","#","O-O-O", "O-O"]
+    let piecePgn = ["R","K","Q","N","B"]
     public func getPngFromMove(move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
         let start = move.start
         let dest = move.dest
@@ -50,16 +51,31 @@ public class PNGUtils {
         
         return pieceText + duplicateText + captureText + destText + specialMove + checkText
     }
-    public func GetMoveFromPgn(pgn: String,board: [[Square]], isWhiteMove: Bool) -> Move{
+    private func CleanPgn(pgn: String) -> String{
+        let text = pgn.componentsSeparatedByString(".")
+        return text.last!;
+    }
+    private func GetPieceFromPgn(pgn: String)-> String{
         let piece = String(pgn[pgn.startIndex])
+        if (piecePgn.contains(piece)){
+            return piece
+        }
+        return "";
+    }
+    public func GetMoveFromPgn(pgnOriginal: String,board: [[Square]], isWhiteMove: Bool) -> Move{
+        let pgn = CleanPgn(pgnOriginal);
+        
+        let piece = GetPieceFromPgn(pgn)
         
         // remove special characters
-        var text = String(pgn.characters.dropFirst())
+        var text = pgn
         
         for string in specialText {
             text = text.stringByReplacingOccurrencesOfString(string, withString: "")
         }
-        
+        for string in piecePgn {
+            text = text.stringByReplacingOccurrencesOfString(string, withString: "")
+        }
         
         var color = PieceColor.Black
         if isWhiteMove{
