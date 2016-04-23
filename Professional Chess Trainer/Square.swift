@@ -61,44 +61,23 @@ public class Square: UIView {
     }
     
     func move(destSquare: Square){
-        //var imgView = self.occupyingPieceImageView
-        //var thisPiece = self.piece
-        UIView.animateWithDuration(0.5, animations: {
-            self.occupyingPieceImageView.frame = destSquare.frame
-            }, completion:{(finished: Bool) -> Void in
-                
-        })
-        destSquare.piece = self.piece
-        if(destSquare.occupyingPieceImageView != nil) {
-            destSquare.occupyingPieceImageView.removeFromSuperview()
-        }
-        destSquare.occupyingPieceImageView = self.occupyingPieceImageView
-        self.piece = nil
-        self.occupyingPieceImageView = nil
-        //destSquare.setPiece(self.piece)
-        //self.clearPiece()
+        destSquare.clearPiece()
+        destSquare.receivePiece(self.piece, occupyingPieceImageView: self.occupyingPieceImageView)
+        self.releasePiece()
     }
     
     func setPiece(piece: Piece){
         self.piece = piece
         if (occupyingPieceImageView == nil) {
-            //occupyingPieceImageView = UIImageView(frame: CGRectMake(0, 0, size, size))
             occupyingPieceImageView = UIImageView(frame: self.frame)
             boardView.addSubview(occupyingPieceImageView)
             boardView.bringSubviewToFront(occupyingPieceImageView)
-            //self.addSubview(occupyingPieceImageView)
         }
         occupyingPieceImageView.image = self.piece.image
     }
 
-     func setPiece2(piece: Piece, occupyingPieceImageView: UIImageView){
+     func receivePiece(piece: Piece, occupyingPieceImageView: UIImageView){
         self.piece = piece
-        if (self.occupyingPieceImageView == nil) {
-            //occupyingPieceImageView = UIImageView(frame: CGRectMake(0, 0, size, size))
-            //occupyingPieceImageView = UIImageView(frame: self.frame)
-            //boardView.addSubview(occupyingPieceImageView)
-            //self.addSubview(occupyingPieceImageView)
-        }
         self.occupyingPieceImageView = occupyingPieceImageView
     }
     
@@ -114,9 +93,8 @@ public class Square: UIView {
         }
     }
     
-    func clearPiece2(){
+    func releasePiece(){
         if !isEmpty() {
-            //occupyingPieceImageView.removeFromSuperview()
             occupyingPieceImageView = nil
             piece = nil
         }
