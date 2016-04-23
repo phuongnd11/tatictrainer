@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A658A355AD539276614F9471DFBB8AE60FAF917F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C23A650DC2DB2B80A9A7827F9C6E2B6488D7FE6F" : 0,
+    "A658A355AD539276614F9471DFBB8AE60FAF917F" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "233AEDBD-8F05-4A49-AD38-15246EC7054F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C23A650DC2DB2B80A9A7827F9C6E2B6488D7FE6F" : "stockfishchess-ios\/",
+    "A658A355AD539276614F9471DFBB8AE60FAF917F" : "Professional%20Chess%20Trainer\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Professional Chess Trainer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Professional Chess Trainer.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/phuongnd11\/tatictrainer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A658A355AD539276614F9471DFBB8AE60FAF917F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/elitecoder\/stockfishchess-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C23A650DC2DB2B80A9A7827F9C6E2B6488D7FE6F"
+    }
+  ]
+}
