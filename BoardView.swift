@@ -176,7 +176,7 @@ class BoardView: UIView {
                     
                     self.onMove = true
                     
-                    UIView.animateWithDuration(0.5, animations:{
+                    UIView.animateWithDuration(0.4, animations:{
         
                         self.bringSubviewToFront(self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView)
                         self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView.frame =
@@ -185,9 +185,7 @@ class BoardView: UIView {
                         }, completion:{(finished: Bool) -> Void in
                             //SoundPlayer().playMove()
                             Chirp.sharedManager.playSound(fileName: "Click")
-                            self.squares[moveInfo.end.0][moveInfo.end.1].clearPiece()
-                            self.squares[moveInfo.end.0][moveInfo.end.1].setPiece2(self.squares[moveInfo.start.0][moveInfo.start.1].piece, occupyingPieceImageView: self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView)
-                            self.squares[moveInfo.start.0][moveInfo.start.1].clearPiece2()
+                            self.squares[moveInfo.start.0][moveInfo.start.1].move(self.squares[moveInfo.end.0][moveInfo.end.1])
                             
                             self.boardStatus.updateStatus(self.highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
                             
@@ -205,7 +203,7 @@ class BoardView: UIView {
                                     
                                     var computerMove = self.chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
                                     
-                                    UIView.animateWithDuration(0.5, animations: {
+                                    UIView.animateWithDuration(0.4, delay: 0.1, options:UIViewAnimationOptions.CurveLinear, animations: {
                                         self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
                                         self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = self.squares[computerMove.end.0][computerMove.end.1].frame
                                         
@@ -213,9 +211,10 @@ class BoardView: UIView {
                                         completion: {(finished: Bool) -> Void in
                                             //SoundPlayer().playMove()
                                             Chirp.sharedManager.playSound(fileName: "Click")
-                                            self.squares[computerMove.end.0][computerMove.end.1].clearPiece()
-                                            self.squares[computerMove.end.0][computerMove.end.1].setPiece2(self.squares[computerMove.start.0][computerMove.start.1].piece, occupyingPieceImageView: self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
-                                            self.squares[computerMove.start.0][computerMove.start.1].clearPiece2()
+                                            
+                                            self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.end.0][computerMove.end.1]), status: BoardStatus(clone: self.boardStatus))
+                                            
+                                            self.squares[computerMove.start.0][computerMove.start.1].move(self.squares[computerMove.end.0][computerMove.end.1])
     
                                         self.boardStatus.updateStatus(nextComputerMove.start, dest:nextComputerMove.dest,movedPiece: self.squares[nextComputerMove.dest.0][nextComputerMove.dest.1].piece!, moveResult:nextComputerMove.moveResult)
                                     })
@@ -276,12 +275,47 @@ class BoardView: UIView {
     }
     
     func retry(){
-        goto(boardHistory[boardStatus.moveNumber-1]!)
-        disable = false
+        if (boardStatus.moveNumber > 0){
+            goto(boardHistory[boardStatus.moveNumber-1]!)
+            disable = false
+        }
     }
     
     func getPuzzle() -> Puzzle {
         return self.puzzle
+    }
+    
+    func showSolution(){
+        while(boardStatus.moveNumber > 0){
+            goto(boardHistory[boardStatus.moveNumber-1]!)
+        }
+        
+        let moves = self.puzzle.solutionMoves.componentsSeparatedByString(" ")
+        
+        for pngMove in moves {
+            
+            let move = PNGUtils().GetMoveFromPgn(pngMove, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove)
+            
+            var computerMove = self.chessLogicUtils.TryMove(move.start, dest: move.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: move.moveResult, isTest: false)
+            
+            UIView.animateWithDuration(0.5, delay: 0.3, options:UIViewAnimationOptions.CurveLinear, animations: {
+                self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
+                self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = self.squares[computerMove.end.0][computerMove.end.1].frame
+                
+                },
+                                       completion: {(finished: Bool) -> Void in
+                                        //SoundPlayer().playMove()
+                                        Chirp.sharedManager.playSound(fileName: "Click")
+                                        
+                                        self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.end.0][computerMove.end.1]), status: BoardStatus(clone: self.boardStatus))
+                                        
+                                        self.squares[computerMove.start.0][computerMove.start.1].move(self.squares[computerMove.end.0][computerMove.end.1])
+                                        
+                                        self.boardStatus.updateStatus(move.start, dest:move.dest,movedPiece: self.squares[move.dest.0][move.dest.1].piece!, moveResult:move.moveResult)
+            })
+
+        }
+        
     }
 }
 
