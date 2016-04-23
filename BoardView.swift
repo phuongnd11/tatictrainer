@@ -285,38 +285,44 @@ class BoardView: UIView {
         return self.puzzle
     }
     
-    func showSolution(){
+    func moveBack(){
         while(boardStatus.moveNumber > 0){
             goto(boardHistory[boardStatus.moveNumber-1]!)
         }
-        
+    }
+    
+    func showSolution(){
+        if (self.boardStatus.moveNumber >= puzzle.numOfMoves) {
+            return
+        }
         let moves = self.puzzle.solutionMoves.componentsSeparatedByString(" ")
         
-        for pngMove in moves {
+        var pngMove = moves[self.boardStatus.moveNumber]
             
             let move = PNGUtils().GetMoveFromPgn(pngMove, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove)
             
             var computerMove = self.chessLogicUtils.TryMove(move.start, dest: move.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: move.moveResult, isTest: false)
             
-            UIView.animateWithDuration(0.5, delay: 0.3, options:UIViewAnimationOptions.CurveLinear, animations: {
+            UIView.animateWithDuration(0.5, delay: 0.4, options:UIViewAnimationOptions.CurveLinear, animations: {
                 self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
                 self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = self.squares[computerMove.end.0][computerMove.end.1].frame
                 
                 },
-                                       completion: {(finished: Bool) -> Void in
-                                        //SoundPlayer().playMove()
-                                        Chirp.sharedManager.playSound(fileName: "Click")
+                        completion: {(finished: Bool) -> Void in
+                        //SoundPlayer().playMove()
+                        Chirp.sharedManager.playSound(fileName: "Click")
                                         
-                                        self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.end.0][computerMove.end.1]), status: BoardStatus(clone: self.boardStatus))
+                        self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.end.0][computerMove.end.1]), status: BoardStatus(clone: self.boardStatus))
                                         
-                                        self.squares[computerMove.start.0][computerMove.start.1].move(self.squares[computerMove.end.0][computerMove.end.1])
+                        self.squares[computerMove.start.0][computerMove.start.1].move(self.squares[computerMove.end.0][computerMove.end.1])
                                         
-                                        self.boardStatus.updateStatus(move.start, dest:move.dest,movedPiece: self.squares[move.dest.0][move.dest.1].piece!, moveResult:move.moveResult)
+                        self.boardStatus.updateStatus(move.start, dest:move.dest,movedPiece: self.squares[move.dest.0][move.dest.1].piece!, moveResult:move.moveResult)
+                            self.showSolution()
             })
 
         }
         
-    }
+    
 }
 
 
