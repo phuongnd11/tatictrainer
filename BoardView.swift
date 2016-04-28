@@ -75,7 +75,10 @@ class BoardView: UIView {
         var flip = false //alternating dark and light
         
         if puzzle == nil {
-            puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+", gameTitle: "Unknown - Unknown (2016)", elo: 1500)
+            puzzle = PuzzleFactory.puzzleFactory.getPuzzleById(UserData.getLastPlayedPuzzle())
+            if puzzle == nil {
+                puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+", idea: "Unknown - Unknown (2016)", elo: 1500, id: 5)
+            }
         }
         if puzzle.flipBoard {
             boardStatus.isWhiteMove = false
@@ -154,6 +157,9 @@ class BoardView: UIView {
             }
             flip = !flip
         }
+        
+        
+        
     }
    
     func squareTapView(sender: UITapGestureRecognizer){

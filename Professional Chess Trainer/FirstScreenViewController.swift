@@ -19,6 +19,7 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         Chirp.sharedManager.prepareSound(fileName: "invalid")
         Chirp.sharedManager.prepareSound(fileName: "eat")
         Chirp.sharedManager.prepareSound(fileName: "correct")
+        UserData.resetPlayedGames()
         // Do any additional setup after loading the view.
     }
 

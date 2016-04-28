@@ -48,8 +48,10 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     @IBAction func nextButton(sender: AnyObject) {
         if theBoardView != nil {
-            let puzzle = PuzzleFactory().getNextPuzzle()
+            let puzzle = PuzzleFactory.puzzleFactory.getNextPuzzle(UserData.getScore())
             theBoardView.reload(puzzle)
+            UserData.saveLastPlayedPuzzle(puzzle.id)
+            UserData.savePuzzlePlayed(puzzle.id)
             theBoardView.setNeedsDisplay()
             var userPlay = "White"
             if puzzle.flipBoard {
@@ -69,6 +71,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         hideButtons()
         redisplayELO()
         UserData.increaseNumOfGames()
+        
     }
     
     override func viewDidLoad() {

@@ -9,20 +9,22 @@
 import Foundation
 
 
-public class Puzzle {
+public class Puzzle: Comparable {
     
     var fen: FEN!
     var firstComputerMove: String = ""
     var solutionMoves: String = ""
     var flipBoard: Bool = false
     var numOfMoves: Int = 0
-    var title: String = ""
+    var idea: String = ""
     var elo: Int
+    var id: Int
     
-    init(FEN: String, computerMove: String, solution: String, gameTitle: String, elo: Int){
+    init(FEN: String, computerMove: String, solution: String, idea: String, elo: Int, id: Int){
         self.fen = FENUtils().readBoardFromFEN(FEN)
-        title = gameTitle
+        self.idea = idea
         self.elo = elo
+        self.id = id
         firstComputerMove = computerMove
         solutionMoves = solution.stringByTrimmingCharactersInSet(
             NSCharacterSet.whitespaceAndNewlineCharacterSet()
@@ -59,4 +61,17 @@ public class Puzzle {
         return tokens[moveNumber]
     }
     
+    
+}
+
+
+public func < (lhs: Puzzle, rhs: Puzzle) -> Bool {
+    if (lhs.elo == rhs.elo) {
+       return lhs.id < rhs.id
+    }
+    return lhs.elo < rhs.elo
+}
+
+public func == (lhs: Puzzle, rhs: Puzzle) -> Bool {
+    return lhs.id == rhs.id
 }
