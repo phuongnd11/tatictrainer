@@ -8,6 +8,7 @@
 
 import UIKit
 import GameKit
+import GoogleMobileAds
 
 class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate {
     
@@ -20,11 +21,45 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     @IBOutlet weak var solutionButton: UIButton!
     
+    @IBOutlet weak var gAdBannerView: GADBannerView!
     
     @IBOutlet weak var theBoardView: BoardView!
     
+    var popViewController: PopUpViewController!
+    
     var lockELO = false
     var titleGame = ""
+    
+    @IBAction func ideaClicked(sender: AnyObject) {
+        /*
+        let bundle = NSBundle(forClass: PopUpViewController.self)
+        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
+        {
+            self.popViewController = PopUpViewController(nibName: "PopUpViewController_iPad", bundle: bundle)
+            self.popViewController.title = "This is a popup view"
+            self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
+        } else
+        {
+            /**
+            if UIScreen.mainScreen().bounds.size.width > 320 {
+                if UIScreen.mainScreen().scale == 3 {
+                    self.popViewController = PopUpViewController(nibName: "PopUpViewController_iPhone6Plus", bundle: bundle)
+                    self.popViewController.title = "This is a popup view"
+                    self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
+                } else {
+                    self.popViewController = PopUpViewController(nibName: "PopUpViewController_iPhone6", bundle: bundle)
+                    self.popViewController.title = "This is a popup view"
+                    self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
+                }
+            } else {
+ */
+                self.popViewController = PopUpViewController(nibName: "PopUpViewController", bundle: bundle)
+                self.popViewController.title = "This is a popup view"
+                self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
+           // }
+        }
+ */
+    }
     
     @IBAction func solutionClicked(sender: AnyObject) {
         if theBoardView != nil {
@@ -80,6 +115,17 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
         eloLabel.text = String(UserData.getScore())
+        loadBanner()
+    }
+    
+    func loadBanner(){
+        //gAdBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        gAdBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        gAdBannerView.rootViewController = self
+        let req : GADRequest = GADRequest()
+        gAdBannerView.loadRequest(req)
+        //gAdBannerView.frame = CGRectMake(0, view.bounds.height - gAdBannerView.frame.size.height, gAdBannerView.frame.size.width, gAdBannerView.frame.size.height)
+        //self.view.addSubview(gAdBannerView)
     }
 
     override func didReceiveMemoryWarning() {
