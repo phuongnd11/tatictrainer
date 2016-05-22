@@ -55,6 +55,12 @@ class BoardView: UIView {
     }
     
     internal func reload(newPuzzle: Puzzle) {
+        if self.subviews.count > 0 {
+            for subView in self.subviews {
+                subView.removeFromSuperview()
+            }
+        }
+        
         self.puzzle = newPuzzle
         userWon = false
         disable = false
@@ -100,11 +106,9 @@ class BoardView: UIView {
                     symbol = board[x][y]
                 }
                 
-                print("\(symbol) ", terminator: "")
-                
                 var square: Square
                 
-                square = Square(x: x, y: y, light: flip, squareSize: size, flipBoard: puzzle.flipBoard, boardView: self)
+                square = Square(x: x, y: y, light: flip, squareSize: size, flipBoard: puzzle.flipBoard, boardView: self, theme: UserData.getTheme())
                 self.addSubview(square)
                 var piece:Piece
                 
@@ -187,7 +191,7 @@ class BoardView: UIView {
         
                         self.bringSubviewToFront(self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView)
                         self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView.frame =
-                        self.squares[moveInfo.end.0][moveInfo.end.1].frame
+                        UIUtils.calculatePieceFrame(self.squares[moveInfo.end.0][moveInfo.end.1].frame)
                         
                         }, completion:{(finished: Bool) -> Void in
                             //SoundPlayer().playMove()
@@ -217,7 +221,7 @@ class BoardView: UIView {
                                     
                                     UIView.animateWithDuration(0.4, delay: 0.1, options:UIViewAnimationOptions.CurveLinear, animations: {
                                         self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
-                                        self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = self.squares[computerMove.end.0][computerMove.end.1].frame
+                                        self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = UIUtils.calculatePieceFrame(self.squares[computerMove.end.0][computerMove.end.1].frame)
                                         
                                         },
                                         completion: {(finished: Bool) -> Void in
@@ -322,7 +326,7 @@ class BoardView: UIView {
             
             UIView.animateWithDuration(0.5, delay: 0.4, options:UIViewAnimationOptions.CurveLinear, animations: {
                 self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
-                self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = self.squares[computerMove.end.0][computerMove.end.1].frame
+                self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = UIUtils.calculatePieceFrame(self.squares[computerMove.end.0][computerMove.end.1].frame)
                 
                 },
                         completion: {(finished: Bool) -> Void in
@@ -344,7 +348,6 @@ class BoardView: UIView {
             })
 
         }
-        
     
 }
 

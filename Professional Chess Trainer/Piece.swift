@@ -30,19 +30,21 @@ struct IconSet {
     var blackKing: UIImage!
     
     init(){
-        whitePawn = UIImage(named: "maya_white_pawn")
-        whiteRook = UIImage(named: "maya_white_rook")
-        whiteKnight = UIImage(named: "maya_white_knight")
-        whiteBishop = UIImage(named: "maya_white_bishop")
-        whiteQueen = UIImage(named: "maya_white_queen")
-        whiteKing = UIImage(named: "maya_white_king")
+        let theme = UserData.getTheme()
         
-        blackPawn = UIImage(named: "maya_black_pawn")
-        blackRook = UIImage(named: "maya_black_rook")
-        blackKnight = UIImage(named: "maya_black_knight")
-        blackBishop = UIImage(named: "maya_black_bishop")
-        blackQueen = UIImage(named: "maya_black_queen")
-        blackKing = UIImage(named: "maya_black_king")
+        whitePawn = UIImage(named: theme + "_white_pawn")
+        whiteRook = UIImage(named: theme + "_white_rook")
+        whiteKnight = UIImage(named: theme + "_white_knight")
+        whiteBishop = UIImage(named: theme + "_white_bishop")
+        whiteQueen = UIImage(named: theme + "_white_queen")
+        whiteKing = UIImage(named: theme + "_white_king")
+        
+        blackPawn = UIImage(named: theme + "_black_pawn")
+        blackRook = UIImage(named: theme + "_black_rook")
+        blackKnight = UIImage(named: theme + "_black_knight")
+        blackBishop = UIImage(named: theme + "_black_bishop")
+        blackQueen = UIImage(named: theme + "_black_queen")
+        blackKing = UIImage(named: theme + "_black_king")
     }
 }
 

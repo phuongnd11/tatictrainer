@@ -67,6 +67,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             theBoardView.showSolution()
         }
         retryButton.hidden = true
+        
         gameTitle.text = "solution"
     }
     
@@ -77,6 +78,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         }
         //gameTitle.textColor = UIColor.whiteColor()
         gameTitle.text = "Analysis mode"
+        
         hideButtons()
         //redisplayELO()
     }
@@ -111,10 +113,28 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = UIImage(named: "bg")//if its in images.xcassets
+        imageView.contentMode = .ScaleAspectFill
+        
+        self.view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
+        
         hideButtons()
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
-        eloLabel.text = String(UserData.getScore())
+        gameTitle.backgroundColor = UIColor(patternImage: UIImage(named: "title")!)
+        eloLabel.backgroundColor = UIColor(patternImage: UIImage(named: "title")!)
+        eloLabel.textColor = UIColor.blackColor()
+        eloLabel.text = " Your rating: " + String(UserData.getScore())
+        gameTitle.textColor = UIColor.blackColor()
+        gameTitle.textAlignment = .Center
+        var userPlay = "White"
+        let puzzle = theBoardView.puzzle
+        if puzzle != nil && puzzle.flipBoard {
+            userPlay = "Black"
+        }
+        gameTitle.text = userPlay + " to play"
         loadBanner()
     }
     
@@ -150,7 +170,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
                 
                 score += eloChange
                 //eloLabel.textColor = UIColor.redColor()
-                eloLabel.text = String(score) + " (" + String(eloChange) + ")"
+                eloLabel.text = " Your rating: " + String(score) + " (" + String(eloChange) + ")"
                 
                 UserData.storeScore(score)
             }
@@ -165,7 +185,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
                 var symbol = "+"
             
                 score += eloChange
-                eloLabel.text = String(score) + " (" + symbol + String(eloChange) + ")"
+                eloLabel.text = " Your rating: " + String(score) + " (" + symbol + String(eloChange) + ")"
                 enableNext()
                 
                 UserData.storeScore(score)
@@ -198,16 +218,23 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     }
     
     func hideButtons(){
+        nextButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
         nextButton.hidden = true
         ideaButton.hidden = true
+        ideaButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
         solutionButton.hidden = true
+        solutionButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
         retryButton.hidden = true
+        retryButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
     }
 
     func redisplayELO(){
         var score = UserData.getScore()
-        eloLabel.textColor = UIColor.whiteColor()
         eloLabel.text = String(score)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 
 }

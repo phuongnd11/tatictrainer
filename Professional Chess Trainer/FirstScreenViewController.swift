@@ -13,13 +13,21 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "Kasparov-29")!)
         authPlayer()
+        let imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = UIImage(named: "bg")//if its in images.xcassets
+        //imageView.contentMode = .ScaleAspectFill
+        //imageView.topAnchor.constraintEqualToAnchor(self.topLayoutGuide.bottomAnchor)
+        //imageView.addConstraint(<#T##constraint: NSLayoutConstraint##NSLayoutConstraint#>)
+        self.view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
+
         Chirp.sharedManager.prepareSound(fileName: "move")
         Chirp.sharedManager.prepareSound(fileName: "invalid")
         Chirp.sharedManager.prepareSound(fileName: "eat")
         Chirp.sharedManager.prepareSound(fileName: "correct")
-        UserData.resetPlayedGames()
+        //UserData.resetPlayedGames()
+        UserData.saveTheme("default")
         // Do any additional setup after loading the view.
     }
 
@@ -29,6 +37,10 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
     }
     
     @IBAction func play(sender: UIButton) {
+        
+    }
+    
+    @IBAction func unwindToSegue (segue : UIStoryboardSegue) {
         
     }
     
@@ -89,6 +101,10 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
     func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
         
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     /*

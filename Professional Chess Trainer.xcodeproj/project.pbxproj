@@ -31,6 +31,7 @@
 		AA3EAD3F1C73780600668470 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3EAD3E1C73780600668470 /* Piece.swift */; };
 		AA5097531C6D85190032A21C /* FENUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5097521C6D85190032A21C /* FENUtilsTests.swift */; };
 		AA5097541C6D87E50032A21C /* FENUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2EFA561C6A45CE00A9C73C /* FENUtils.swift */; };
+		AA52D3D21CF1F7CE00AED6AB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA52D3D11CF1F7CE00AED6AB /* Theme.swift */; };
 		AA5FA7F61CB951F900284CC9 /* ELOUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5FA7F51CB951F900284CC9 /* ELOUtils.swift */; };
 		AA711E591CD247060079B11E /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA711E581CD247060079B11E /* PopUpViewController.swift */; };
 		AA83A1A61C722EFF009A4CF7 /* ChessLogicUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA83A1A51C722EFF009A4CF7 /* ChessLogicUtils.swift */; };
@@ -41,9 +42,11 @@
 		AA85FBE91C5D01DB0091C2EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA85FBE71C5D01DB0091C2EE /* LaunchScreen.storyboard */; };
 		AA85FBF41C5D01DB0091C2EE /* Professional_Chess_TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85FBF31C5D01DB0091C2EE /* Professional_Chess_TrainerTests.swift */; };
 		AA85FBFF1C5D01DB0091C2EE /* Professional_Chess_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA85FBFE1C5D01DB0091C2EE /* Professional_Chess_TrainerUITests.swift */; };
+		AA882CC31CDBA8DB0014E446 /* newtatics.csv in Resources */ = {isa = PBXBuildFile; fileRef = AA882CC21CDBA8DB0014E446 /* newtatics.csv */; };
 		AA8DBD5F1C813B46005B5E4D /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8DBD5E1C813B46005B5E4D /* Puzzle.swift */; };
 		AA933CF41CB86A1B000F0697 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA933CF31CB86A1B000F0697 /* UserData.swift */; };
 		AA9892C51CA1966100F5F435 /* BoardHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9892C41CA1966100F5F435 /* BoardHistory.swift */; };
+		AAA03C001CEFEFDE001FA27D /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA03BFF1CEFEFDE001FA27D /* ThemeViewController.swift */; };
 		AAAF43FA1C970FC800D78C82 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAF43F91C970FC800D78C82 /* GameViewController.swift */; };
 		AAB89F481C5E27690086D22E /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB89F471C5E27690086D22E /* BoardView.swift */; };
 		AABCF7BD1C68EB8800B22AF5 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = AABCF7B91C68EB8800B22AF5 /* Contents.json */; };
@@ -58,6 +61,7 @@
 		AAE5E0BB1CCB71D700026FDB /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = AAE5E0BA1CCB71D700026FDB /* correct.wav */; };
 		AAEC4E001C9FC8D300AA34A1 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */; };
 		AAEC4E061C9FD48400AA34A1 /* PNGUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC4E051C9FD48400AA34A1 /* PNGUtils.swift */; };
+		AAF021BE1CED6F130086A3D3 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF021BD1CED6F130086A3D3 /* UIUtils.swift */; };
 		AAF889171CD438B20085D277 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF889161CD438B20085D277 /* AdSupport.framework */; };
 		AAF889191CD438CF0085D277 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF889181CD438CF0085D277 /* AudioToolbox.framework */; };
 		AAF8891B1CD438EA0085D277 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF8891A1CD438EA0085D277 /* CoreGraphics.framework */; };
@@ -115,6 +119,7 @@
 		AA3EAD3C1C7376E800668470 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		AA3EAD3E1C73780600668470 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		AA5097521C6D85190032A21C /* FENUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FENUtilsTests.swift; sourceTree = "<group>"; };
+		AA52D3D11CF1F7CE00AED6AB /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		AA5FA7F51CB951F900284CC9 /* ELOUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ELOUtils.swift; sourceTree = "<group>"; };
 		AA711E581CD247060079B11E /* PopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		AA83A1A51C722EFF009A4CF7 /* ChessLogicUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessLogicUtils.swift; sourceTree = "<group>"; };
@@ -131,9 +136,11 @@
 		AA85FBFA1C5D01DB0091C2EE /* Professional Chess TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Professional Chess TrainerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA85FBFE1C5D01DB0091C2EE /* Professional_Chess_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Professional_Chess_TrainerUITests.swift; sourceTree = "<group>"; };
 		AA85FC001C5D01DB0091C2EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA882CC21CDBA8DB0014E446 /* newtatics.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = newtatics.csv; sourceTree = "<group>"; };
 		AA8DBD5E1C813B46005B5E4D /* Puzzle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
 		AA933CF31CB86A1B000F0697 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		AA9892C41CA1966100F5F435 /* BoardHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardHistory.swift; sourceTree = "<group>"; };
+		AAA03BFF1CEFEFDE001FA27D /* ThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		AAAF43F91C970FC800D78C82 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = "Professional Chess Trainer/GameViewController.swift"; sourceTree = "<group>"; };
 		AAB89F471C5E27690086D22E /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = ../BoardView.swift; sourceTree = "<group>"; };
 		AABCF7B91C68EB8800B22AF5 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
@@ -148,6 +155,7 @@
 		AAE5E0BA1CCB71D700026FDB /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
 		AAEC4DFF1C9FC8D300AA34A1 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		AAEC4E051C9FD48400AA34A1 /* PNGUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNGUtils.swift; sourceTree = "<group>"; };
+		AAF021BD1CED6F130086A3D3 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		AAF889161CD438B20085D277 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		AAF889181CD438CF0085D277 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AAF8891A1CD438EA0085D277 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -250,6 +258,7 @@
 		AA85FBDD1C5D01DB0091C2EE /* Professional Chess Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				AA882CC21CDBA8DB0014E446 /* newtatics.csv */,
 				AA23527C1CD1ABF100C937C5 /* tatics.csv */,
 				AAE5E0BA1CCB71D700026FDB /* correct.wav */,
 				AAE5E0B81CCB71BB00026FDB /* invalid.wav */,
@@ -303,6 +312,7 @@
 				AA0191B71C796EF500A57BA8 /* Chess Pieces */,
 				AA933CF31CB86A1B000F0697 /* UserData.swift */,
 				AA157DB41CCA76AA0088C6F6 /* MoveInfo.swift */,
+				AA52D3D11CF1F7CE00AED6AB /* Theme.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -322,6 +332,7 @@
 				AAE5E09A1CCAF1EB00026FDB /* SoundPlayer.swift */,
 				AAE5E09E1CCAF6BC00026FDB /* Chirp.swift */,
 				AA23527E1CD1AE9E00C937C5 /* CSVUtils.swift */,
+				AAF021BD1CED6F130086A3D3 /* UIUtils.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -343,6 +354,7 @@
 				AA85FBE01C5D01DB0091C2EE /* ViewController.swift */,
 				AADC4DCF1CAC2C6C009B7B3A /* LogInViewController.swift */,
 				AA711E581CD247060079B11E /* PopUpViewController.swift */,
+				AAA03BFF1CEFEFDE001FA27D /* ThemeViewController.swift */,
 			);
 			name = Controller;
 			path = ..;
@@ -482,6 +494,7 @@
 				AABCF7BD1C68EB8800B22AF5 /* Contents.json in Resources */,
 				AA85FBE91C5D01DB0091C2EE /* LaunchScreen.storyboard in Resources */,
 				AAE5E0B31CCB6D6800026FDB /* check.wav in Resources */,
+				AA882CC31CDBA8DB0014E446 /* newtatics.csv in Resources */,
 				AAE5E0BB1CCB71D700026FDB /* correct.wav in Resources */,
 				AA23527D1CD1ABF100C937C5 /* tatics.csv in Resources */,
 				AAE5E0AF1CCB6D5B00026FDB /* eat.wav in Resources */,
@@ -574,6 +587,7 @@
 				AA0191C11C79700F00A57BA8 /* King.swift in Sources */,
 				AAE5E09F1CCAF6BC00026FDB /* Chirp.swift in Sources */,
 				AA2352851CD1B37B00C937C5 /* CSV.swift in Sources */,
+				AAF021BE1CED6F130086A3D3 /* UIUtils.swift in Sources */,
 				AAAF43FA1C970FC800D78C82 /* GameViewController.swift in Sources */,
 				AA101A2E1CA6D5290062534E /* FirstScreenViewController.swift in Sources */,
 				AA3EAD3F1C73780600668470 /* Piece.swift in Sources */,
@@ -590,8 +604,10 @@
 				AA0191BD1C796F6500A57BA8 /* Bishop.swift in Sources */,
 				AA85FBDF1C5D01DB0091C2EE /* AppDelegate.swift in Sources */,
 				AAE5E09B1CCAF1EB00026FDB /* SoundPlayer.swift in Sources */,
+				AA52D3D21CF1F7CE00AED6AB /* Theme.swift in Sources */,
 				AA2EFA571C6A45CE00A9C73C /* FENUtils.swift in Sources */,
 				AADC4DD01CAC2C6C009B7B3A /* LogInViewController.swift in Sources */,
+				AAA03C001CEFEFDE001FA27D /* ThemeViewController.swift in Sources */,
 				AA0191C31C79702700A57BA8 /* Pawn.swift in Sources */,
 				4825D5061C8C702C00036814 /* Enums.swift in Sources */,
 				AA2352881CD1B37B00C937C5 /* Parser.swift in Sources */,
@@ -741,10 +757,13 @@
 			baseConfigurationReference = 6FFF4402043BFB2271E14076 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Professional Chess Trainer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.inspireon.demoo.Professional-Chess-Trainer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inspireon.demo.Professional-Chess-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -753,10 +772,13 @@
 			baseConfigurationReference = A5409B82D84CA7AE50A7E386 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Professional Chess Trainer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.inspireon.demoo.Professional-Chess-Trainer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inspireon.demo.Professional-Chess-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

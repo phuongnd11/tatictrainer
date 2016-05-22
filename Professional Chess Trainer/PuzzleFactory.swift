@@ -14,19 +14,19 @@ public class PuzzleFactory{
     
     private var taticArray: [Puzzle]
     private init(){
-        let puzzle1 = Puzzle(FEN: "r2nr2k/1bp1bpp1/p7/1p1pP3/3P2q1/2P2NP1/P1B2PK1/R1BQR3 w - - 0 1", computerMove: "", solution: "Rh1+ Kg8 Bh7+ Kf8 Bf5", idea: "Nakamura - Magnus Carslen 2015", elo: 1532, id: 1)
+        /*let puzzle1 = Puzzle(FEN: "r2nr2k/1bp1bpp1/p7/1p1pP3/3P2q1/2P2NP1/P1B2PK1/R1BQR3 w - - 0 1", computerMove: "", solution: "Rh1+ Kg8 Bh7+ Kf8 Bf5", idea: "Nakamura - Magnus Carslen 2015", elo: 1532, id: 1)
         
         let puzzle2 = Puzzle(FEN: "rn2k1r1/1R1b1p1p/3pp3/p6R/4P3/3NBP2/2P1B1P1/b4K2 w q - 0 1", computerMove: "", solution: "Rxa5", idea: "Nakamura - Magnus Carslen 2015", elo: 1480, id: 2)
         
         let puzzle3 = Puzzle(FEN: "4r1k1/Q4ppp/1r1q4/N1pPpb2/1nP5/R5P1/P4PBP/2R3K1 b - - 0 1", computerMove: "", solution: "...Ra6 Qb7 Rb8", idea: "Nakamura - Magnus Carslen 2015", elo: 1488, id: 3)
         
         let puzzle4 = Puzzle(FEN: "r1bq1rk1/ppppnp1p/2n3p1/3N2B1/2PQ4/8/PP2PPPP/R3KB1R w KQ - 1 0", computerMove:  "", solution: "Nf6+ Kh8 Ng4+", idea: "Nakamura - Magnus Carslen 2015", elo: 1542, id: 4)
-        
+        */
         //taticArray.append(puzzle1)
         //taticArray.append(puzzle2)
         //taticArray.append(puzzle3)
         //taticArray.append(puzzle4)
-        taticArray = CSVUtils().parseCSVtoPuzzle("tatics.csv")!
+        taticArray = CSVUtils().parseCSVtoPuzzle("newtatics")!
     }
     
     public func getNextPuzzle(elo: Int) -> Puzzle {
@@ -53,8 +53,8 @@ public class PuzzleFactory{
         
         taticArray.append(puzzleMock)
         
-        taticArray.sortInPlace { (puzzle1, puzzle2) -> Bool in
-            puzzle1.elo < puzzle2.elo
+        taticArray.sortInPlace { (puzzleX, puzzleY) -> Bool in
+            puzzleX.elo < puzzleY.elo
         }
         var playedGames = UserData.getPlayedPuzzles()
         //let searchIndex = binarySearch(puzzleArray, searchItem: puzzleMock)

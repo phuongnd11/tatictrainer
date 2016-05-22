@@ -14,7 +14,7 @@ public class CSVUtils{
     func parseCSVtoPuzzle(name: String) -> [Puzzle]?{
         
         var puzzles = [Puzzle]()
-        if let contentOfURL = NSBundle.mainBundle().URLForResource("tatics", withExtension: "csv") {
+        if let contentOfURL = NSBundle.mainBundle().URLForResource(name, withExtension: "csv") {
             do {
                 let csv = try CSV(string: String(contentsOfURL: contentOfURL))
                 csv.enumerateAsArray{array in

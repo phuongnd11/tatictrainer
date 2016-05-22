@@ -14,6 +14,7 @@ struct defaultKeys {
     static let numOfGames = "numOfGames"
     static let puzzle = "puzzle"
     static let puzzlePlayed = "puzzlePlayed"
+    static let theme = "theme"
 }
 
 public class UserData {
@@ -107,4 +108,18 @@ public class UserData {
         defaults.synchronize()
     }
 
+    
+    static func getTheme() -> String {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let theme = defaults.stringForKey(defaultKeys.theme) {
+            return theme
+        }
+        return "default"
+    }
+    
+    static func saveTheme(theme: String){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(theme, forKey: defaultKeys.theme)
+        defaults.synchronize()
+    }
 }
