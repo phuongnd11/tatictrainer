@@ -170,8 +170,8 @@ public class ChessLogicUtils {
         var kingRow = -1
         var kingCol = -1
         // find king
-        for var i = 0; i<=7; ++i{
-            for var j = 0;j<=7;++j{
+        for i in 0 ..< 8{
+            for j in 0 ..< 8{
                 if (!board[i][j].isEmpty() && !(board[i][j].piece.color == colorToCheck)){
                     if (board[i][j].piece is King){
                         kingRow = i
@@ -199,11 +199,11 @@ public class ChessLogicUtils {
                 gameResult = GameResult.whiteCheck
             }
         }
-        for var i = 0; i<=7; ++i{
-            for var j = 0;j<=7;++j{
+        for i in 0 ..< 8{
+            for j in 0 ..< 8{
                 if (!board[i][j].isEmpty() && board[i][j].piece.color == colorToCheck){
-                    for var mRow = 0; mRow <= 7; ++mRow{
-                        for var mCol = 0; mCol <= 7; ++mCol{
+                    for mRow in 0 ..< 8{
+                        for mCol in 0 ..< 8{
                             if (isValidMove((i,j), dest: (mRow,mCol), board: board, boardStatus: boardStatus)){
                                 return gameResult
                             }
@@ -225,7 +225,7 @@ public class ChessLogicUtils {
     }
     
     public func TryMove(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool) -> MoveInfo!{
-        var moveInfo = MoveInfo()
+        let moveInfo = MoveInfo()
         if (moveResult.rawValue < 0){
             return nil
         }
@@ -243,7 +243,7 @@ public class ChessLogicUtils {
                 rookColDest = 5
             }
             
-            let rook = board[row][rookCol].piece
+            _ = board[row][rookCol].piece
             
             //applyPiece(board[row][dest.1], piece: king, test: isTest)
             //movePiece(board[start.0][start.1], destSquare: board[row][dest.1], test: isTest)
@@ -286,14 +286,14 @@ public class ChessLogicUtils {
         if (currentPiece is King && start.0 == dest.0 && abs(start.1-dest.1) == 2){
             if (currentPiece.color == PieceColor.White){
                 if (isK && dest.0 == 7 && dest.1 == 6){
-                    for var i = 0;i<2;++i{
+                    for i in 0 ..< 2{
                         if (!board[7][i+5].isEmpty()){
                             return false
                         }
                     }
                 }
                 else if (isQ && dest.0 == 7 && dest.1 == 2){
-                    for var i = 0;i<3;++i{
+                    for i in 0 ..< 3{
                         if (!board[7][i+1].isEmpty()){
                             return false
                         }
@@ -306,14 +306,14 @@ public class ChessLogicUtils {
             
             if (currentPiece.color == PieceColor.Black){
                 if (isk && dest.0 == 0 && dest.1 == 6){
-                    for var i = 0;i<2;++i{
+                    for i in 0 ..< 2{
                         if (!board[0][i+5].isEmpty()){
                             return false
                         }
                     }
                 }
                 else if (isq && dest.0 == 0 && dest.1 == 2){
-                    for var i = 0;i<3;++i{
+                    for i in 0 ..< 3{
                         if (!board[0][i+1].isEmpty()){
                             return false
                         }
@@ -339,8 +339,8 @@ public class ChessLogicUtils {
             kingColor = PieceColor.White
             checkColor = PieceColor.Black
         }
-        for var i = 0; i<=7;++i{
-            for var j = 0; j<=7;++j{
+        for i in 0 ..< 8{
+            for j in 0 ..< 8{
                 if (board[i][j].piece is King){
                     if (board[i][j].piece.color == kingColor){
                         kingRow = i;
@@ -350,8 +350,8 @@ public class ChessLogicUtils {
             }
         }
         
-        for var i = 0; i<=7;++i{
-            for var j = 0; j<=7;++j{
+        for i in 0 ..< 8{
+            for j in 0 ..< 8{
                 if (!board[i][j].isEmpty() && board[i][j].piece.color == checkColor){
                     if (board[i][j].piece.isValidMove((i,j), dest: (kingRow,kingCol), board: board)){
                         return true;
@@ -364,8 +364,8 @@ public class ChessLogicUtils {
     
     private func convertToPiece(board: [[Square]]) -> [[Piece?]]{
         var pieces = [[Piece?]](count: 8, repeatedValue: Array(count: 8, repeatedValue: nil))
-        for var i = 0; i<=7;++i{
-            for var j = 0; j<=7;++j{
+        for i in 0 ..< 8{
+            for j in 0 ..< 8{
                 if (!board[i][j].isEmpty()){
                     pieces[i][j] = board[i][j].piece
                 }
@@ -374,8 +374,8 @@ public class ChessLogicUtils {
         return pieces
     }
     private func copyToBoard(board:[[Square]], pieces: [[Piece?]]){
-        for var i = 0; i<=7;++i{
-            for var j = 0; j<=7;++j{
+        for i in 0 ..< 8{
+            for j in 0 ..< 8{
                 board[i][j].piece = pieces[i][j]
             }
         }

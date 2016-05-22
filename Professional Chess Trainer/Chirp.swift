@@ -22,7 +22,7 @@ public class Chirp {
     public func prepareSound(fileName fileName: String) -> String? {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
-            sound.count++
+            sound.count+=1
             return fixedSoundFileName
         }
         
@@ -47,7 +47,7 @@ public class Chirp {
     public func removeSound(fileName fileName: String) {
         let fixedSoundFileName = self.fixedSoundFileName(fileName: fileName)
         if let sound = soundForKey(fixedSoundFileName) {
-            sound.count--
+            sound.count -= 1
             if sound.count <= 0 {
                 AudioServicesDisposeSystemSoundID(sound.id)
                 sounds.removeValueForKey(fixedSoundFileName)

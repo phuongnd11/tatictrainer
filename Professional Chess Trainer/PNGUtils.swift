@@ -95,8 +95,8 @@ public class PNGUtils {
             start.1 = GetColNum(text[text.startIndex])
         }
         
-        for var i = 0; i < 8; ++i {
-            for var j = 0; j < 8; ++j {
+        for i in 0 ..< 8 {
+            for j in 0 ..< 8 {
                 if (checkValidRange(start, dest: dest, item: (i,j)) && !board[i][j].isEmpty()){
                     if (board[i][j].piece.color == color && board[i][j].piece.toPGN() == piece){
                         if (piece == "K" || piece == "Q"){
@@ -136,8 +136,8 @@ public class PNGUtils {
         
         var isRowExist = false
         var isColExist = false
-        for var i = 0; i < 8; ++i {
-            for var j = 0; j < 8; ++j {
+        for i in 0 ..< 8 {
+            for j in 0 ..< 8 {
                 if (!(i == square.0 && j == square.1) && !board[i][j].isEmpty()){
                     if (board[i][j].piece.color == color && board[i][j].piece.toPGN() == pgn){
                         if (piece is Pawn){
@@ -199,7 +199,7 @@ public class PNGUtils {
             if (c == colStr){
                 return i
             }
-            i++
+            i+=1
         }
         return -1;
     }
@@ -211,7 +211,7 @@ public class PNGUtils {
             if (c == rowStr){
                 return i
             }
-            i++
+            i+=1
         }
         return -1;
     }

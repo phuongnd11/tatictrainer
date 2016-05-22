@@ -24,17 +24,17 @@ public class FENUtils{
         var isq = false
         var enPassant = ""
         
-        for var i = 0; i < position.count; i++ {
+        for i in 0..<position.count{
             let piece = String(position[i])
             
             if piece == "/" {
-                x++
+                x += 1
                 y = 0
             } else if let pieceValue = Int(piece) {
                 y += pieceValue
             } else {
                 board[x][y] = (piece[piece.startIndex])
-                y++
+                y += 1
             }
         }
         

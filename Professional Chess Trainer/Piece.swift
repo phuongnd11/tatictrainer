@@ -80,7 +80,7 @@ public class Piece {
             }
             
             let step = abs(start.0-dest.0)
-            for var i = 1;i<step;++i{
+            for i in 1 ..< step{
                 if (!board[start.0+i*horizontalDirection][start.1+i*verticalDirection].isEmpty()){
                     return false;
                 }
@@ -98,7 +98,7 @@ public class Piece {
         //check quan bi vuong
         if (start.0 == dest.0){ // di chuyen theo hang ngang
             if (start.1 > dest.1) {// di chuyen sang trai
-                for var index = (start.1 - 1); index > dest.1 ; --index {
+                for var index = (start.1 - 1); index > dest.1 ; index -= 1 {
                     if (!board[dest.0][index].isEmpty()){
                         return false;
                     }
@@ -106,7 +106,7 @@ public class Piece {
             }
             
             if (start.1 < dest.1) {// di chuyen sang phai
-                for var index = (start.1 + 1); index < dest.1 ; ++index {
+                for index in (start.1 + 1) ..< dest.1  {
                     if (!board[dest.0][index].isEmpty()){
                         return false;
                     }
@@ -124,7 +124,7 @@ public class Piece {
             }
             
             if (start.0 < dest.0) {// di chuyen xuong duoi
-                for var index = (start.0 + 1); index < dest.0 ; ++index {
+                for index in (start.0 + 1) ..< dest.0  {
                     if (!board[index][dest.1].isEmpty()){
                         return false;
                     }

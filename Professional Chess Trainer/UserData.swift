@@ -91,7 +91,7 @@ public class UserData {
     
     static func getPlayedPuzzles() -> [Int]?{
         let defaults = NSUserDefaults.standardUserDefaults()
-        var gamesPlayed = defaults.arrayForKey(defaultKeys.puzzlePlayed) as? [Int]
+        let gamesPlayed = defaults.arrayForKey(defaultKeys.puzzlePlayed) as? [Int]
         
         if (gamesPlayed == nil){
             return [-1]
