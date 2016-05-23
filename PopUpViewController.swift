@@ -14,15 +14,15 @@ class PopUpViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var logoImg: UIImageView!
     
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override public init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
         self.popUpView.layer.cornerRadius = 5
@@ -30,7 +30,7 @@ class PopUpViewController: UIViewController {
         self.popUpView.layer.shadowOffset = CGSizeMake(0.0, 0.0)
     }
     
-    public func showInView(aView: UIView!, withImage image : UIImage!, withMessage message: String!, animated: Bool)
+    func showInView(aView: UIView!, withImage image : UIImage!, withMessage message: String!, animated: Bool)
     {
         aView.addSubview(self.view)
         logoImg!.image = image
@@ -64,7 +64,7 @@ class PopUpViewController: UIViewController {
         });
     }
     
-    @IBAction public func closePopup(sender: AnyObject) {
+    @IBAction func closePopup(sender: AnyObject) {
         self.removeAnimate()
     }
 

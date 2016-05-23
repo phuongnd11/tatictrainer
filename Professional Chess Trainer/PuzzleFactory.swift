@@ -56,7 +56,7 @@ public class PuzzleFactory{
         taticArray.sortInPlace { (puzzleX, puzzleY) -> Bool in
             puzzleX.elo < puzzleY.elo
         }
-        var playedGames = UserData.getPlayedPuzzles()
+        let playedGames = UserData.getPlayedPuzzles()
         //let searchIndex = binarySearch(puzzleArray, searchItem: puzzleMock)
         //let searchIndex = puzzleArray.indexOf(puzzleMock)
         
@@ -68,7 +68,7 @@ public class PuzzleFactory{
                 }
             }
         }
-        var mockIndex = taticArray.indexOf(puzzleMock)
+        let mockIndex = taticArray.indexOf(puzzleMock)
         if (mockIndex != nil) {
             taticArray.removeAtIndex(taticArray.indexOf(puzzleMock)!)
         }
@@ -98,7 +98,7 @@ public class PuzzleFactory{
         var upperIndex = inputArr.count - 1
         
         while (true) {
-            var currentIndex = (lowerIndex + upperIndex)/2
+            let currentIndex = (lowerIndex + upperIndex)/2
             if(inputArr[currentIndex] == searchItem) {
                 return currentIndex
             } else if (lowerIndex > upperIndex) {

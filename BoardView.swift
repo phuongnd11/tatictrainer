@@ -183,7 +183,7 @@ class BoardView: UIView {
                     
                     let currentPiece = squares[highlightedSquare.0][highlightedSquare.1].piece
                     
-                    var moveInfo = chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
+                    let moveInfo = chessLogicUtils.TryMove(highlightedSquare, dest: dest, board: squares, isWhiteMove: boardStatus.isWhiteMove, moveResult: result, isTest: false)
                     
                     self.onMove = true
                     
@@ -207,7 +207,7 @@ class BoardView: UIView {
                             
                             let moveText = move.pgn
                             
-                            var moveNum = (self.boardStatus.moveNumber, self.puzzle.numOfMoves)
+                            let moveNum = (self.boardStatus.moveNumber, self.puzzle.numOfMoves)
                             if self.puzzle.validateMove(moveText, moveNumber: self.boardStatus.moveNumber) {
                                 self.updateStatusDelegate?.updateUserStatus(true, moveNum: moveNum)
                                 if self.boardStatus.moveNumber >= self.puzzle.numOfMoves {
@@ -217,7 +217,7 @@ class BoardView: UIView {
                                     //computerMove
                                     let nextComputerMove = PNGUtils().GetMoveFromPgn(nextMove, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove)
                                     
-                                    var computerMove = self.chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
+                                    let computerMove = self.chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
                                     
                                     UIView.animateWithDuration(0.4, delay: 0.1, options:UIViewAnimationOptions.CurveLinear, animations: {
                                         self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
@@ -318,11 +318,11 @@ class BoardView: UIView {
         }
         let moves = self.puzzle.solutionMoves.componentsSeparatedByString(" ")
         
-        var pngMove = moves[self.boardStatus.moveNumber]
+        let pngMove = moves[self.boardStatus.moveNumber]
             
             let move = PNGUtils().GetMoveFromPgn(pngMove, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove)
             
-            var computerMove = self.chessLogicUtils.TryMove(move.start, dest: move.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: move.moveResult, isTest: false)
+            let computerMove = self.chessLogicUtils.TryMove(move.start, dest: move.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: move.moveResult, isTest: false)
             
             UIView.animateWithDuration(0.5, delay: 0.4, options:UIViewAnimationOptions.CurveLinear, animations: {
                 self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)

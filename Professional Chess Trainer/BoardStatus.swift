@@ -78,7 +78,7 @@ public class BoardStatus: NSObject,NSCopying{
             enPassant.1 = -1
             enPassant.0 = -1
         }
-        moveNumber++
+        moveNumber += 1
         isWhiteMove = !isWhiteMove
     }
     

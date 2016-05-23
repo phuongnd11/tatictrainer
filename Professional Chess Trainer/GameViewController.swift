@@ -159,13 +159,13 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     func updateUserStatus(correctMove: Bool, moveNum: (Int, Int)) {
         var score = UserData.getScore()
-        var elo = theBoardView.getPuzzle().elo
+        let elo = theBoardView.getPuzzle().elo
         
         if !correctMove {
             Chirp.sharedManager.playSound(fileName: "invalid")
             if(!lockELO) {
                 lockELO = true
-                var eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 0, numOfGamesPlayed: UserData.getNumOfGames(), moveNum: moveNum)
+                let eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 0, numOfGamesPlayed: UserData.getNumOfGames(), moveNum: moveNum)
                 var symbol = "+"
                 
                 score += eloChange
@@ -181,8 +181,8 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             gameTitle.text = "Correct"
             if (!lockELO && moveNum.0 >= moveNum.1){
                 Chirp.sharedManager.playSound(fileName: "correct")
-                var eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 1, numOfGamesPlayed: UserData.getNumOfGames(),moveNum: moveNum)
-                var symbol = "+"
+                let eloChange = ELOUtils.calculateELOChange(UserData.getScore(), rating2: elo, winLoseDraw: 1, numOfGamesPlayed: UserData.getNumOfGames(),moveNum: moveNum)
+                let symbol = "+"
             
                 score += eloChange
                 eloLabel.text = " Your rating: " + String(score) + " (" + symbol + String(eloChange) + ")"
@@ -229,7 +229,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     }
 
     func redisplayELO(){
-        var score = UserData.getScore()
+        let score = UserData.getScore()
         eloLabel.text = String(score)
     }
     

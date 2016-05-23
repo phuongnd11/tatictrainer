@@ -19,11 +19,11 @@ public class ELOUtils {
             K = 15
         }
         
-        var r1 = pow(10.0, Double(rating1)/400)
-        var r2 = pow(10.0, Double(rating2)/400)
+        let r1 = pow(10.0, Double(rating1)/400)
+        let r2 = pow(10.0, Double(rating2)/400)
         var change = 0
         change = Int((Double(winLoseDraw) - r1/(r1+r2)) * Double(K))
-        var correctMoveNum = moveNum.0 - 1
+        let correctMoveNum = moveNum.0 - 1
         if(moveNum.0 == 1 || moveNum.0 >= moveNum.1) {
             return change
         }

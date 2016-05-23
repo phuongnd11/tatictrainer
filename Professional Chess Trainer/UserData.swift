@@ -102,7 +102,7 @@ public class UserData {
     static func resetPlayedGames() {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        var gamesPlayed = [Int]()
+        let gamesPlayed = [Int]()
         
         defaults.setObject(gamesPlayed, forKey: defaultKeys.puzzlePlayed)
         defaults.synchronize()
