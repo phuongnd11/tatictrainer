@@ -27,7 +27,7 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         Chirp.sharedManager.prepareSound(fileName: "eat")
         Chirp.sharedManager.prepareSound(fileName: "correct")
         //UserData.resetPlayedGames()
-        UserData.saveTheme("default")
+        //UserData.saveBoard("default")
         // Do any additional setup after loading the view.
     }
 

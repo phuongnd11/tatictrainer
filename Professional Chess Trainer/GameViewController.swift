@@ -113,6 +113,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let board = UserData.getBoard()
         let imageView = UIImageView(frame: self.view.bounds)
         imageView.image = UIImage(named: "bg")//if its in images.xcassets
         imageView.contentMode = .ScaleAspectFill
@@ -123,8 +124,8 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         hideButtons()
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
-        gameTitle.backgroundColor = UIColor(patternImage: UIImage(named: "title")!)
-        eloLabel.backgroundColor = UIColor(patternImage: UIImage(named: "title")!)
+        gameTitle.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
+        eloLabel.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
         eloLabel.textColor = UIColor.blackColor()
         eloLabel.text = " Your rating: " + String(UserData.getScore())
         gameTitle.textColor = UIColor.blackColor()

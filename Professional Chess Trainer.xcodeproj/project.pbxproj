@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4825D5061C8C702C00036814 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4825D5051C8C702C00036814 /* Enums.swift */; };
 		4825D50A1C8C71CA00036814 /* BoardStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4825D5091C8C71CA00036814 /* BoardStatus.swift */; };
-		6E61B413C7F47578D06328AF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9891EC9F15C8A018431B427 /* libPods.a */; };
+		7A1F92DDB5372D83CD86D407 /* libPods-Professional Chess Trainer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54FFA0D424EB15DCAF730A1D /* libPods-Professional Chess Trainer.a */; };
 		AA0191B91C796F2100A57BA8 /* Rook.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191B81C796F2100A57BA8 /* Rook.swift */; };
 		AA0191BB1C796F4900A57BA8 /* Knight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191BA1C796F4900A57BA8 /* Knight.swift */; };
 		AA0191BD1C796F6500A57BA8 /* Bishop.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0191BC1C796F6500A57BA8 /* Bishop.swift */; };
@@ -95,8 +95,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		233128C2407F02A5ED65FD4F /* Pods-Professional Chess Trainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Professional Chess Trainer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Professional Chess Trainer/Pods-Professional Chess Trainer.debug.xcconfig"; sourceTree = "<group>"; };
 		4825D5051C8C702C00036814 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		4825D5091C8C71CA00036814 /* BoardStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardStatus.swift; sourceTree = "<group>"; };
+		54FFA0D424EB15DCAF730A1D /* libPods-Professional Chess Trainer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Professional Chess Trainer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FFF4402043BFB2271E14076 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A5409B82D84CA7AE50A7E386 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AA0191B81C796F2100A57BA8 /* Rook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rook.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		AAF8892C1CD43AE70085D277 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		AAF8892E1CD43AF00085D277 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B9891EC9F15C8A018431B427 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E455DC8CDEB40318A9718D28 /* Pods-Professional Chess Trainer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Professional Chess Trainer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Professional Chess Trainer/Pods-Professional Chess Trainer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +193,7 @@
 				AAF8891B1CD438EA0085D277 /* CoreGraphics.framework in Frameworks */,
 				AAF889191CD438CF0085D277 /* AudioToolbox.framework in Frameworks */,
 				AAF889171CD438B20085D277 /* AdSupport.framework in Frameworks */,
-				6E61B413C7F47578D06328AF /* libPods.a in Frameworks */,
+				7A1F92DDB5372D83CD86D407 /* libPods-Professional Chess Trainer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +219,8 @@
 			children = (
 				6FFF4402043BFB2271E14076 /* Pods.debug.xcconfig */,
 				A5409B82D84CA7AE50A7E386 /* Pods.release.xcconfig */,
+				233128C2407F02A5ED65FD4F /* Pods-Professional Chess Trainer.debug.xcconfig */,
+				E455DC8CDEB40318A9718D28 /* Pods-Professional Chess Trainer.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				AAF889181CD438CF0085D277 /* AudioToolbox.framework */,
 				AAF889161CD438B20085D277 /* AdSupport.framework */,
 				B9891EC9F15C8A018431B427 /* libPods.a */,
+				54FFA0D424EB15DCAF730A1D /* libPods-Professional Chess Trainer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -388,12 +394,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA85FC031C5D01DB0091C2EE /* Build configuration list for PBXNativeTarget "Professional Chess Trainer" */;
 			buildPhases = (
-				FB743F373F6C9C89F22D2833 /* Check Pods Manifest.lock */,
+				FB743F373F6C9C89F22D2833 /* 📦 Check Pods Manifest.lock */,
 				AA85FBD71C5D01DB0091C2EE /* Sources */,
 				AA85FBD81C5D01DB0091C2EE /* Frameworks */,
 				AA85FBD91C5D01DB0091C2EE /* Resources */,
-				C358CD6969702CA8AA1E13A4 /* Embed Pods Frameworks */,
-				9BDEFCB7CF6AFDE1E192172F /* Copy Pods Resources */,
+				C358CD6969702CA8AA1E13A4 /* 📦 Embed Pods Frameworks */,
+				9BDEFCB7CF6AFDE1E192172F /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -522,44 +528,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9BDEFCB7CF6AFDE1E192172F /* Copy Pods Resources */ = {
+		9BDEFCB7CF6AFDE1E192172F /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Professional Chess Trainer/Pods-Professional Chess Trainer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C358CD6969702CA8AA1E13A4 /* Embed Pods Frameworks */ = {
+		C358CD6969702CA8AA1E13A4 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Professional Chess Trainer/Pods-Professional Chess Trainer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FB743F373F6C9C89F22D2833 /* Check Pods Manifest.lock */ = {
+		FB743F373F6C9C89F22D2833 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -754,7 +760,7 @@
 		};
 		AA85FC041C5D01DB0091C2EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FFF4402043BFB2271E14076 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 233128C2407F02A5ED65FD4F /* Pods-Professional Chess Trainer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -769,7 +775,7 @@
 		};
 		AA85FC051C5D01DB0091C2EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5409B82D84CA7AE50A7E386 /* Pods.release.xcconfig */;
+			baseConfigurationReference = E455DC8CDEB40318A9718D28 /* Pods-Professional Chess Trainer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

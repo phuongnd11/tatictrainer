@@ -57,6 +57,7 @@ public class ChessLogicUtils {
         let move = getMoveResult(start, dest: dest, board: board, boardStatus: boardStatus, isCheckGame: false)
         return move.moveResult.rawValue >= 0
     }
+    
     public func getMoveResult(start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus, isCheckGame:Bool ) -> (Move) {
         let move = Move(start: start, dest: dest)
         
@@ -139,12 +140,50 @@ public class ChessLogicUtils {
         if (isCheckGame && returnCode.rawValue >= 0){
             move.pgn = pgnUtil.getPngFromMove(move, board: board, isWhiteMove: boardStatus.isWhiteMove)
         }
+        
+        if (move.moveResult == MoveResult.castling){
+            let king = board[start.0][start.1].piece
+            
+          //  if (!(king is King)){
+            //    return nil
+            //}
+            let row = start.0
+            var rookCol = 0 // mac dinh canh hau
+            var rookColDest = 3
+            if (dest.1 > start.1){ // canh vua
+                rookCol = 7
+                rookColDest = 5
+            }
+            
+            move.castlingRookStart = (row, rookCol)
+            move.castlingRookEnd = (row, rookColDest)
+        }
+        if (move.moveResult == MoveResult.enpass){
+            if (boardStatus.isWhiteMove){//quan bi an la quan den
+                move.enpassantRemove = (dest.0+1, dest.1)
+            }
+            else {
+                move.enpassantRemove = (dest.0-1, dest.1)
+            }
+        }
         return move
     }
     
-    /**
+    private func applyPiece(square:Square, piece:Piece?, test:Bool){
+        if (test){
+            square.piece = piece
+        }
+        else{
+            if (piece == nil){
+                square.clearPiece()
+            }
+            else{
+                square.setPiece(piece!)
+            }
+        }
+    }
     
-    */
+    
     public func movePiece(startSquare: Square?, destSquare: Square, test: Bool){
         if (test){
             if startSquare != nil {
@@ -224,7 +263,50 @@ public class ChessLogicUtils {
         }
     }
     
-    public func TryMove(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool) -> MoveInfo!{
+    public func TryMove(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool){
+        if (moveResult.rawValue < 0){
+            return
+        }
+        if (moveResult == MoveResult.castling){
+            let king = board[start.0][start.1].piece
+            
+            if (!(king is King)){
+                return
+            }
+            let row = start.0
+            var rookCol = 0 // mac dinh canh hau
+            var rookColDest = 3
+            if (dest.1 > start.1){ // canh vua
+                rookCol = 7
+                rookColDest = 5
+            }
+            
+            let rook = board[row][rookCol].piece
+            if (isTest)
+            {
+            applyPiece(board[row][dest.1], piece: king, test: isTest)
+            applyPiece(board[row][rookColDest], piece: rook, test: isTest)
+            
+            applyPiece(board[row][start.1], piece: nil, test: isTest)
+            applyPiece(board[row][rookCol], piece: nil, test: isTest)
+            }
+            return
+        }
+        if (moveResult == MoveResult.enpass){
+            if (isWhiteMove && isTest){//quan bi an la quan den
+                applyPiece(board[dest.0+1][dest.1], piece: nil, test: isTest)
+            }
+            else {
+                applyPiece(board[dest.0-1][dest.1], piece: nil, test: isTest)
+            }
+        }
+        applyPiece(board[dest.0][dest.1], piece: board[start.0][start.1].piece, test: isTest)
+        
+        applyPiece(board[start.0][start.1], piece: nil, test: isTest)
+    }
+
+    
+    public func TryMove2(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool) -> MoveInfo!{
         let moveInfo = MoveInfo()
         if (moveResult.rawValue < 0){
             return nil

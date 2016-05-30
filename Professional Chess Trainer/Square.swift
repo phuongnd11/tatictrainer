@@ -22,13 +22,13 @@ public class Square: UIView {
     var bgSquare: UIImageView!
     let darkSquareColor = UIColor(red: 0.7, green: 0.53, blue: 0.39, alpha: 1)
     let lightSquareColor = UIColor(red: 240/255, green: 218/255, blue: 182/255, alpha: 1)
-    var theme: String
+    var board: String
     
     init() {
         isLight = false
         position = (0, 0)
         size = 0
-        theme = "default"
+        board = "default"
         super.init(frame: CGRectZero)
     }
     
@@ -36,7 +36,7 @@ public class Square: UIView {
         isLight = clone.isLight
         size = clone.size
         position = clone.position
-        theme = clone.theme
+        board = clone.board
         super.init(frame: CGRectMake(CGFloat(position.1) * size, CGFloat(position.0) * size, size, size))
         tag = position.0 * 10 + position.1
         backgroundColor = clone.backgroundColor
@@ -46,11 +46,11 @@ public class Square: UIView {
         boardView = clone.boardView
     }
     
-    init(x: Int, y: Int, light: Bool, squareSize: CGFloat, flipBoard: Bool, boardView: BoardView, theme: String){
+    init(x: Int, y: Int, light: Bool, squareSize: CGFloat, flipBoard: Bool, boardView: BoardView, board: String){
         isLight = light
         size = squareSize
         self.boardView = boardView
-        self.theme = theme
+        self.board = board
         if !flipBoard {
             position = (x, y)
         } else {
@@ -59,12 +59,12 @@ public class Square: UIView {
         super.init(frame: CGRectMake(CGFloat(y) * size, CGFloat(x) * size, size, size))
         tag = position.0 * 10 + position.1
         if light {
-            if (theme == "normal"){
+            if (board == "normal"){
                 backgroundColor = lightSquareColor
             }
             else {
                 bgSquare = UIImageView(frame: CGRectMake(0, 0, size, size))
-                bgSquare.image = UIImage(named: theme + "_white")
+                bgSquare.image = UIImage(named: board + "_white")
                 if bgSquare.image != nil {
                     self.addSubview(bgSquare)
                     self.sendSubviewToBack(bgSquare)
@@ -74,12 +74,12 @@ public class Square: UIView {
                 //}
             }
         } else {
-            if (theme == "normal"){
+            if (board == "normal"){
                 backgroundColor = darkSquareColor
             }
             else {
                 bgSquare = UIImageView(frame: CGRectMake(0, 0, size, size))
-                bgSquare.image = UIImage(named: theme + "_dark")
+                bgSquare.image = UIImage(named: board + "_dark")
                 if bgSquare.image != nil {
                     self.addSubview(bgSquare)
                     self.sendSubviewToBack(bgSquare)
@@ -145,7 +145,7 @@ public class Square: UIView {
     }
     
     func highlight(){
-        if (theme == "normal"){
+        if (board == "normal"){
             backgroundColor = UIColor.yellowColor()
         }
         else {

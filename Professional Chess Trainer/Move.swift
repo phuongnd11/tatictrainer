@@ -15,10 +15,14 @@ public class Move {
     var pgn = ""
     var gameResult = GameResult.goingOn
     var moveResult = MoveResult.okMove
+    var enpassantRemove = (-1, -1)
+    var castlingRookStart = (-1, -1)
+    var castlingRookEnd = (-1, -1)
     
     init(start: (Int, Int), dest: (Int, Int)){
         self.start = start
         self.dest = dest
     }
+    
 
 }

@@ -8,3 +8,55 @@
 
 import Foundation
 
+
+public class Theme {
+    
+    struct Board {
+        static var items: [String] = ["default", "normal", "alphonso", "maya", "wood"]
+    }
+    
+    struct Piece {
+        static var items: [String] = ["default", "normal", "paper", "grass", "wood"]
+    }
+    
+    class var boards: [String]{
+        get {return Board.items}
+        set {Board.items = newValue}
+    }
+    
+    class var pieces: [String]{
+        get {return Piece.items}
+        set {Piece.items = newValue}
+    }
+    
+    
+    public func getNextPiece(currentPiece: String) -> String {
+        var currentIndex = Piece.items.indexOf(currentPiece)
+        if (currentIndex != nil) {
+            if currentIndex < Piece.items.count - 1  {
+                return Piece.items[currentIndex! + 1]
+            }
+            else {
+                return Piece.items[0]
+            }
+        }
+        else {
+            return ""
+        }
+    }
+    
+    public func getNextBoard(currentBoard: String) -> String {
+        var currentIndex = Board.items.indexOf(currentBoard)
+        if (currentIndex != nil) {
+            if currentIndex < Board.items.count - 1  {
+                return Board.items[currentIndex! + 1]
+            }
+            else {
+                return Board.items[0]
+            }
+        }
+        else {
+            return ""
+        }
+    }
+}
