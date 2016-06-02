@@ -26,8 +26,6 @@ class BoardView: UIView {
         return (bounds.size.width - margin) / 8
     }
     
-    let iconSet: IconSet = IconSet()
-    
     let darkSquareColor = UIColor(red: 0.7, green: 0.53, blue: 0.39, alpha: 1)
     let lightSquareColor = UIColor(red: 240/255, green: 218/255, blue: 182/255, alpha: 1)
     
@@ -42,6 +40,8 @@ class BoardView: UIView {
     var disable = false
     var onMove = false
     
+    var boardStyle = UserData.getBoard()
+    var iconSet: IconSet = IconSet(piece: UserData.getPiece())
     //event delegate
     weak var moveFinishDelegate: PrintEventDelegate?
     weak var updateStatusDelegate: UpdateStatusDelegate?
@@ -77,7 +77,6 @@ class BoardView: UIView {
     }
    
     override func drawRect(rect: CGRect) {
-        
         var flip = false //alternating dark and light
         
         if puzzle == nil {
@@ -108,7 +107,7 @@ class BoardView: UIView {
                 
                 var square: Square
                 
-                square = Square(x: x, y: y, light: flip, squareSize: size, flipBoard: puzzle.flipBoard, boardView: self, board: UserData.getBoard())
+                square = Square(x: x, y: y, light: flip, squareSize: size, flipBoard: puzzle.flipBoard, boardView: self, board: boardStyle)
                 self.addSubview(square)
                 var piece:Piece
                 
@@ -350,8 +349,11 @@ class BoardView: UIView {
                             self.showSolution()
             })
 
-        }
+    }
     
+    func changePieceStype(piece: String){
+        iconSet = IconSet(piece: piece)
+    }
 }
 
 

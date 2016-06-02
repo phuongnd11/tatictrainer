@@ -16,11 +16,15 @@ class ThemeViewController: UIViewController {
     @IBOutlet weak var changePieceButton: UIButton!
     @IBOutlet weak var okButton: UIButton!
     
+    var currentBoard = ""
+    var currentPiece = ""
+    var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = UIImage(named: "bg")//if its in images.xcassets
+        let board = UserData.getBoard()
+        imageView = UIImageView(frame: self.view.bounds)
+        imageView.image = UIImage(named: board + "_bg")//if its in images.xcassets
         imageView.contentMode = .ScaleAspectFill
         
         self.view.addSubview(imageView)
@@ -34,7 +38,7 @@ class ThemeViewController: UIViewController {
             boardView.disable = true
             
             boardView.setNeedsDisplay()
-            }
+        }
 
     }
 
@@ -47,6 +51,46 @@ class ThemeViewController: UIViewController {
         return true
     }
     
+    
+    @IBAction func chooseTheme(sender: AnyObject) {
+        UserData.savePiece(currentPiece)
+        UserData.saveBoard(currentBoard)
+    }
+    
+
+    @IBAction func changePiece(sender: AnyObject) {
+        if (currentPiece == "") {
+            currentPiece = UserData.getPiece()
+        }
+        if boardView != nil {
+            var nextPiece = Theme.getNextPiece(currentPiece)
+            boardView.changePieceStype(nextPiece)
+            currentPiece = nextPiece
+            let puzzle = Puzzle(FEN: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", computerMove: "", solution: "e4", idea: "Nakamura - Magnus Carslen 2015", elo: 1480, id: 2)
+            boardView.reload(puzzle)
+            boardView.disable = true
+            
+            boardView.setNeedsDisplay()
+        }
+    }
+    
+    
+    @IBAction func changeBoard(sender: AnyObject) {
+        if (currentBoard == "") {
+            currentBoard = UserData.getBoard()
+        }
+        if boardView != nil {
+            var nextBoard = Theme.getNextBoard(currentBoard)
+            boardView.boardStyle = nextBoard
+            currentBoard = nextBoard
+            imageView.image = UIImage(named: nextBoard + "_bg")
+            let puzzle = Puzzle(FEN: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", computerMove: "", solution: "e4", idea: "Nakamura - Magnus Carslen 2015", elo: 1480, id: 2)
+            boardView.reload(puzzle)
+            boardView.disable = true
+            
+            boardView.setNeedsDisplay()
+        }
+    }
     /*
     // MARK: - Navigation
 

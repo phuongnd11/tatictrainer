@@ -14,8 +14,11 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         authPlayer()
+        UserData.saveBoard("wood")
+        UserData.savePiece("default")
+        let board = UserData.getBoard()
         let imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = UIImage(named: "bg")//if its in images.xcassets
+        imageView.image = UIImage(named: board + "_bg")//if its in images.xcassets
         //imageView.contentMode = .ScaleAspectFill
         //imageView.topAnchor.constraintEqualToAnchor(self.topLayoutGuide.bottomAnchor)
         //imageView.addConstraint(<#T##constraint: NSLayoutConstraint##NSLayoutConstraint#>)
@@ -27,7 +30,6 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         Chirp.sharedManager.prepareSound(fileName: "eat")
         Chirp.sharedManager.prepareSound(fileName: "correct")
         //UserData.resetPlayedGames()
-        //UserData.saveBoard("default")
         // Do any additional setup after loading the view.
     }
 

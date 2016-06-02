@@ -29,8 +29,7 @@ struct IconSet {
     var blackQueen: UIImage!
     var blackKing: UIImage!
     
-    init(){
-        let piece = UserData.getPiece()
+    init(piece: String){
         
         whitePawn = UIImage(named: piece + "_white_pawn")
         whiteRook = UIImage(named: piece + "_white_rook")

@@ -11,11 +11,11 @@ import Foundation
 
 public class Theme {
     
-    struct Board {
-        static var items: [String] = ["default", "normal", "alphonso", "maya", "wood"]
+    struct Piece {
+        static var items: [String] = ["default", "normal", "alphonso", "maya"]
     }
     
-    struct Piece {
+    struct Board {
         static var items: [String] = ["default", "normal", "paper", "grass", "wood"]
     }
     
@@ -30,7 +30,7 @@ public class Theme {
     }
     
     
-    public func getNextPiece(currentPiece: String) -> String {
+    public static func getNextPiece(currentPiece: String) -> String {
         var currentIndex = Piece.items.indexOf(currentPiece)
         if (currentIndex != nil) {
             if currentIndex < Piece.items.count - 1  {
@@ -41,11 +41,11 @@ public class Theme {
             }
         }
         else {
-            return ""
+            return "default"
         }
     }
     
-    public func getNextBoard(currentBoard: String) -> String {
+    public static func getNextBoard(currentBoard: String) -> String {
         var currentIndex = Board.items.indexOf(currentBoard)
         if (currentIndex != nil) {
             if currentIndex < Board.items.count - 1  {
@@ -56,7 +56,7 @@ public class Theme {
             }
         }
         else {
-            return ""
+            return "default"
         }
     }
 }

@@ -64,7 +64,7 @@ public class Square: UIView {
             }
             else {
                 bgSquare = UIImageView(frame: CGRectMake(0, 0, size, size))
-                bgSquare.image = UIImage(named: board + "_white")
+                bgSquare.image = UIImage(named: board + "_light")
                 if bgSquare.image != nil {
                     self.addSubview(bgSquare)
                     self.sendSubviewToBack(bgSquare)
@@ -134,25 +134,22 @@ public class Square: UIView {
     
     func clearHighlight(){
         if isLight {
-           // backgroundColor = lightSquareColor
+            self.bgSquare.image = UIImage(named: board + "_light")
         } else {
-            //backgroundColor = darkSquareColor
+            self.bgSquare.image = UIImage(named: board + "_dark")
         }
-        self.bringSubviewToFront(bgSquare)
-        if !isEmpty(){
-            self.bringSubviewToFront(occupyingPieceImageView)
-        }
+        //self.bringSubviewToFront(bgSquare)
+        //if !isEmpty(){
+          //  self.bringSubviewToFront(occupyingPieceImageView)
+        //}
     }
     
     func highlight(){
-        if (board == "normal"){
-            backgroundColor = UIColor.yellowColor()
+        if (isLight) {
+            self.bgSquare.image = UIImage(named: board + "_light_selected")
         }
         else {
-            //self.sendSubviewToBack(bgSquare)
-            //backgroundColor = UIColor.yellowColor()
-            //bgSquare.backgroundColor = UIColor.yellowColor()
-            //bgSquare.layer.opacity = 0.9
+            self.bgSquare.image = UIImage(named: board + "_dark_selected")
         }
     }
 

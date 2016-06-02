@@ -68,7 +68,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         }
         retryButton.hidden = true
         
-        gameTitle.text = "solution"
+        gameTitle.text = "Solution"
     }
     
     @IBAction func retryClicked(sender: AnyObject) {
@@ -115,7 +115,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         super.viewDidLoad()
         let board = UserData.getBoard()
         let imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = UIImage(named: "bg")//if its in images.xcassets
+        imageView.image = UIImage(named: board + "_bg")//if its in images.xcassets
         imageView.contentMode = .ScaleAspectFill
         
         self.view.addSubview(imageView)
