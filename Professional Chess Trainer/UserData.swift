@@ -112,8 +112,9 @@ public class UserData {
     
     static func getPiece() -> String {
         let defaults = NSUserDefaults.standardUserDefaults()
-        if let piece = defaults.stringForKey(defaultKeys.piece) {
-            return piece
+        let piece = defaults.stringForKey(defaultKeys.piece)
+        if (piece != nil && !piece!.isEmpty){
+            return piece!
         }
         return "default"
     }
@@ -127,8 +128,9 @@ public class UserData {
     
     static func getBoard() -> String {
         let defaults = NSUserDefaults.standardUserDefaults()
-        if let board = defaults.stringForKey(defaultKeys.board) {
-            return board
+        let board = defaults.stringForKey(defaultKeys.board)
+        if (board != nil && !board!.isEmpty){
+            return board!
         }
         return "default"
     }
