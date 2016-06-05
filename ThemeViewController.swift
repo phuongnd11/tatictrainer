@@ -30,6 +30,9 @@ class ThemeViewController: UIViewController {
         self.view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
         
+        changeBoardButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
+        changePieceButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
+        okButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
         
         if boardView != nil {
             

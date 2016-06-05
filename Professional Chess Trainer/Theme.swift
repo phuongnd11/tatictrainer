@@ -12,11 +12,13 @@ import Foundation
 public class Theme {
     
     struct Piece {
-        static var items: [String] = ["default", "normal", "alphonso", "maya"]
+        static var items: [String] = ["default", "alphonso", "maya"]
+        //to add normal/color
     }
     
     struct Board {
-        static var items: [String] = ["default", "normal", "paper", "grass", "wood"]
+        static var items: [String] = ["default", "paper", "grass", "wood"]
+        //to add normal/color
     }
     
     class var boards: [String]{
