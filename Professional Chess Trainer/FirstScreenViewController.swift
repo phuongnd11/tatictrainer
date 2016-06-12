@@ -11,6 +11,8 @@ import GameKit
 
 class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegate {
 
+    @IBOutlet weak var parentStackView: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,7 +23,18 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         //imageView.addConstraint(<#T##constraint: NSLayoutConstraint##NSLayoutConstraint#>)
         self.view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
+        
+        if (DeviceType.IS_IPHONE_6) {
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 400).active = true
+        }
+        else if (DeviceType.IS_IPHONE_4_OR_LESS) {
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 270).active = true
+        }
+        else if (DeviceType.IS_IPHONE_5){
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 330).active = true
+        }
 
+        
         Chirp.sharedManager.prepareSound(fileName: "move")
         Chirp.sharedManager.prepareSound(fileName: "invalid")
         Chirp.sharedManager.prepareSound(fileName: "eat")

@@ -20,10 +20,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9Wh-gH-47L">
                                 <rect key="frame" x="0.0" y="285" width="240" height="120"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYd-WV-i5I">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYd-WV-i5I">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="qdw-SW-eIc" userLabel="height = 50"/>
@@ -36,7 +36,7 @@
                                             <segue destination="gF1-ki-02A" kind="show" id="boW-rz-f7C"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-Fe-MNy">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIc-Fe-MNy">
                                         <rect key="frame" x="0.0" y="45" width="240" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="yMB-kV-5CJ" userLabel="height = 50"/>
@@ -48,7 +48,7 @@
                                             <action selector="showLeaderBoard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jjr-qk-x1c"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tw-tU-xBG">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tw-tU-xBG">
                                         <rect key="frame" x="0.0" y="90" width="240" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="PbM-jN-cdB" userLabel="height = 50"/>
@@ -68,9 +68,11 @@
                         <constraints>
                             <constraint firstItem="9Wh-gH-47L" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LdQ-88-1eb"/>
                             <constraint firstItem="9Wh-gH-47L" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="4:10" id="SvL-fa-jF6"/>
-                            <constraint firstItem="9Wh-gH-47L" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="yv9-rj-kR6"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="parentStackView" destination="9Wh-gH-47L" id="EkA-H6-Rjo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
