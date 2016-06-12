@@ -14,9 +14,8 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let board = UserData.getBoard()
         let imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = UIImage(named: board + "_first_bg")//if its in images.xcassets
+        imageView.image = UIImage(named: "default" + "_first_bg")//if its in images.xcassets
         //imageView.contentMode = .ScaleAspectFill
         //imageView.topAnchor.constraintEqualToAnchor(self.topLayoutGuide.bottomAnchor)
         //imageView.addConstraint(<#T##constraint: NSLayoutConstraint##NSLayoutConstraint#>)

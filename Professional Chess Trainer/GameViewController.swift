@@ -10,12 +10,31 @@ import UIKit
 import GameKit
 import GoogleMobileAds
 
+
+struct ScreenSize
+{
+    static let SCREEN_WIDTH = UIScreen.mainScreen().bounds.size.width
+    static let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.size.height
+    static let SCREEN_MAX_LENGTH = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+    static let SCREEN_MIN_LENGTH = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+}
+
+struct DeviceType
+{
+    static let IS_IPHONE_4_OR_LESS =  UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
+    static let IS_IPHONE_5 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
+    static let IS_IPHONE_6 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
+    static let IS_IPHONE_6P = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+}
+
 class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate {
     
     @IBOutlet weak var ideaButton: UIButton!
     @IBOutlet weak var gameTitle: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var eloLabel: UILabel!
+    
+    @IBOutlet weak var parentStackView: UIStackView!
     
     @IBOutlet weak var retryButton: UIButton!
     
@@ -24,6 +43,8 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     @IBOutlet weak var gAdBannerView: GADBannerView!
     
     @IBOutlet weak var theBoardView: BoardView!
+    
+    @IBOutlet weak var backButton: UIButton!
     
     var popViewController: PopUpViewController!
     
@@ -136,7 +157,53 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             userPlay = "Black"
         }
         gameTitle.text = userPlay + " to play"
-        loadBanner()
+        
+        if (DeviceType.IS_IPHONE_6) {
+            let width = self.view.bounds.width*2/4
+            let y = self.view.bounds.height*1/25
+            let x = (self.view.bounds.width - width)/2
+            let height = width*92/502
+        
+            let logoImageView = UIImageView(frame: CGRectMake(x, y, width, height))
+            logoImageView.image = UIImage(named: "logo_text")
+            self.view.addSubview(logoImageView)
+            
+            //parentStackView.
+            //let horizontalConstraint = NSLayoutConstraint(item: parentStackView, attribute: NSLayoutAttribute.Top, relatedBy: .Equal, toItem: self.topLayoutGuide)
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 80).active = true
+            
+            //backButton.frame = CGRectMake(x, y, width, height)
+            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: y).active = true
+            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
+            self.view.bringSubviewToFront(backButton)
+            loadBanner()
+        }
+        else if (DeviceType.IS_IPHONE_4_OR_LESS) {
+            //let width = self.view.bounds.width*1/4
+            //let y = self.view.bounds.height*1/30
+            //let x = (self.view.bounds.width - width)/2
+            //let height = width*92/502
+            
+            //let logoImageView = UIImageView(frame: CGRectMake(x, y, width, height))
+            //logoImageView.image = UIImage(named: "logo_text")
+            //self.view.addSubview(logoImageView)
+            
+            //parentStackView.
+            //let horizontalConstraint = NSLayoutConstraint(item: parentStackView, attribute: NSLayoutAttribute.Top, relatedBy: .Equal, toItem: self.topLayoutGuide)
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 0).active = true
+            
+            //backButton.frame = CGRectMake(x, y, width, height)
+            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 5).active = true
+            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
+            self.view.bringSubviewToFront(backButton)
+        }
+        else if (DeviceType.IS_IPHONE_5){
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 0).active = true
+            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 4).active = true
+            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
+            self.view.bringSubviewToFront(backButton)
+            loadBanner()
+        }
     }
     
     func loadBanner(){
