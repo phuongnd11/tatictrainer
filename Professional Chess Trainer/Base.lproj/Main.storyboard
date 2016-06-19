@@ -233,6 +233,7 @@
                         <outlet property="backButton" destination="CKX-af-bGZ" id="lab-OK-033"/>
                         <outlet property="eloLabel" destination="pvQ-eE-vql" id="2Dq-aa-sl7"/>
                         <outlet property="gAdBannerView" destination="kwT-O4-11P" id="ar4-NM-RgR"/>
+                        <outlet property="gameControlStackView" destination="nor-tv-RCu" id="thV-bD-sw6"/>
                         <outlet property="gameTitle" destination="uJt-di-k1m" id="9MJ-tQ-x5s"/>
                         <outlet property="ideaButton" destination="7dd-Nd-IZh" id="e30-Up-clo"/>
                         <outlet property="nextButton" destination="OLE-vD-cBV" id="hGj-5a-Al3"/>

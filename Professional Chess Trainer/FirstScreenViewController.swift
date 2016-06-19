@@ -24,6 +24,10 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         self.view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
         
+        if (DeviceType.IS_IPHONE_6P) {
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 440).active = true
+        }
+        
         if (DeviceType.IS_IPHONE_6) {
             parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 400).active = true
         }

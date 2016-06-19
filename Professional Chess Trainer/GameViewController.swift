@@ -48,38 +48,19 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     
     var popViewController: PopUpViewController!
     
+    @IBOutlet weak var gameControlStackView: UIStackView!
     var lockELO = false
     var titleGame = ""
     
     @IBAction func ideaClicked(sender: AnyObject) {
-        /*
-        let bundle = NSBundle(forClass: PopUpViewController.self)
-        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
-        {
-            self.popViewController = PopUpViewController(nibName: "PopUpViewController_iPad", bundle: bundle)
-            self.popViewController.title = "This is a popup view"
-            self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
-        } else
-        {
-            /**
-            if UIScreen.mainScreen().bounds.size.width > 320 {
-                if UIScreen.mainScreen().scale == 3 {
-                    self.popViewController = PopUpViewController(nibName: "PopUpViewController_iPhone6Plus", bundle: bundle)
-                    self.popViewController.title = "This is a popup view"
-                    self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
-                } else {
-                    self.popViewController = PopUpViewController(nibName: "PopUpViewController_iPhone6", bundle: bundle)
-                    self.popViewController.title = "This is a popup view"
-                    self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
-                }
-            } else {
- */
-                self.popViewController = PopUpViewController(nibName: "PopUpViewController", bundle: bundle)
-                self.popViewController.title = "This is a popup view"
-                self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", animated: true)
-           // }
+        let alertController = UIAlertController(title: "Idea/Comment for this tatic", message: "A standard alert", preferredStyle: .Alert)
+        
+        let OKAction = UIAlertAction(title: "OK", style: .Default) { (action:UIAlertAction!) in
+        
         }
- */
+        alertController.addAction(OKAction)
+        
+        self.presentViewController(alertController, animated: true, completion:nil)
     }
     
     @IBAction func solutionClicked(sender: AnyObject) {
@@ -96,6 +77,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         
         if theBoardView != nil {
             theBoardView.retry()
+            theBoardView.highlightComputerMoveAgain()
         }
         //gameTitle.textColor = UIColor.whiteColor()
         gameTitle.text = "Analysis mode"
@@ -158,6 +140,27 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         }
         gameTitle.text = userPlay + " to play"
         
+        if (DeviceType.IS_IPHONE_6P) {
+            let width = self.view.bounds.width*2/4
+            let y = self.view.bounds.height*1/25
+            let x = (self.view.bounds.width - width)/2
+            let height = width*92/502
+            
+            let logoImageView = UIImageView(frame: CGRectMake(x, y, width, height))
+            logoImageView.image = UIImage(named: "logo_text")
+            self.view.addSubview(logoImageView)
+            
+            //parentStackView.
+            //let horizontalConstraint = NSLayoutConstraint(item: parentStackView, attribute: NSLayoutAttribute.Top, relatedBy: .Equal, toItem: self.topLayoutGuide)
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 80).active = true
+            
+            //backButton.frame = CGRectMake(x, y, width, height)
+            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: y).active = true
+            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
+            self.view.bringSubviewToFront(backButton)
+            loadBanner()
+        }
+        
         if (DeviceType.IS_IPHONE_6) {
             let width = self.view.bounds.width*2/4
             let y = self.view.bounds.height*1/25
@@ -191,7 +194,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             //parentStackView.
             //let horizontalConstraint = NSLayoutConstraint(item: parentStackView, attribute: NSLayoutAttribute.Top, relatedBy: .Equal, toItem: self.topLayoutGuide)
             parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 0).active = true
-            
+            gameControlStackView.alignment = UIStackViewAlignment.Center
             //backButton.frame = CGRectMake(x, y, width, height)
             backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 5).active = true
             backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
@@ -298,7 +301,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
 
     func redisplayELO(){
         let score = UserData.getScore()
-        eloLabel.text = String(score)
+        eloLabel.text = " Your rating: " + String(score)
     }
     
     override func prefersStatusBarHidden() -> Bool {

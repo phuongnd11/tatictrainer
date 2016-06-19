@@ -32,6 +32,7 @@ class BoardView: UIView {
     var squares = [[Square]](count: 8, repeatedValue: Array(count: 8, repeatedValue: Square()))
     var board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
     var highlightedSquare: (Int, Int) = (-1, -1)
+    var computerMoveHighLighted: (Int, Int) = (-1, -1)
     var moves = ""
     var boardStatus = BoardStatus()
     var puzzle: Puzzle!
@@ -165,9 +166,22 @@ class BoardView: UIView {
         
         
     }
+    
+    func clearComputerMoveHighLight(){
+        if (computerMoveHighLighted.0 != -1) {
+            squares[computerMoveHighLighted.0][computerMoveHighLighted.1].clearHighlight()
+        }
+    }
+    
+    func highlightComputerMoveAgain(){
+        if (computerMoveHighLighted.0 != -1) {
+            squares[computerMoveHighLighted.0][computerMoveHighLighted.1].highlight()
+        }
+    }
    
     func squareTapView(sender: UITapGestureRecognizer){
         if !userWon && !disable && !onMove {
+            clearComputerMoveHighLight()
             if (highlightedSquare.0 != -1) {
                 let tag = sender.view!.tag
                 
@@ -233,6 +247,11 @@ class BoardView: UIView {
                                                 Chirp.sharedManager.playSound(fileName: "move")
                                             }
                                             
+                                            self.computerMoveHighLighted.0 = computerMove.dest.0
+                                            self.computerMoveHighLighted.1 = computerMove.dest.1
+                                            
+                                            self.squares[self.computerMoveHighLighted.0][self.computerMoveHighLighted.1].highlight()
+                                            
                                             self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.dest.0][computerMove.dest.1]), status: BoardStatus(clone: self.boardStatus))
                                             
                                             self.squares[computerMove.start.0][computerMove.start.1].move(self.squares[computerMove.dest.0][computerMove.dest.1])
@@ -257,10 +276,23 @@ class BoardView: UIView {
                     //-------------------------------------
                     
                 }
+                
                 squares[highlightedSquare.0][highlightedSquare.1].clearHighlight()
                 highlightedSquare.0 = -1
                 highlightedSquare.1 = -1
                 
+                if (result == MoveResult.sameColor) {
+                    let tag = sender.view!.tag
+                    
+                    if !squares[tag/10][tag%10].isEmpty() {
+                        if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.White)){
+                            highlightedSquare.0 = tag/10
+                            highlightedSquare.1 = tag%10
+                            squares[highlightedSquare.0][highlightedSquare.1].highlight()
+                        }
+                    }
+
+                }
                 
             } else {
                 
