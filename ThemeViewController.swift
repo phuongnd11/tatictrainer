@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SQLite
 
 class ThemeViewController: UIViewController {
 
@@ -15,6 +16,8 @@ class ThemeViewController: UIViewController {
     @IBOutlet weak var changeBoardButton: UIButton!
     @IBOutlet weak var changePieceButton: UIButton!
     @IBOutlet weak var okButton: UIButton!
+    
+    private static let Prefix = "com.inspireon.demo.Professional-Chess-Trainer."
     
     var currentBoard = ""
     var currentPiece = ""

@@ -13,31 +13,37 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
 
     @IBOutlet weak var parentStackView: UIStackView!
     
+    var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let board = UserData.getBoard()
+        imageView = UIImageView(frame: self.view.bounds)
         
-        let imageView = UIImageView(frame: self.view.bounds)
-        imageView.image = UIImage(named: "default" + "_first_bg")//if its in images.xcassets
         //imageView.contentMode = .ScaleAspectFill
         //imageView.topAnchor.constraintEqualToAnchor(self.topLayoutGuide.bottomAnchor)
         //imageView.addConstraint(<#T##constraint: NSLayoutConstraint##NSLayoutConstraint#>)
-        self.view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
+        
         
         if (DeviceType.IS_IPHONE_6P) {
             parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 440).active = true
+            imageView.image = UIImage(named: board + "_i6_first_bg")
         }
         
         if (DeviceType.IS_IPHONE_6) {
             parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 400).active = true
+            imageView.image = UIImage(named: board + "_i6_first_bg")
         }
         else if (DeviceType.IS_IPHONE_4_OR_LESS) {
             parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 270).active = true
+            imageView.image = UIImage(named: board + "_i4_first_bg")
         }
         else if (DeviceType.IS_IPHONE_5){
             parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 330).active = true
+            imageView.image = UIImage(named: board + "_i5_first_bg")
         }
-
+        self.view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
         
         Chirp.sharedManager.prepareSound(fileName: "move")
         Chirp.sharedManager.prepareSound(fileName: "invalid")
@@ -57,7 +63,32 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
     }
     
     @IBAction func unwindToSegue (segue : UIStoryboardSegue) {
+        let board = UserData.getBoard()
         
+        //imageView.contentMode = .ScaleAspectFill
+        //imageView.topAnchor.constraintEqualToAnchor(self.topLayoutGuide.bottomAnchor)
+        //imageView.addConstraint(<#T##constraint: NSLayoutConstraint##NSLayoutConstraint#>)
+        
+        
+        if (DeviceType.IS_IPHONE_6P) {
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 440).active = true
+            imageView.image = UIImage(named: board + "_i6_first_bg")
+        }
+        
+        if (DeviceType.IS_IPHONE_6) {
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 400).active = true
+            imageView.image = UIImage(named: board + "_i6_first_bg")
+        }
+        else if (DeviceType.IS_IPHONE_4_OR_LESS) {
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 270).active = true
+            imageView.image = UIImage(named: board + "_i4_first_bg")
+        }
+        else if (DeviceType.IS_IPHONE_5){
+            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 330).active = true
+            imageView.image = UIImage(named: board + "_i5_first_bg")
+        }
+        self.view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
     }
     
     @IBAction func showLeaderBoard(sender: AnyObject) {
@@ -70,7 +101,7 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         
         if GKLocalPlayer.localPlayer().authenticated {
             
-            let scoreReporter = GKScore(leaderboardIdentifier: "chesstaticv1_leaderboard")
+            let scoreReporter = GKScore(leaderboardIdentifier: "chesstatics_leaderbaord")
             
             scoreReporter.value = Int64(number)
             

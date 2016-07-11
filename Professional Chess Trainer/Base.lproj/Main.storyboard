@@ -351,7 +351,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="57" height="57"/>
+        <image name="back" width="50" height="50"/>
         <image name="button" width="423" height="88"/>
         <image name="idea-button" width="110" height="124"/>
         <image name="next-button" width="110" height="124"/>
