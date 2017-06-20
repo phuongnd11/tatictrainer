@@ -8,14 +8,14 @@
 
 import Foundation
 
-public class Rook: Piece {
-    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+open class Rook: Piece {
+    open override func isValidMove(_ start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
         //an quan cung mau da check o tren
         
-        return isValidHorVerMove(start, dest: dest, board: board)
+        return isValidHorVerMove(start: start, dest: dest, board: board)
     }
     
-    public override func toPGN() -> String {
+    open override func toPGN() -> String {
         return "R";
     }
 }

@@ -14,7 +14,7 @@ class FENUtilsTests: XCTestCase {
 
     func testExample() {
         var board = FENUtils().readBoardFromFEN("rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2")
-        for var x = 7; x >= 0; x-- {
+        for var x = 7; x >= 0; x -= 1 {
             print("")
             for y in 0...7 {
                 print("\(board[x][y]) ", terminator:"")

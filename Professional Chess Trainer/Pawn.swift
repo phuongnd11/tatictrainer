@@ -8,19 +8,19 @@
 
 import Foundation
 
-public class Pawn: Piece {
-    public static func isPawnCanEat(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+open class Pawn: Piece {
+    open static func isPawnCanEat(_ start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
         //note; chi check vi tri quan tot, khong check quan o dest
         let currentPiece = board[start.0][start.1].piece
         
-        if (currentPiece.color == PieceColor.White){
+        if (currentPiece?.color == PieceColor.white){
             if ((start.0 - dest.0) == 1 && abs(start.1-dest.1)==1){
                 return true;
             }
             return false
         }
         
-        if (currentPiece.color == PieceColor.Black){
+        if (currentPiece?.color == PieceColor.black){
             if ((dest.0 - start.0) == 1 && abs(start.1-dest.1)==1){
                 return true;
             }
@@ -28,7 +28,7 @@ public class Pawn: Piece {
         }
         return false;
     }
-    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+    open override func isValidMove(_ start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
         let currentPiece = board[start.0][start.1].piece
         
         if (!board[dest.0][dest.1].isEmpty()){// check truong hop an quan
@@ -42,7 +42,7 @@ public class Pawn: Piece {
             return false
         }
         
-        if (currentPiece.color == PieceColor.White){
+        if (currentPiece?.color == PieceColor.white){
             if (horDiff > 0) {
                 return false
             }
@@ -53,7 +53,7 @@ public class Pawn: Piece {
             return false
         }
         
-        if (currentPiece.color == PieceColor.Black){
+        if (currentPiece?.color == PieceColor.black){
             if (horDiff < 0) {
                 return false
             }
@@ -67,7 +67,7 @@ public class Pawn: Piece {
 
     }
     
-    public override func toPGN() -> String {
+    open override func toPGN() -> String {
         return "";
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public class Puzzle: Comparable {
+open class Puzzle: Comparable {
     
     var fen: FEN!
     var firstComputerMove: String = ""
@@ -26,25 +26,26 @@ public class Puzzle: Comparable {
         self.elo = elo
         self.id = id
         firstComputerMove = computerMove
-        solutionMoves = solution.stringByTrimmingCharactersInSet(
-            NSCharacterSet.whitespaceAndNewlineCharacterSet()
+        NSLog("Computer move in String 11111: ", solution)
+        solutionMoves = solution.trimmingCharacters(
+            in: CharacterSet.whitespacesAndNewlines
         )
-        if solutionMoves[solutionMoves.startIndex] == "." {
+        if (!fen.whiteToMove || solutionMoves[solutionMoves.startIndex] == ".") {
             flipBoard = true
         }
-        numOfMoves = solutionMoves.componentsSeparatedByString(" ").count
+        numOfMoves = solutionMoves.components(separatedBy: " ").count
     }
     
     //count from 1
-    public func validateMove(moveText: String, moveNumber: Int) -> Bool{
-        let tokens = solutionMoves.componentsSeparatedByString(" ")
+    open func validateMove(_ moveText: String, moveNumber: Int) -> Bool{
+        let tokens = solutionMoves.components(separatedBy: " ")
         if (moveNumber-1) > tokens.count {
             return false
         }
         NSLog("validate" + tokens[moveNumber-1])
         NSLog(moveText)
         // Need to update
-        if tokens[moveNumber-1].containsString(moveText) {
+        if tokens[moveNumber-1].contains(moveText) {
             return true
         }
         
@@ -52,8 +53,8 @@ public class Puzzle: Comparable {
     }
     
     //count from 1
-    public func getNextComputerMove(moveNumber: Int) -> String {
-        let tokens = solutionMoves.componentsSeparatedByString(" ")
+    open func getNextComputerMove(_ moveNumber: Int) -> String {
+        let tokens = solutionMoves.components(separatedBy: " ")
         if moveNumber > tokens.count {
             return ""
         }

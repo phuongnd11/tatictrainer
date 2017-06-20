@@ -9,13 +9,13 @@
 import Foundation
 import AVFoundation
 
-public class SoundPlayer{
+open class SoundPlayer{
     
     var audioPlayer: AVAudioPlayer!
     
     func playMove(){
         do {
-            self.audioPlayer =  try AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Click", ofType: "wav")!))
+            self.audioPlayer =  try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: "Click", ofType: "wav")!))
             self.audioPlayer.play()
         }
         catch {

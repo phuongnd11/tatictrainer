@@ -13,18 +13,18 @@ import GoogleMobileAds
 
 struct ScreenSize
 {
-    static let SCREEN_WIDTH = UIScreen.mainScreen().bounds.size.width
-    static let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.size.height
+    static let SCREEN_WIDTH = UIScreen.main.bounds.size.width
+    static let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
     static let SCREEN_MAX_LENGTH = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
     static let SCREEN_MIN_LENGTH = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
 }
 
 struct DeviceType
 {
-    static let IS_IPHONE_4_OR_LESS =  UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
-    static let IS_IPHONE_5 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
-    static let IS_IPHONE_6 = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
-    static let IS_IPHONE_6P = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
+    static let IS_IPHONE_4_OR_LESS =  UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
+    static let IS_IPHONE_5 = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
+    static let IS_IPHONE_6 = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
+    static let IS_IPHONE_6P = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
 }
 
 class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDelegate {
@@ -52,28 +52,33 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     var lockELO = false
     var titleGame = ""
     
-    @IBAction func ideaClicked(sender: AnyObject) {
-        let alertController = UIAlertController(title: "Idea/Comment for this tatic", message: "A standard alert", preferredStyle: .Alert)
+    @IBAction func ideaClicked(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: "Idea/Comment for this tatic", message: "Not available", preferredStyle: .alert)
         
-        let OKAction = UIAlertAction(title: "OK", style: .Default) { (action:UIAlertAction!) in
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
         
         }
         alertController.addAction(OKAction)
         
-        self.presentViewController(alertController, animated: true, completion:nil)
+        self.present(alertController, animated: true, completion:nil)
     }
     
-    @IBAction func solutionClicked(sender: AnyObject) {
-        if theBoardView != nil {
-            theBoardView.moveBack()
-            theBoardView.showSolution()
-        }
-        retryButton.hidden = true
+    @IBAction func solutionClicked(_ sender: AnyObject) {
+        if(!theBoardView.showingSolution){
+            solutionButton.isEnabled = false;
+            if theBoardView != nil {
+                theBoardView.moveBack()
+                theBoardView.showSolution()
+            }
         
-        gameTitle.text = "Solution"
+            retryButton.isHidden = true
+        
+            gameTitle.text = "Solution"
+            solutionButton.isEnabled = true;
+        }
     }
     
-    @IBAction func retryClicked(sender: AnyObject) {
+    @IBAction func retryClicked(_ sender: AnyObject) {
         
         if theBoardView != nil {
             theBoardView.retry()
@@ -86,7 +91,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         //redisplayELO()
     }
     
-    @IBAction func nextButton(sender: AnyObject) {
+    @IBAction func nextButton(_ sender: AnyObject) {
         if theBoardView != nil {
             let puzzle = PuzzleFactory.puzzleFactory.getNextPuzzle(UserData.getScore())
             theBoardView.reload(puzzle)
@@ -119,23 +124,23 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         let board = UserData.getBoard()
         let imageView = UIImageView(frame: self.view.bounds)
         imageView.image = UIImage(named: board + "_bg")//if its in images.xcassets
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         
         self.view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
+        self.view.sendSubview(toBack: imageView)
         
         hideButtons()
         theBoardView.moveFinishDelegate = self
         theBoardView.updateStatusDelegate = self
         gameTitle.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
         eloLabel.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
-        eloLabel.textColor = UIColor.blackColor()
+        eloLabel.textColor = UIColor.black
         eloLabel.text = " Your rating: " + String(UserData.getScore())
-        gameTitle.textColor = UIColor.blackColor()
-        gameTitle.textAlignment = .Center
+        gameTitle.textColor = UIColor.black
+        gameTitle.textAlignment = .center
         var userPlay = "White"
         let puzzle = theBoardView.puzzle
-        if puzzle != nil && puzzle.flipBoard {
+        if puzzle != nil && (puzzle?.flipBoard)! {
             userPlay = "Black"
         }
         gameTitle.text = userPlay + " to play"
@@ -146,18 +151,18 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             let x = (self.view.bounds.width - width)/2
             let height = width*92/502
             
-            let logoImageView = UIImageView(frame: CGRectMake(x, y, width, height))
+            let logoImageView = UIImageView(frame: CGRect(x: x, y: y, width: width, height: height))
             logoImageView.image = UIImage(named: "logo_text")
             self.view.addSubview(logoImageView)
             
             //parentStackView.
             //let horizontalConstraint = NSLayoutConstraint(item: parentStackView, attribute: NSLayoutAttribute.Top, relatedBy: .Equal, toItem: self.topLayoutGuide)
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 80).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 80).isActive = true
             
             //backButton.frame = CGRectMake(x, y, width, height)
-            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: y).active = true
-            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
-            self.view.bringSubviewToFront(backButton)
+            backButton.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: y).isActive = true
+            backButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 3).isActive = true
+            self.view.bringSubview(toFront: backButton)
             loadBanner()
         }
         
@@ -167,18 +172,18 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             let x = (self.view.bounds.width - width)/2
             let height = width*92/502
         
-            let logoImageView = UIImageView(frame: CGRectMake(x, y, width, height))
+            let logoImageView = UIImageView(frame: CGRect(x: x, y: y, width: width, height: height))
             logoImageView.image = UIImage(named: "logo_text")
             self.view.addSubview(logoImageView)
             
             //parentStackView.
             //let horizontalConstraint = NSLayoutConstraint(item: parentStackView, attribute: NSLayoutAttribute.Top, relatedBy: .Equal, toItem: self.topLayoutGuide)
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 80).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 80).isActive = true
             
             //backButton.frame = CGRectMake(x, y, width, height)
-            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: y).active = true
-            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
-            self.view.bringSubviewToFront(backButton)
+            backButton.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: y).isActive = true
+            backButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 3).isActive = true
+            self.view.bringSubview(toFront: backButton)
             loadBanner()
         }
         else if (DeviceType.IS_IPHONE_4_OR_LESS) {
@@ -193,18 +198,25 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
             
             //parentStackView.
             //let horizontalConstraint = NSLayoutConstraint(item: parentStackView, attribute: NSLayoutAttribute.Top, relatedBy: .Equal, toItem: self.topLayoutGuide)
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 0).active = true
-            gameControlStackView.alignment = UIStackViewAlignment.Center
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 0).isActive = true
+            gameControlStackView.alignment = UIStackViewAlignment.center
             //backButton.frame = CGRectMake(x, y, width, height)
-            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 5).active = true
-            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
-            self.view.bringSubviewToFront(backButton)
+            backButton.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 5).isActive = true
+            backButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 3).isActive = true
+            
+            retryButton.setImage(UIImage(named: "i4-retry-button"), for: UIControlState())
+            solutionButton.setImage(UIImage(named: "i4-solution-button"), for: UIControlState())
+            nextButton.setImage(UIImage(named: "i4-next-button"), for: UIControlState())
+            ideaButton.setImage(UIImage(named: "i4-idea-button"), for: UIControlState())
+            
+            
+            self.view.bringSubview(toFront: backButton)
         }
         else if (DeviceType.IS_IPHONE_5){
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 0).active = true
-            backButton.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 4).active = true
-            backButton.leadingAnchor.constraintEqualToAnchor(view.layoutMarginsGuide.leadingAnchor, constant: 3).active = true
-            self.view.bringSubviewToFront(backButton)
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 0).isActive = true
+            backButton.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 4).isActive = true
+            backButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 3).isActive = true
+            self.view.bringSubview(toFront: backButton)
             loadBanner()
         }
     }
@@ -214,7 +226,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         gAdBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         gAdBannerView.rootViewController = self
         let req : GADRequest = GADRequest()
-        gAdBannerView.loadRequest(req)
+        gAdBannerView.load(req)
         //gAdBannerView.frame = CGRectMake(0, view.bounds.height - gAdBannerView.frame.size.height, gAdBannerView.frame.size.width, gAdBannerView.frame.size.height)
         //self.view.addSubview(gAdBannerView)
     }
@@ -224,11 +236,11 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         // Dispose of any resources that can be recreated.
     }
     
-    func moveFinish(moveResult: MoveResult){
+    func moveFinish(_ moveResult: MoveResult){
         //eloLabel.text = String(moveResult)
     }
     
-    func updateUserStatus(correctMove: Bool, moveNum: (Int, Int)) {
+    func updateUserStatus(_ correctMove: Bool, moveNum: (Int, Int)) {
         var score = UserData.getScore()
         let elo = theBoardView.getPuzzle().elo
         
@@ -275,28 +287,28 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
     }
     
     func updateUIWhenFailed(){
-        retryButton.hidden = false
-        solutionButton.hidden = false
+        retryButton.isHidden = false
+        solutionButton.isHidden = false
         gameTitle.text = "Incorrect"
         enableNext()
     }
 
     func enableNext() {
         //nextButton.backgroundColor = UIColor.orangeColor()
-        nextButton.hidden = false
+        nextButton.isHidden = false
         //ideaButton.backgroundColor = UIColor.lightGrayColor()
-        ideaButton.hidden = false
+        ideaButton.isHidden = false
     }
     
     func hideButtons(){
-        nextButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
-        nextButton.hidden = true
-        ideaButton.hidden = true
-        ideaButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
-        solutionButton.hidden = true
-        solutionButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
-        retryButton.hidden = true
-        retryButton.frame = CGRectMake(0, 0, nextButton.currentImage!.size.width/2, nextButton.currentImage!.size.height/3)
+        //nextButton.frame = CGRect(x: 0, y: 0, width: nextButton.currentImage!.size.width/2, height: nextButton.currentImage!.size.height/3)
+        //nextButton.isHidden = true
+        //ideaButton.isHidden = true
+        //ideaButton.frame = CGRect(x: 0, y: 0, width: nextButton.currentImage!.size.width/2, height: nextButton.currentImage!.size.height/3)
+        //solutionButton.isHidden = true
+       //solutionButton.frame = CGRect(x: 0, y: 0, width: nextButton.currentImage!.size.width/2, height: nextButton.currentImage!.size.height/3)
+        //retryButton.isHidden = true
+        //retryButton.frame = CGRect(x: 0, y: 0, width: nextButton.currentImage!.size.width/2, height: nextButton.currentImage!.size.height/3)
     }
 
     func redisplayELO(){
@@ -304,7 +316,7 @@ class GameViewController: UIViewController, PrintEventDelegate, UpdateStatusDele
         eloLabel.text = " Your rating: " + String(score)
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 

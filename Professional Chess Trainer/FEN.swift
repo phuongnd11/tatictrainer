@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class FEN {
+open class FEN {
     
     var board = [[Character]]()
     var whiteToMove: Bool

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class BoardHistory {
+open class BoardHistory {
     
     var start: Square!
     var dest: Square!

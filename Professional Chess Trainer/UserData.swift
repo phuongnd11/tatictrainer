@@ -18,17 +18,17 @@ struct defaultKeys {
     static let piece = "piece"
 }
 
-public class UserData {
+open class UserData {
     
-    static func storeScore(score: Int){
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setInteger(score, forKey: defaultKeys.userScoreKey)
+    static func storeScore(_ score: Int){
+        let defaults = UserDefaults.standard
+        defaults.set(score, forKey: defaultKeys.userScoreKey)
         defaults.synchronize()
     }
     
     static func getScore() -> Int{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let score = defaults.integerForKey(defaultKeys.userScoreKey)
+        let defaults = UserDefaults.standard
+        let score = defaults.integer(forKey: defaultKeys.userScoreKey)
         if score == 0 {
             return 1200
         }
@@ -38,47 +38,48 @@ public class UserData {
     }
     
     static func increaseNumOfGames(){
-        let defaults = NSUserDefaults.standardUserDefaults()
-        var numOfGames = defaults.integerForKey(defaultKeys.numOfGames)
-        defaults.setInteger(numOfGames++, forKey: defaultKeys.numOfGames)
+        let defaults = UserDefaults.standard
+        var numOfGames = defaults.integer(forKey: defaultKeys.numOfGames)
+        numOfGames = numOfGames+1;
+        defaults.set(numOfGames, forKey: defaultKeys.numOfGames)
         defaults.synchronize()
     }
     
     static func getNumOfGames() -> Int{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let numOfGames = defaults.integerForKey(defaultKeys.numOfGames)
+        let defaults = UserDefaults.standard
+        let numOfGames = defaults.integer(forKey: defaultKeys.numOfGames)
         return numOfGames
     }
     
-    static func storeUsername(username: String){
-        let defaults = NSUserDefaults.standardUserDefaults()
+    static func storeUsername(_ username: String){
+        let defaults = UserDefaults.standard
         defaults.setValue(username, forKey: defaultKeys.username)
         defaults.synchronize()
     }
     
     static func getUsername() -> String{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let username = defaults.stringForKey(defaultKeys.username) {
+        let defaults = UserDefaults.standard
+        if let username = defaults.string(forKey: defaultKeys.username) {
             return username
         }
         return "Guest"
     }
     
-    static func saveLastPlayedPuzzle(id: Int) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setInteger(id, forKey: defaultKeys.puzzle)
+    static func saveLastPlayedPuzzle(_ id: Int) {
+        let defaults = UserDefaults.standard
+        defaults.set(id, forKey: defaultKeys.puzzle)
         defaults.synchronize()
     }
     
     static func getLastPlayedPuzzle() -> Int {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        return defaults.integerForKey(defaultKeys.puzzle)
+        let defaults = UserDefaults.standard
+        return defaults.integer(forKey: defaultKeys.puzzle)
     }
     
-    static func savePuzzlePlayed(id: Int) {
-        let defaults = NSUserDefaults.standardUserDefaults()
+    static func savePuzzlePlayed(_ id: Int) {
+        let defaults = UserDefaults.standard
         
-        var gamesPlayed = defaults.arrayForKey(defaultKeys.puzzlePlayed)
+        var gamesPlayed = defaults.array(forKey: defaultKeys.puzzlePlayed)
         
         if (gamesPlayed == nil){
             gamesPlayed = [-1]
@@ -86,13 +87,13 @@ public class UserData {
         
         gamesPlayed?.append(id)
         
-        defaults.setObject(gamesPlayed, forKey: defaultKeys.puzzlePlayed)
+        defaults.set(gamesPlayed, forKey: defaultKeys.puzzlePlayed)
         defaults.synchronize()
     }
     
     static func getPlayedPuzzles() -> [Int]?{
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let gamesPlayed = defaults.arrayForKey(defaultKeys.puzzlePlayed) as? [Int]
+        let defaults = UserDefaults.standard
+        let gamesPlayed = defaults.array(forKey: defaultKeys.puzzlePlayed) as? [Int]
         
         if (gamesPlayed == nil){
             return [-1]
@@ -101,42 +102,42 @@ public class UserData {
     }
     
     static func resetPlayedGames() {
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
         let gamesPlayed = [Int]()
         
-        defaults.setObject(gamesPlayed, forKey: defaultKeys.puzzlePlayed)
+        defaults.set(gamesPlayed, forKey: defaultKeys.puzzlePlayed)
         defaults.synchronize()
     }
 
     
     static func getPiece() -> String {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let piece = defaults.stringForKey(defaultKeys.piece)
+        let defaults = UserDefaults.standard
+        let piece = defaults.string(forKey: defaultKeys.piece)
         if (piece != nil && !piece!.isEmpty){
             return piece!
         }
         return "default"
     }
     
-    static func savePiece(piece: String){
-        let defaults = NSUserDefaults.standardUserDefaults()
+    static func savePiece(_ piece: String){
+        let defaults = UserDefaults.standard
         defaults.setValue(piece, forKey: defaultKeys.piece)
         defaults.synchronize()
     }
     
     
     static func getBoard() -> String {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let board = defaults.stringForKey(defaultKeys.board)
+        let defaults = UserDefaults.standard
+        let board = defaults.string(forKey: defaultKeys.board)
         if (board != nil && !board!.isEmpty){
             return board!
         }
         return "default"
     }
     
-    static func saveBoard(board: String){
-        let defaults = NSUserDefaults.standardUserDefaults()
+    static func saveBoard(_ board: String){
+        let defaults = UserDefaults.standard
         defaults.setValue(board, forKey: defaultKeys.board)
         defaults.synchronize()
     }

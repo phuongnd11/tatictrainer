@@ -7,10 +7,10 @@
 //
 
 import Foundation
-public class PNGUtils {
+open class PNGUtils {
     let specialText = ["x","+","#","O-O-O", "O-O"]
     let piecePgn = ["R","K","Q","N","B"]
-    public func getPngFromMove(move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
+    open func getPngFromMove(_ move: Move, board: [[Square]], isWhiteMove: Bool) -> String{
         let start = move.start
         let dest = move.dest
         let moveResult = move.moveResult
@@ -51,18 +51,18 @@ public class PNGUtils {
         
         return pieceText + duplicateText + captureText + destText + specialMove + checkText
     }
-    private func CleanPgn(pgn: String) -> String{
-        let text = pgn.componentsSeparatedByString(".")
+    fileprivate func CleanPgn(_ pgn: String) -> String{
+        let text = pgn.components(separatedBy: ".")
         return text.last!;
     }
-    private func GetPieceFromPgn(pgn: String)-> String{
+    fileprivate func GetPieceFromPgn(_ pgn: String)-> String{
         let piece = String(pgn[pgn.startIndex])
         if (piecePgn.contains(piece)){
             return piece
         }
         return "";
     }
-    public func GetMoveFromPgn(pgnOriginal: String,board: [[Square]], isWhiteMove: Bool) -> Move{
+    open func GetMoveFromPgn(_ pgnOriginal: String,board: [[Square]], isWhiteMove: Bool) -> Move{
         let pgn = CleanPgn(pgnOriginal);
         
         let piece = GetPieceFromPgn(pgn)
@@ -71,23 +71,23 @@ public class PNGUtils {
         var text = pgn
         
         for string in specialText {
-            text = text.stringByReplacingOccurrencesOfString(string, withString: "")
+            text = text.replacingOccurrences(of: string, with: "")
         }
         for string in piecePgn {
-            text = text.stringByReplacingOccurrencesOfString(string, withString: "")
+            text = text.replacingOccurrences(of: string, with: "")
         }
         
-        var color = PieceColor.Black
+        var color = PieceColor.black
         if isWhiteMove{
-            color = PieceColor.White
+            color = PieceColor.white
         }
         var dest = (-1,-1)
-        dest.0 = GetRowNum(text[text.endIndex.predecessor()])
-        dest.1 = GetColNum(text[text.endIndex.advancedBy(-2)])
+        dest.0 = GetRowNum(text[text.characters.index(before: text.endIndex)])
+        dest.1 = GetColNum(text[text.characters.index(text.endIndex, offsetBy: -2)])
         
         var start = (-1,-1)
         if text.characters.count == 4{
-            start.0 = GetRowNum(text[text.startIndex.advancedBy(1)])
+            start.0 = GetRowNum(text[text.characters.index(text.startIndex, offsetBy: 1)])
             start.1 = GetColNum(text[text.startIndex])
         }
         else if (text.characters.count == 3){
@@ -112,7 +112,7 @@ public class PNGUtils {
         return Move(start: start,dest:dest)
     }
     
-    private func checkValidRange(start: (Int,Int), dest: (Int,Int), item: (Int,Int)) -> Bool{
+    fileprivate func checkValidRange(_ start: (Int,Int), dest: (Int,Int), item: (Int,Int)) -> Bool{
         if item.0 == dest.0 && item.1 == dest.1{
             return false
         }
@@ -123,7 +123,7 @@ public class PNGUtils {
         
         return false
     }
-    private func getDuplicateText(square: (Int, Int), dest: (Int,Int), board: [[Square]], moveResult: MoveResult) -> String{
+    fileprivate func getDuplicateText(_ square: (Int, Int), dest: (Int,Int), board: [[Square]], moveResult: MoveResult) -> String{
         if (board[square.0][square.1].isEmpty()) {
             return ""
         }
@@ -131,8 +131,8 @@ public class PNGUtils {
         if (piece is King){
             return ""
         }
-        let color = piece.color
-        let pgn = piece.toPGN()
+        let color = piece?.color
+        let pgn = piece?.toPGN()
         
         var isRowExist = false
         var isColExist = false
@@ -177,22 +177,22 @@ public class PNGUtils {
         return ""
     }
     
-    private func getDistinction(rootSquare:(Int,Int), square:(Int,Int)) -> String{
+    fileprivate func getDistinction(_ rootSquare:(Int,Int), square:(Int,Int)) -> String{
         if (rootSquare.1 != square.1){
             return GetColText(rootSquare.1)
         }
         return GetRowText(rootSquare.0)
     }
-    private func GetBoardText(location: (Int, Int)) -> String{
+    fileprivate func GetBoardText(_ location: (Int, Int)) -> String{
         return GetColText(location.1) + GetRowText(location.0)
     }
     
-    private func GetColText(col: Int) -> String{
+    fileprivate func GetColText(_ col: Int) -> String{
         // ASCII a is 97
-        return String(Character(UnicodeScalar(97+col)))
+        return String(Character(UnicodeScalar(97+col)!))
     }
     
-    private func GetColNum(colStr: Character) -> Int{
+    fileprivate func GetColNum(_ colStr: Character) -> Int{
         let colList = "abcdefgh"
         var i = 0
         for c in colList.characters{
@@ -204,7 +204,7 @@ public class PNGUtils {
         return -1;
     }
     
-    private func GetRowNum(rowStr: Character) -> Int{
+    fileprivate func GetRowNum(_ rowStr: Character) -> Int{
         let rowList = "87654321"
         var i = 0
         for c in rowList.characters{
@@ -216,7 +216,7 @@ public class PNGUtils {
         return -1;
     }
     
-    private func GetRowText(row: Int) -> String{
+    fileprivate func GetRowText(_ row: Int) -> String{
         return String(8-row)
     }
     

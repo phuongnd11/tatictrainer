@@ -1,0 +1,6 @@
+framework module Pods_Professional_Chess_Trainer {
+  umbrella header "Pods-Professional Chess Trainer-umbrella.h"
+
+  export *
+  module * { export * }
+}

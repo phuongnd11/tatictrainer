@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class ELOUtils {
+open class ELOUtils {
     
-    static func calculateELOChange(rating1: Int, rating2: Int, winLoseDraw: Int, numOfGamesPlayed: Int, moveNum: (Int, Int)) -> Int{
+    static func calculateELOChange(_ rating1: Int, rating2: Int, winLoseDraw: Int, numOfGamesPlayed: Int, moveNum: (Int, Int)) -> Int{
         var K = 40
         if numOfGamesPlayed > 30 {
             K = 20

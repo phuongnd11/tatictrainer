@@ -26,24 +26,24 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         
         
         if (DeviceType.IS_IPHONE_6P) {
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 440).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 440).isActive = true
             imageView.image = UIImage(named: board + "_i6_first_bg")
         }
         
         if (DeviceType.IS_IPHONE_6) {
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 400).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 400).isActive = true
             imageView.image = UIImage(named: board + "_i6_first_bg")
         }
         else if (DeviceType.IS_IPHONE_4_OR_LESS) {
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 270).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 270).isActive = true
             imageView.image = UIImage(named: board + "_i4_first_bg")
         }
         else if (DeviceType.IS_IPHONE_5){
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 330).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 330).isActive = true
             imageView.image = UIImage(named: board + "_i5_first_bg")
         }
         self.view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
+        self.view.sendSubview(toBack: imageView)
         
         Chirp.sharedManager.prepareSound(fileName: "move")
         Chirp.sharedManager.prepareSound(fileName: "invalid")
@@ -58,11 +58,11 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func play(sender: UIButton) {
+    @IBAction func play(_ sender: UIButton) {
         
     }
     
-    @IBAction func unwindToSegue (segue : UIStoryboardSegue) {
+    @IBAction func unwindToSegue (_ segue : UIStoryboardSegue) {
         let board = UserData.getBoard()
         
         //imageView.contentMode = .ScaleAspectFill
@@ -71,35 +71,35 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         
         
         if (DeviceType.IS_IPHONE_6P) {
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 440).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 440).isActive = true
             imageView.image = UIImage(named: board + "_i6_first_bg")
         }
         
         if (DeviceType.IS_IPHONE_6) {
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 400).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 400).isActive = true
             imageView.image = UIImage(named: board + "_i6_first_bg")
         }
         else if (DeviceType.IS_IPHONE_4_OR_LESS) {
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 270).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 270).isActive = true
             imageView.image = UIImage(named: board + "_i4_first_bg")
         }
         else if (DeviceType.IS_IPHONE_5){
-            parentStackView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor, constant: 330).active = true
+            parentStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 330).isActive = true
             imageView.image = UIImage(named: board + "_i5_first_bg")
         }
         self.view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
+        self.view.sendSubview(toBack: imageView)
     }
     
-    @IBAction func showLeaderBoard(sender: AnyObject) {
+    @IBAction func showLeaderBoard(_ sender: AnyObject) {
         authPlayer()
         saveHighscore(UserData.getScore())
         showLeaderBoard()
     }
     
-    func saveHighscore(number : Int){
+    func saveHighscore(_ number : Int){
         
-        if GKLocalPlayer.localPlayer().authenticated {
+        if GKLocalPlayer.localPlayer().isAuthenticated {
             
             let scoreReporter = GKScore(leaderboardIdentifier: "chesstatics_leaderbaord")
             
@@ -107,7 +107,7 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
             
             let scoreArray : [GKScore] = [scoreReporter]
             
-            GKScore.reportScores(scoreArray, withCompletionHandler: nil)
+            GKScore.report(scoreArray, withCompletionHandler: nil)
             
         }
         
@@ -124,12 +124,12 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
             
             if view != nil {
                 
-                self.presentViewController(view!, animated: true, completion: nil)
+                self.present(view!, animated: true, completion: nil)
                 
             }
             else {
                 
-                print(GKLocalPlayer.localPlayer().authenticated)
+                print(GKLocalPlayer.localPlayer().isAuthenticated)
                 
             }
             
@@ -143,15 +143,15 @@ class FirstScreenViewController: UIViewController, GKGameCenterControllerDelegat
         
         gcvc.gameCenterDelegate = self
         
-        viewController?.presentViewController(gcvc, animated: true, completion: nil)
+        viewController?.present(gcvc, animated: true, completion: nil)
     }
     
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
         
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     

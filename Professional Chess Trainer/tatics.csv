@@ -1,5 +1,0 @@
-id,FEN,Computer Move,Idea,Solution,ELO
-1,r2nr2k/1bp1bpp1/p7/1p1pP3/3P2q1/2P2NP1/P1B2PK1/R1BQR3 w - - 0 1,,always look for chance to do a check,Rh1+ Kg8 Bh7+ Kf8 Bf5,1721
-2,rn2k1r1/1R1b1p1p/3pp3/p6R/4P3/3NBP2/2P1B1P1/b4K2 w q - 0 1,,idea 2,Rxa5,1699
-3,4r1k1/Q4ppp/1r1q4/N1pPpb2/1nP5/R5P1/P4PBP/2R3K1 b - - 0 1,,idea 3,...Ra6 Qb7 Rb8,1800
-4,r1bq1rk1/ppppnp1p/2n3p1/3N2B1/2PQ4/8/PP2PPPP/R3KB1R w KQ - 1 0,,idea 4,Nf6+ Kh8 Ng4+,1821

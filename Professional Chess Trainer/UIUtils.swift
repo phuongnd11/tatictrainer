@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-public class UIUtils {
+open class UIUtils {
     
-    public static func calculatePieceFrame(frame: CGRect) -> CGRect{
+    open static func calculatePieceFrame(_ frame: CGRect) -> CGRect{
         
         let varX = frame.origin.x + frame.size.width/12
         let varY = frame.origin.y + frame.size.width/12
         let pieceSize = frame.size.width - frame.size.width*2/12
-        return CGRectMake(varX, varY, pieceSize , pieceSize)
+        return CGRect(x: varX, y: varY, width: pieceSize , height: pieceSize)
     }
     
 }

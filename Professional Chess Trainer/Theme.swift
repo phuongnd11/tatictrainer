@@ -7,9 +7,22 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
 
-public class Theme {
+
+open class Theme {
     
     struct Piece {
         static var items: [String] = ["default", "alphonso", "maya"]
@@ -32,8 +45,8 @@ public class Theme {
     }
     
     
-    public static func getNextPiece(currentPiece: String) -> String {
-        var currentIndex = Piece.items.indexOf(currentPiece)
+    open static func getNextPiece(_ currentPiece: String) -> String {
+        let currentIndex = Piece.items.index(of: currentPiece)
         if (currentIndex != nil) {
             if currentIndex < Piece.items.count - 1  {
                 return Piece.items[currentIndex! + 1]
@@ -47,8 +60,8 @@ public class Theme {
         }
     }
     
-    public static func getNextBoard(currentBoard: String) -> String {
-        var currentIndex = Board.items.indexOf(currentBoard)
+    open static func getNextBoard(_ currentBoard: String) -> String {
+        let currentIndex = Board.items.index(of: currentBoard)
         if (currentIndex != nil) {
             if currentIndex < Board.items.count - 1  {
                 return Board.items[currentIndex! + 1]

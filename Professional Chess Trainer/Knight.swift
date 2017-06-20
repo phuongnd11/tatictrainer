@@ -8,8 +8,8 @@
 
 import Foundation
 
-public class Knight: Piece {
-    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool {
+open class Knight: Piece {
+    open override func isValidMove(_ start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool {
         
         if (abs(start.0-dest.0)==2 && abs(start.1-dest.1)==1){
             return true;
@@ -19,7 +19,7 @@ public class Knight: Piece {
         }
         return false
     }
-    public override func toPGN() -> String {
+    open override func toPGN() -> String {
         return "N";
     }
 }

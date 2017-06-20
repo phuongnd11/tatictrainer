@@ -10,11 +10,11 @@ import UIKit
 import GameKit
 
 protocol PrintEventDelegate: class {
-    func moveFinish(moveResult: MoveResult)
+    func moveFinish(_ moveResult: MoveResult)
 }
 
 protocol UpdateStatusDelegate: class {
-    func updateUserStatus(correctMove: Bool, moveNum: (Int, Int))
+    func updateUserStatus(_ correctMove: Bool, moveNum: (Int, Int))
 }
 
 //@IBDesignable
@@ -29,8 +29,8 @@ class BoardView: UIView {
     let darkSquareColor = UIColor(red: 0.7, green: 0.53, blue: 0.39, alpha: 1)
     let lightSquareColor = UIColor(red: 240/255, green: 218/255, blue: 182/255, alpha: 1)
     
-    var squares = [[Square]](count: 8, repeatedValue: Array(count: 8, repeatedValue: Square()))
-    var board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
+    var squares = [[Square]](repeating: Array(repeating: Square(), count: 8), count: 8)
+    var board = [[Character]](repeating: Array(repeating: "e", count: 8), count: 8)
     var highlightedSquare: (Int, Int) = (-1, -1)
     var computerMoveHighLighted: (Int, Int) = (-1, -1)
     var moves = ""
@@ -40,6 +40,7 @@ class BoardView: UIView {
     var userWon = false
     var disable = false
     var onMove = false
+    var showingSolution = false
     
     var boardStyle = UserData.getBoard()
     var iconSet: IconSet = IconSet(piece: UserData.getPiece())
@@ -55,7 +56,7 @@ class BoardView: UIView {
         super.init(coder: aDecoder)
     }
     
-    internal func reload(newPuzzle: Puzzle) {
+    internal func reload(_ newPuzzle: Puzzle) {
         if self.subviews.count > 0 {
             for subView in self.subviews {
                 subView.removeFromSuperview()
@@ -71,27 +72,23 @@ class BoardView: UIView {
                 boardStatus.isWhiteMove = false
         }
         highlightedSquare = (-1, -1)
-        boardHistory = [BoardHistory?](count: puzzle.numOfMoves, repeatedValue: nil)
+        boardHistory = [BoardHistory?](repeating: nil, count: puzzle.numOfMoves)
     
-        squares = [[Square]](count: 8, repeatedValue: Array(count: 8, repeatedValue: Square()))
-        board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
+        squares = [[Square]](repeating: Array(repeating: Square(), count: 8), count: 8)
+        board = [[Character]](repeating: Array(repeating: "e", count: 8), count: 8)
     }
    
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         var flip = false //alternating dark and light
         
         if puzzle == nil {
-            puzzle = PuzzleFactory.puzzleFactory.getPuzzleById(UserData.getLastPlayedPuzzle())
-            if puzzle == nil {
-                puzzle = Puzzle(FEN: "2q1r1k1/1p3p2/p2p3Q/2pPr3/2P1p3/PP2Pn1P/1R1N1PK1/7R b - - 0 1", computerMove: "", solution: "...Rg5+ Kf1 Rg6 Qf4 Qxh3+", idea: "Unknown - Unknown (2016)", elo: 1500, id: 5)
-            }
-            UserData.savePuzzlePlayed(puzzle.id)
+            puzzle = PuzzleFactory.puzzleFactory.getNextPuzzle(UserData.getScore())
         }
         if puzzle.flipBoard {
             boardStatus.isWhiteMove = false
         }
         
-        boardHistory = [BoardHistory?](count: puzzle.numOfMoves, repeatedValue: nil)
+        boardHistory = [BoardHistory?](repeating: nil, count: puzzle.numOfMoves)
         
         var board = puzzle.fen.board
         
@@ -115,31 +112,31 @@ class BoardView: UIView {
                 if (symbol != "e"){
                     switch symbol {
                         case "r":
-                            piece = Rook(image: iconSet.blackRook, color: .Black)
+                            piece = Rook(image: iconSet.blackRook, color: .black)
                         case "b":
-                            piece = Bishop(image: iconSet.blackBishop, color: .Black)
+                            piece = Bishop(image: iconSet.blackBishop, color: .black)
                         case "n":
-                            piece = Knight(image: iconSet.blackKnight, color: .Black)
+                            piece = Knight(image: iconSet.blackKnight, color: .black)
                         case "q":
-                            piece = Queen(image: iconSet.blackQueen, color: .Black)
+                            piece = Queen(image: iconSet.blackQueen, color: .black)
                         case "k":
-                            piece = King(image: iconSet.blackKing, color: .Black)
+                            piece = King(image: iconSet.blackKing, color: .black)
                         case "p":
-                            piece = Pawn(image: iconSet.blackPawn, color: .Black)
+                            piece = Pawn(image: iconSet.blackPawn, color: .black)
                         case "R":
-                            piece = Rook(image: iconSet.whiteRook, color: .White)
+                            piece = Rook(image: iconSet.whiteRook, color: .white)
                         case "B":
-                            piece = Bishop(image: iconSet.whiteBishop, color: .White)
+                            piece = Bishop(image: iconSet.whiteBishop, color: .white)
                         case "N":
-                            piece = Knight(image: iconSet.whiteKnight, color: .White)
+                            piece = Knight(image: iconSet.whiteKnight, color: .white)
                         case "Q":
-                            piece = Queen(image: iconSet.whiteQueen, color: .White)
+                            piece = Queen(image: iconSet.whiteQueen, color: .white)
                         case "K":
-                            piece = King(image: iconSet.whiteKing, color: .White)
+                            piece = King(image: iconSet.whiteKing, color: .white)
                         case "P":
-                            piece = Pawn(image: iconSet.whitePawn, color: .White)
+                            piece = Pawn(image: iconSet.whitePawn, color: .white)
                         default:
-                            piece = Pawn(image: iconSet.whitePawn, color: .White)
+                            piece = Pawn(image: iconSet.whitePawn, color: .white)
                     }
                     
                     square.setPiece(piece)
@@ -148,11 +145,11 @@ class BoardView: UIView {
                 
                 flip = !flip
                 
-                let squareTapGesture = UITapGestureRecognizer(target: self, action: "squareTapView:")
+                let squareTapGesture = UITapGestureRecognizer(target: self, action: #selector(BoardView.squareTapView(_:)))
                 
                 square.addGestureRecognizer(squareTapGesture)
-                square.userInteractionEnabled = true
-                square.multipleTouchEnabled = false
+                square.isUserInteractionEnabled = true
+                square.isMultipleTouchEnabled = false
 
                 if (!puzzle.flipBoard) {
                     squares[x][y] = square
@@ -179,7 +176,7 @@ class BoardView: UIView {
         }
     }
    
-    func squareTapView(sender: UITapGestureRecognizer){
+    func squareTapView(_ sender: UITapGestureRecognizer){
         if !userWon && !disable && !onMove {
             clearComputerMoveHighLight()
             if (highlightedSquare.0 != -1) {
@@ -200,9 +197,9 @@ class BoardView: UIView {
                     
                     self.onMove = true
                     
-                    UIView.animateWithDuration(0.4, animations:{
+                    UIView.animate(withDuration: 0.4, animations:{
         
-                        self.bringSubviewToFront(self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView)
+                        self.bringSubview(toFront: self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView)
                         self.squares[moveInfo.start.0][moveInfo.start.1].occupyingPieceImageView.frame =
                         UIUtils.calculatePieceFrame(self.squares[moveInfo.dest.0][moveInfo.dest.1].frame)
                         
@@ -216,7 +213,7 @@ class BoardView: UIView {
                             }
                             self.squares[moveInfo.start.0][moveInfo.start.1].move(self.squares[moveInfo.dest.0][moveInfo.dest.1])
                             
-                            self.boardStatus.updateStatus(self.highlightedSquare, dest: dest,movedPiece: currentPiece, moveResult:result)
+                            self.boardStatus.updateStatus(self.highlightedSquare, dest: dest,movedPiece: currentPiece!, moveResult:result)
                             
                             let moveText = moveInfo.pgn
                             
@@ -233,8 +230,8 @@ class BoardView: UIView {
                                     //let computerMove = self.chessLogicUtils.TryMove(nextComputerMove.start, dest: nextComputerMove.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: nextComputerMove.moveResult, isTest: false)
                                     let computerMove = self.chessLogicUtils.getMoveResult(nextComputerMove.start, dest: nextComputerMove.dest, board: self.squares, boardStatus: self.boardStatus, isCheckGame: true)
                                     
-                                    UIView.animateWithDuration(0.4, delay: 0.1, options:UIViewAnimationOptions.CurveLinear, animations: {
-                                        self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
+                                    UIView.animate(withDuration: 0.4, delay: 0.1, options:UIViewAnimationOptions.curveLinear, animations: {
+                                        self.bringSubview(toFront: self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
                                         self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = UIUtils.calculatePieceFrame(self.squares[computerMove.dest.0][computerMove.dest.1].frame)
                                         
                                         },
@@ -285,7 +282,7 @@ class BoardView: UIView {
                     let tag = sender.view!.tag
                     
                     if !squares[tag/10][tag%10].isEmpty() {
-                        if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.White)){
+                        if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.white)){
                             highlightedSquare.0 = tag/10
                             highlightedSquare.1 = tag%10
                             squares[highlightedSquare.0][highlightedSquare.1].highlight()
@@ -299,7 +296,7 @@ class BoardView: UIView {
                 let tag = sender.view!.tag
                 
                 if !squares[tag/10][tag%10].isEmpty() {
-                    if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.White)){
+                    if((boardStatus.isWhiteMove) == (squares[tag/10][tag%10].piece!.color == PieceColor.white)){
                         highlightedSquare.0 = tag/10
                         highlightedSquare.1 = tag%10
                         squares[highlightedSquare.0][highlightedSquare.1].highlight()
@@ -310,7 +307,7 @@ class BoardView: UIView {
         }
     }
     
-    func goto(history: BoardHistory) {
+    func goto(_ history: BoardHistory) {
         let start = history.start.position
         let dest = history.dest.position
         
@@ -348,8 +345,9 @@ class BoardView: UIView {
         if (self.boardStatus.moveNumber >= puzzle.numOfMoves) {
             return
         }
-        let moves = self.puzzle.solutionMoves.componentsSeparatedByString(" ")
         
+        let moves = self.puzzle.solutionMoves.components(separatedBy: " ")
+        NSLog("Solution: " + self.puzzle.solutionMoves)
         let pngMove = moves[self.boardStatus.moveNumber]
             
             let move = PNGUtils().GetMoveFromPgn(pngMove, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove)
@@ -357,33 +355,37 @@ class BoardView: UIView {
             //let computerMove = self.chessLogicUtils.TryMove(move.start, dest: move.dest, board: self.squares, isWhiteMove: self.boardStatus.isWhiteMove, moveResult: move.moveResult, isTest: false)
         
             let computerMove = self.chessLogicUtils.getMoveResult(move.start, dest: move.dest, board: self.squares, boardStatus: self.boardStatus, isCheckGame: true)
-        
-            UIView.animateWithDuration(0.5, delay: 0.4, options:UIViewAnimationOptions.CurveLinear, animations: {
-                self.bringSubviewToFront(self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
-                self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = UIUtils.calculatePieceFrame(self.squares[computerMove.dest.0][computerMove.dest.1].frame)
-                
-                },
-                        completion: {(finished: Bool) -> Void in
-                        //SoundPlayer().playMove()
-                            if (!self.squares[computerMove.dest.0][computerMove.dest.1].isEmpty()){
-                                 Chirp.sharedManager.playSound(fileName: "eat")
-                            }
-                            else {
-                                Chirp.sharedManager.playSound(fileName: "move")
-                            }
-                        
-                                        
-                        self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.dest.0][computerMove.dest.1]), status: BoardStatus(clone: self.boardStatus))
-                                        
-                        self.squares[computerMove.start.0][computerMove.start.1].move(self.squares[computerMove.dest.0][computerMove.dest.1])
-                                        
-                        self.boardStatus.updateStatus(move.start, dest:move.dest,movedPiece: self.squares[move.dest.0][move.dest.1].piece!, moveResult:move.moveResult)
-                            self.showSolution()
-            })
+            if (computerMove.moveResult.rawValue >= 0) {
+                UIView.animate(withDuration: 0.5, delay: 0.4, options:UIViewAnimationOptions.curveLinear, animations: {
+                    self.bringSubview(toFront: self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView)
+                    self.squares[computerMove.start.0][computerMove.start.1].occupyingPieceImageView.frame = UIUtils.calculatePieceFrame(self.squares[computerMove.dest.0][computerMove.dest.1].frame)
+                    
+                    },
+                            completion: {(finished: Bool) -> Void in
+                            //SoundPlayer().playMove()
+                                if (!self.squares[computerMove.dest.0][computerMove.dest.1].isEmpty()){
+                                     Chirp.sharedManager.playSound(fileName: "eat")
+                                }
+                                else {
+                                    Chirp.sharedManager.playSound(fileName: "move")
+                                }
+                            
+                            self.boardHistory[self.boardStatus.moveNumber] = BoardHistory(start: Square(clone: self.squares[computerMove.start.0][computerMove.start.1]), dest: Square(clone: self.squares[computerMove.dest.0][computerMove.dest.1]), status: BoardStatus(clone: self.boardStatus))
+                                            
+                            self.squares[computerMove.start.0][computerMove.start.1].move(self.squares[computerMove.dest.0][computerMove.dest.1])
+                                            
+                            self.boardStatus.updateStatus(move.start, dest:move.dest,movedPiece: self.squares[move.dest.0][move.dest.1].piece!, moveResult:move.moveResult)
+                                self.showSolution()
+                                self.showingSolution = false
+                })
+            }
+            else {
+                NSLog("Computer: " + String(computerMove.moveResult.rawValue))
+            }
 
     }
     
-    func changePieceStype(piece: String){
+    func changePieceStype(_ piece: String){
         iconSet = IconSet(piece: piece)
     }
 }

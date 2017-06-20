@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class FENUtils{
+open class FENUtils{
     
     
-    public func readBoardFromFEN(fen: String) -> FEN{
-        let tokens = fen.componentsSeparatedByString(" ")
+    open func readBoardFromFEN(_ fen: String) -> FEN{
+        let tokens = fen.components(separatedBy: " ")
         var position = Array(tokens[0].characters)
-        var board = [[Character]](count: 8, repeatedValue: Array(count: 8, repeatedValue: "e"))
+        var board = [[Character]](repeating: Array(repeating: "e", count: 8), count: 8)
         var x = 0
         var y = 0
         var whiteTurn = false
@@ -39,11 +39,14 @@ public class FENUtils{
         }
         
         whiteTurn = tokens[1] == "w" ? true : false
+        if (tokens[1] == "W"){
+            whiteTurn = true
+        }
         
-        if tokens[2].rangeOfString("K") != nil { isK = true }
-        if tokens[2].rangeOfString("Q") != nil { isQ = true }
-        if tokens[2].rangeOfString("k") != nil { isk = true }
-        if tokens[2].rangeOfString("q") != nil { isq = true }
+        if tokens[2].range(of: "K") != nil { isK = true }
+        if tokens[2].range(of: "Q") != nil { isQ = true }
+        if tokens[2].range(of: "k") != nil { isk = true }
+        if tokens[2].range(of: "q") != nil { isq = true }
         
         if tokens[3] == "-" {
             enPassant = "-"

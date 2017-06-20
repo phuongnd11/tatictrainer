@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ChessLogicUtils {
+open class ChessLogicUtils {
     
     let squareY: String = "abcdefgh"
     let squareX: String = "87654321"
@@ -27,7 +27,7 @@ public class ChessLogicUtils {
     //0: Ok move
     //2: enpass
     //3: castling
-    private func checkColorValid(currentSquare: Square, destSquare: Square, boardStatus: BoardStatus) -> MoveResult{
+    fileprivate func checkColorValid(_ currentSquare: Square, destSquare: Square, boardStatus: BoardStatus) -> MoveResult{
         
         //check current square
         if(currentSquare.isEmpty()) {
@@ -35,10 +35,10 @@ public class ChessLogicUtils {
         }
         
         let currentPiece = currentSquare.piece!;
-        if (boardStatus.isWhiteMove && currentPiece.color == PieceColor.Black){
+        if (boardStatus.isWhiteMove && currentPiece.color == PieceColor.black){
             return MoveResult.notInTurn;
         }
-        if (!boardStatus.isWhiteMove && currentPiece.color == PieceColor.White){
+        if (!boardStatus.isWhiteMove && currentPiece.color == PieceColor.white){
             return MoveResult.notInTurn;
         }
         
@@ -53,12 +53,12 @@ public class ChessLogicUtils {
         }
         return MoveResult.okMove
     }
-    public func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus) -> Bool{
+    open func isValidMove(_ start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus) -> Bool{
         let move = getMoveResult(start, dest: dest, board: board, boardStatus: boardStatus, isCheckGame: false)
         return move.moveResult.rawValue >= 0
     }
     
-    public func getMoveResult(start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus, isCheckGame:Bool ) -> (Move) {
+    open func getMoveResult(_ start: (Int, Int), dest: (Int, Int), board: [[Square]], boardStatus: BoardStatus, isCheckGame:Bool ) -> (Move) {
         let move = Move(start: start, dest: dest)
         
         if (!checkRange(start, dest: dest)){
@@ -169,7 +169,7 @@ public class ChessLogicUtils {
         return move
     }
     
-    private func applyPiece(square:Square, piece:Piece?, test:Bool){
+    fileprivate func applyPiece(_ square:Square, piece:Piece?, test:Bool){
         if (test){
             square.piece = piece
         }
@@ -184,7 +184,7 @@ public class ChessLogicUtils {
     }
     
     
-    public func movePiece(startSquare: Square?, destSquare: Square, test: Bool){
+    open func movePiece(_ startSquare: Square?, destSquare: Square, test: Bool){
         if (test){
             if startSquare != nil {
                 destSquare.piece = startSquare!.piece
@@ -200,10 +200,10 @@ public class ChessLogicUtils {
         }
     }
     
-    public func CheckResult(board: [[Square]], boardStatus: BoardStatus) -> GameResult{
-        var colorToCheck = PieceColor.Black
+    open func CheckResult(_ board: [[Square]], boardStatus: BoardStatus) -> GameResult{
+        var colorToCheck = PieceColor.black
         if (boardStatus.isWhiteMove){
-            colorToCheck = PieceColor.White
+            colorToCheck = PieceColor.white
         }
         
         var kingRow = -1
@@ -222,10 +222,10 @@ public class ChessLogicUtils {
         }
         
         if (kingRow == -1 && kingCol == -1){
-            if (colorToCheck == PieceColor.White){
+            if (colorToCheck == PieceColor.white){
                 return GameResult.whiteWin
             }
-            if (colorToCheck == PieceColor.Black){
+            if (colorToCheck == PieceColor.black){
                 return GameResult.blackWin
             }
         }
@@ -263,7 +263,7 @@ public class ChessLogicUtils {
         }
     }
     
-    public func TryMove(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool){
+    open func TryMove(_ start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool){
         if (moveResult.rawValue < 0){
             return
         }
@@ -306,7 +306,7 @@ public class ChessLogicUtils {
     }
 
     
-    public func TryMove2(start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool) -> MoveInfo!{
+    open func TryMove2(_ start: (Int, Int), dest: (Int, Int), board:[[Square]], isWhiteMove: Bool, moveResult: MoveResult, isTest:Bool) -> MoveInfo!{
         let moveInfo = MoveInfo()
         if (moveResult.rawValue < 0){
             return nil
@@ -362,11 +362,11 @@ public class ChessLogicUtils {
         return moveInfo
     }
     
-    private func checkCastling(start: (Int, Int), dest: (Int, Int), board: [[Square]], isK: Bool, isQ: Bool, isk: Bool, isq: Bool) ->Bool{
+    fileprivate func checkCastling(_ start: (Int, Int), dest: (Int, Int), board: [[Square]], isK: Bool, isQ: Bool, isk: Bool, isq: Bool) ->Bool{
         let currentPiece = board[start.0][start.1].piece!;
         
         if (currentPiece is King && start.0 == dest.0 && abs(start.1-dest.1) == 2){
-            if (currentPiece.color == PieceColor.White){
+            if (currentPiece.color == PieceColor.white){
                 if (isK && dest.0 == 7 && dest.1 == 6){
                     for i in 0 ..< 2{
                         if (!board[7][i+5].isEmpty()){
@@ -386,7 +386,7 @@ public class ChessLogicUtils {
                 }
             }
             
-            if (currentPiece.color == PieceColor.Black){
+            if (currentPiece.color == PieceColor.black){
                 if (isk && dest.0 == 0 && dest.1 == 6){
                     for i in 0 ..< 2{
                         if (!board[0][i+5].isEmpty()){
@@ -405,21 +405,21 @@ public class ChessLogicUtils {
                     return false
                 }
             }
-            return !isCheckMate(currentPiece.color == PieceColor.White, board: board)
+            return !isCheckMate(currentPiece.color == PieceColor.white, board: board)
         }
         return false;
     }
     
-    public func isCheckMate(isCheckWhite:Bool,board: [[Square]]) -> Bool{
+    open func isCheckMate(_ isCheckWhite:Bool,board: [[Square]]) -> Bool{
         // find king location
         var kingRow = -1
         var kingCol = -1
         
-        var kingColor = PieceColor.Black
-        var checkColor = PieceColor.White
+        var kingColor = PieceColor.black
+        var checkColor = PieceColor.white
         if (isCheckWhite){
-            kingColor = PieceColor.White
-            checkColor = PieceColor.Black
+            kingColor = PieceColor.white
+            checkColor = PieceColor.black
         }
         for i in 0 ..< 8{
             for j in 0 ..< 8{
@@ -444,8 +444,8 @@ public class ChessLogicUtils {
         return false;
     }
     
-    private func convertToPiece(board: [[Square]]) -> [[Piece?]]{
-        var pieces = [[Piece?]](count: 8, repeatedValue: Array(count: 8, repeatedValue: nil))
+    fileprivate func convertToPiece(_ board: [[Square]]) -> [[Piece?]]{
+        var pieces = [[Piece?]](repeating: Array(repeating: nil, count: 8), count: 8)
         for i in 0 ..< 8{
             for j in 0 ..< 8{
                 if (!board[i][j].isEmpty()){
@@ -455,7 +455,7 @@ public class ChessLogicUtils {
         }
         return pieces
     }
-    private func copyToBoard(board:[[Square]], pieces: [[Piece?]]){
+    fileprivate func copyToBoard(_ board:[[Square]], pieces: [[Piece?]]){
         for i in 0 ..< 8{
             for j in 0 ..< 8{
                 board[i][j].piece = pieces[i][j]
@@ -463,7 +463,7 @@ public class ChessLogicUtils {
         }
     }
     
-    private func checkRange(start: (Int, Int), dest: (Int, Int)) -> Bool{
+    fileprivate func checkRange(_ start: (Int, Int), dest: (Int, Int)) -> Bool{
         if (start.0<0 || start.0 > 7){
             return false;
         }

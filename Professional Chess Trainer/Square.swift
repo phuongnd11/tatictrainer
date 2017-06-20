@@ -11,7 +11,7 @@ import UIKit
 
 
 
-public class Square: UIView {
+open class Square: UIView {
     
     weak var boardView: BoardView!
     var isLight: Bool
@@ -29,7 +29,7 @@ public class Square: UIView {
         position = (0, 0)
         size = 0
         board = "default"
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
     }
     
     init(clone: Square) {
@@ -37,7 +37,7 @@ public class Square: UIView {
         size = clone.size
         position = clone.position
         board = clone.board
-        super.init(frame: CGRectMake(CGFloat(position.1) * size, CGFloat(position.0) * size, size, size))
+        super.init(frame: CGRect(x: CGFloat(position.1) * size, y: CGFloat(position.0) * size, width: size, height: size))
         tag = position.0 * 10 + position.1
         backgroundColor = clone.backgroundColor
         piece = clone.piece
@@ -56,18 +56,18 @@ public class Square: UIView {
         } else {
             position = (7-x, 7-y)
         }
-        super.init(frame: CGRectMake(CGFloat(y) * size, CGFloat(x) * size, size, size))
+        super.init(frame: CGRect(x: CGFloat(y) * size, y: CGFloat(x) * size, width: size, height: size))
         tag = position.0 * 10 + position.1
         if light {
             if (board == "normal"){
                 backgroundColor = lightSquareColor
             }
             else {
-                bgSquare = UIImageView(frame: CGRectMake(0, 0, size, size))
+                bgSquare = UIImageView(frame: CGRect(x: 0, y: 0, width: size, height: size))
                 bgSquare.image = UIImage(named: board + "_light")
                 if bgSquare.image != nil {
                     self.addSubview(bgSquare)
-                    self.sendSubviewToBack(bgSquare)
+                    self.sendSubview(toBack: bgSquare)
                 }
                 //else {
                   //  backgroundColor = lightSquareColor
@@ -78,11 +78,11 @@ public class Square: UIView {
                 backgroundColor = darkSquareColor
             }
             else {
-                bgSquare = UIImageView(frame: CGRectMake(0, 0, size, size))
+                bgSquare = UIImageView(frame: CGRect(x: 0, y: 0, width: size, height: size))
                 bgSquare.image = UIImage(named: board + "_dark")
                 if bgSquare.image != nil {
                     self.addSubview(bgSquare)
-                    self.sendSubviewToBack(bgSquare)
+                    self.sendSubview(toBack: bgSquare)
                 }
                 //else {
                   //  backgroundColor = darkSquareColor
@@ -91,24 +91,25 @@ public class Square: UIView {
         }
     }
     
-    func move(destSquare: Square){
+    func move(_ destSquare: Square){
         destSquare.clearPiece()
-        destSquare.receivePiece(self.piece, occupyingPieceImageView: self.occupyingPieceImageView)
+        destSquare.receivePiece(self.piece,
+                                occupyingPieceImageView: self.occupyingPieceImageView)
         self.releasePiece()
     }
     
-    func setPiece(piece: Piece){
+    func setPiece(_ piece: Piece){
         self.piece = piece
         if (occupyingPieceImageView == nil) {
             //occupyingPieceImageView = UIImageView(frame: self.frame)
             occupyingPieceImageView = UIImageView(frame: UIUtils.calculatePieceFrame(self.frame))
             boardView.addSubview(occupyingPieceImageView)
-            boardView.bringSubviewToFront(occupyingPieceImageView)
+            boardView.bringSubview(toFront: occupyingPieceImageView)
         }
         occupyingPieceImageView.image = self.piece.image
     }
 
-     func receivePiece(piece: Piece, occupyingPieceImageView: UIImageView){
+     func receivePiece(_ piece: Piece, occupyingPieceImageView: UIImageView){
         self.piece = piece
         self.occupyingPieceImageView = occupyingPieceImageView
     }

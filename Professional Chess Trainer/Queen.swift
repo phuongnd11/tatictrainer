@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class Queen: Piece {
-    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool {
-        return isValidDiagonalMove(start, dest: dest, board: board) || isValidHorVerMove(start, dest: dest, board: board)
+open class Queen: Piece {
+    open override func isValidMove(_ start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool {
+        return isValidDiagonalMove(start, dest: dest, board: board) || isValidHorVerMove(start: start, dest: dest, board: board)
     }
     
-    public override func toPGN() -> String {
+    open override func toPGN() -> String {
         return "Q";
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Move {
+open class Move {
     
     var start = (-1, -1)
     var dest = (-1, -1)

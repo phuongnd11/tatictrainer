@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class Bishop: Piece {
-    public override func isValidMove(start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
+open class Bishop: Piece {
+    open override func isValidMove(_ start: (Int, Int), dest: (Int, Int), board: [[Square]]) -> Bool{
         return isValidDiagonalMove(start, dest: dest, board: board)
     }
     
-    public override func toPGN() -> String {
+    open override func toPGN() -> String {
         return "B";
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MoveInfo{
+open class MoveInfo{
     
     var start: (Int, Int)
     var end: (Int, Int)
