@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SQLite
 
 class ThemeViewController: UIViewController {
 
@@ -17,7 +16,7 @@ class ThemeViewController: UIViewController {
     @IBOutlet weak var changePieceButton: UIButton!
     @IBOutlet weak var okButton: UIButton!
     
-    private static let Prefix = "com.inspireon.demo.Professional-Chess-Trainer."
+    fileprivate static let Prefix = "com.inspireon.demo.Professional-Chess-Trainer."
     
     var currentBoard = ""
     var currentPiece = ""
@@ -28,14 +27,14 @@ class ThemeViewController: UIViewController {
         let board = UserData.getBoard()
         imageView = UIImageView(frame: self.view.bounds)
         imageView.image = UIImage(named: board + "_bg")//if its in images.xcassets
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         
         self.view.addSubview(imageView)
-        self.view.sendSubviewToBack(imageView)
+        self.view.sendSubview(toBack: imageView)
         
-        changeBoardButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
-        changePieceButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
-        okButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
+        //changeBoardButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
+        //changePieceButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
+        //okButton.backgroundColor = UIColor(patternImage: UIImage(named: board + "_title")!)
         
         if boardView != nil {
             
@@ -53,18 +52,18 @@ class ThemeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     
-    @IBAction func chooseTheme(sender: AnyObject) {
+    @IBAction func chooseTheme(_ sender: AnyObject) {
         UserData.savePiece(currentPiece)
         UserData.saveBoard(currentBoard)
     }
     
 
-    @IBAction func changePiece(sender: AnyObject) {
+    @IBAction func changePiece(_ sender: AnyObject) {
         if (currentPiece == "") {
             currentPiece = UserData.getPiece()
         }
@@ -81,7 +80,7 @@ class ThemeViewController: UIViewController {
     }
     
     
-    @IBAction func changeBoard(sender: AnyObject) {
+    @IBAction func changeBoard(_ sender: AnyObject) {
         if (currentBoard == "") {
             currentBoard = UserData.getBoard()
         }
